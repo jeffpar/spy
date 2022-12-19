@@ -1,0 +1,29 @@
+
+ Start  Stop   Length Name                   Class
+ 00000H 001E3H 001E4H _TEXT16                CODE
+ 001F0H 001F0H 00000H _DATA16                DATA
+
+ Origin   Group
+ 0000:0   GRP16
+
+  Address         Publics by Name
+
+ 0000:0100       Init16
+ 0000:013D       InitContinue
+ 0000:0000  Abs  _edata
+ 0000:0000  Abs  _end
+ 0000:0001  Abs  __acrtused
+ 0000:0000  Abs  __edata
+ 0000:0000  Abs  __end
+
+  Address         Publics by Value
+
+ 0000:0000  Abs  __edata
+ 0000:0000  Abs  __end
+ 0000:0000  Abs  _edata
+ 0000:0000  Abs  _end
+ 0000:0001  Abs  __acrtused
+ 0000:0100       Init16
+ 0000:013D       InitContinue
+
+Program entry point at 0000:0100

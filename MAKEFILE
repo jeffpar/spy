@@ -1,0 +1,133 @@
+#   Makefile for SPY.COM
+#
+#   History
+#   -------
+#   Created: 05-Jun-1992 by Jeff Parsons
+#
+
+.SUFFIXES:
+.SUFFIXES: .c .asm .h .inc .obj .lst .sys .exe .com .map .sym
+
+
+!IFNDEF PS2
+DEFFLAGS=-DDEBUG $(FLAGS)
+!ELSE
+DEFFLAGS=-DPS2 -DDEBUG $(FLAGS)
+!ENDIF
+
+!IFNDEF ASM
+ASM=tools\ml
+!ENDIF
+
+!IFNDEF C32
+C32=tools\cl3232 -d2omf
+!ENDIF
+
+!IFNDEF LINK
+LINK=tools\link
+!ENDIF
+
+!IFNDEF H2INC
+H2INC=tools\h2inc
+!ENDIF
+
+
+.h.inc:
+    $(H2INC) -t -s inc\types.h $*.h -o $*.inc
+
+
+.asm.com:
+    $(ASM) -nologo -AT -Cp -Iinc -W3 -Zm $(DEFFLAGS) -Fm -Fo$@ $(<B).asm
+
+.asm{obj\}.obj:
+    $(ASM) -nologo -c -Cp -Iinc -W3 -Zm $(DEFFLAGS) -Fm -Fo$@ $(<B).asm
+
+{lib\}.asm{obj\}.obj:
+    $(ASM) -nologo -c -Cp -Iinc -W3 -Zm $(DEFFLAGS) -Fm -Fo$@ lib\$(<B).asm
+
+.asm.lst:
+    $(ASM) -nologo -c -Cp -Iinc -W3 -Zm $(DEFFLAGS) -Fm -Fonul -Fl$@ $(<B).asm
+
+{lib\}.asm.lst:
+    $(ASM) -nologo -c -Cp -Iinc -W3 -Zm $(DEFFLAGS) -Fm -Fonul -Fl$@ lib\$(<B).asm
+
+
+.c{obj\}.obj:
+    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fo$@ $(<B).c
+
+{lib\}.c{obj\}.obj:
+    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fo$@ lib\$(<B).c
+
+.c.lst:
+    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fonul -Fc$@ $(<B).c
+
+{lib\}.c.lst:
+    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fonul -Fc$@ lib\$(<B).c
+
+
+# Default target(s)
+
+default:        spy.com reboot.com
+
+
+inc\all.h:      inc\types.h inc\386.h inc\387.h \
+                inc\ems.h inc\bios.h inc\dos.h inc\debug.h \
+                inc\globals.h inc\x86.h inc\lib.h \
+                inc\pic.h inc\timer.h inc\kbd.h inc\disk.h inc\cmos.h \
+                inc\video.h inc\com.h
+
+inc\all.inc:    inc\types.inc inc\386.inc inc\387.inc \
+                inc\ems.inc inc\bios.inc inc\dos.inc inc\debug.inc \
+                inc\globals.inc inc\x86.inc inc\lib.inc \
+                inc\pic.inc inc\timer.inc inc\kbd.inc inc\disk.inc inc\cmos.inc \
+                inc\video.inc inc\com.inc
+
+
+obj\386init.obj:    386init.asm inc\all.inc
+
+obj\386trap.obj:    386trap.asm inc\all.inc
+
+obj\v86int.obj:     v86int.asm  inc\all.inc
+
+obj\v86io.obj:      v86io.asm   inc\all.inc
+
+obj\main.obj:       main.c      inc\all.h
+
+obj\memmgr.obj:     memmgr.c    inc\all.h
+
+obj\vidmgr.obj:     vidmgr.c    inc\all.h
+
+obj\vidsave.obj:    vidsave.asm inc\all.inc
+
+obj\comio.obj:      comio.asm   inc\all.inc
+
+obj\x86debug.obj:   x86debug.c  inc\all.h
+
+obj\intparse.obj:   intparse.c  inc\all.h
+
+obj\dosdump.obj:    dosdump.c   inc\all.h
+
+obj\printf.obj:     lib\printf.c inc\all.h
+
+obj\gets.obj:       lib\gets.c  inc\all.h
+
+obj\sprintf.obj:    lib\sprintf.c inc\types.h inc\lib.h
+
+obj\string.obj:     lib\string.c inc\types.h inc\lib.h
+
+
+spy.com:        obj\386init.obj obj\386trap.obj obj\v86int.obj obj\v86io.obj \
+                obj\main.obj obj\memmgr.obj obj\vidmgr.obj obj\vidsave.obj \
+                obj\comio.obj obj\x86debug.obj obj\intparse.obj obj\dosdump.obj \
+                obj\printf.obj obj\gets.obj obj\sprintf.obj obj\string.obj
+    $(LINK) @<<
+$**
+$@ /tiny /nod /map;
+<<
+
+
+reboot.com: obj\reboot.obj
+    $(LINK) @<<
+$**
+$@ /tiny /nod /map;
+<<
