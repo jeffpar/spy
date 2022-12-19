@@ -93,9 +93,9 @@
  0000:0818       TMRInterrupt
  0000:06F4       TSSFault
  0000:0708       UnknownFault
- 0000:0320       v86Init
- 0000:0322       WaitKbdInput16
- 0000:032B       WaitKbdOutput16
+ 0000:0326       v86Init
+ 0000:0328       WaitKbdInput16
+ 0000:0331       WaitKbdOutput16
  0960:3660       _aaidGroup
  0960:013D       _abKeyBuff
  0960:1238       _abpdGlobal
@@ -308,7 +308,7 @@
  0000:1D79       _x86TrapDump
  0000:5062       _x86VGACommand
  0000:0001  Abs  __acrtused
- 0000:9580       __DataStart
+ 0000:9580       __DataEnd
  0000:833E       __decvistop
  0000:0000  Abs  __edata
  0000:0000  Abs  __end
@@ -330,8 +330,8 @@
 
   Address         Publics by Value
 
- 0000:0000  Abs  __end
  0000:0000  Abs  __edata
+ 0000:0000  Abs  __end
  0000:0000  Abs  _EDATA
  0000:0000  Abs  _end
  0000:0001  Abs  __acrtused
@@ -343,11 +343,11 @@
  0000:0030  Abs  GDT_SIZE
  0000:0100       Init16
  0000:0227       InitContinue
- 0000:0320       v86Init
- 0000:0322       WaitKbdInput16
- 0000:032B       WaitKbdOutput16
- 0000:0340       Init32
+ 0000:0326       v86Init
+ 0000:0328       WaitKbdInput16
+ 0000:0331       WaitKbdOutput16
  0000:0340       __TextStart
+ 0000:0340       Init32
  0000:052A       __ResTextStart
  0000:052A       Main32
  0000:0591       _Reboot
@@ -543,8 +543,8 @@
  0000:9331       _nsanitize
  0000:938A       _istrtoken
  0000:9428       __ResTextEnd
- 0000:9430       desNull
  0000:9430       adesGDT
+ 0000:9430       desNull
  0000:9438       desFlat
  0000:9440       desText
  0000:9448       desData
@@ -553,11 +553,11 @@
  0000:9460       dtrGDTTmp
  0000:9460       adesGDTend
  0000:9466       bSwitches
- 0000:9580       __DataStart
+ 0000:9580       __DataEnd
  0960:0000       _v86Init
  0960:0004       aoffIDTInit
- 0960:00C4       __ResDataStart
  0960:00C4       _sel_Flat
+ 0960:00C4       __ResDataStart
  0960:00C6       _sel_Text
  0960:00C8       _sel_Data
  0960:00CA       _pPhysData
@@ -637,7 +637,7 @@
  0960:5100       _iHistFree
  0960:5104       _iHistCurr
  0960:5108       _achHist
- 0960:5760       __StaticDataEnd
  0960:5760       __ResDataEnd
+ 0960:5760       __StaticDataEnd
 
 Program entry point at 0000:0100

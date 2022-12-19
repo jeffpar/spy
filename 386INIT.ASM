@@ -142,8 +142,8 @@ szHelp   db     "386 Monitor",CR,LF
 szBad386 db     "Not a 386-compatible processor",CR,LF,'$'
 
         align   16
-        public  __DataStart
-__DataStart     label   byte
+        public  __DataEnd
+__DataEnd       label   byte
 
 _DATA16 ends
 
@@ -438,10 +438,10 @@ init_a20:
         SetPICs <IRQ_TMR,IRQ_KBD>   ; set PICS for protected-mode operation
                                     ; w/TMR and KBD interrupts
 ;
-;   Determine initial CS:IP for v86-mode, by setting _v86Init @__DataStart
+;   Establish initial CS:IP for v86-mode, by setting _v86Init to v86Init
 ;
-        mov     cs:[__DataStart].w_lo,offset v86Init
-        mov     cs:[__DataStart].w_hi,cs
+        mov     cs:[_v86Init].w_lo,offset v86Init
+        mov     cs:[_v86Init].w_hi,cs
 ;
 ;   Create temporary GDT
 ;
@@ -457,7 +457,7 @@ init_a20:
 
         mov     eax,edx
         shl     eax,4
-        add     eax,offset GRP16:__DataStart
+        add     eax,offset GRP16:_v86Init
         mov     [desData].des_wBase0_15,ax
         shr     eax,16
         mov     [desData].des_bBase16_23,al
@@ -587,7 +587,7 @@ OPEN_DATA
         extrn   _pmbZero:dword
 
         public  _v86Init
-_v86Init    dd  0                   ; must be 1st dword in _DATA, @__DataStart
+_v86Init    dd  0                   ; must be 1st dword in _DATA
 
         public  aoffIDTInit
 aoffIDTInit dd  DivError            ; IDT_DIVERROR    0x00
@@ -903,7 +903,7 @@ __ResTextStart:
 ;   32-bit resident code entry point
 ;
 ;   ENTRY
-;       EDX == initial v86-mode CS:IP (from _v86Init, @__DataStart)
+;       EDX == initial v86-mode CS:IP (from _v86Init)
 ;
 ;   EXIT
 ;       Never

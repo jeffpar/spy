@@ -1,10 +1,30 @@
 {
     "files.associations": {
+        "*.s": "masm",
+        "*.asm": "masm",
+        "*.inc": "masm",
+        "*.ASM": "masm",
+        "*.INC": "masm",
         "X86DEBUG.C": "cpp",
         "MAIN.C": "cpp",
         "PRINTF.C": "cpp",
         "DOSDUMP.C": "cpp",
         "VIDMGR.C": "cpp"
+    },
+    "[jsonc]": {
+        "editor.detectIndentation": false,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "files.trimTrailingWhitespace": true
+    },
+    "[masm]": {
+        "editor.detectIndentation": false,
+        "editor.insertSpaces": false,
+        "editor.tabSize": 8,
+        "files.eol": "\r\n",
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true
     },
     "cSpell.words": [
         "acrtused",
