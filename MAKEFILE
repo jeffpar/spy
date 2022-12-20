@@ -8,6 +8,8 @@
 .SUFFIXES:
 .SUFFIXES: .c .asm .h .inc .obj .lst .sys .exe .com .map .sym
 
+INCLUDE=
+LIB=
 
 !IFNDEF PS2
 DEFFLAGS=-DDEBUG $(FLAGS)
@@ -17,6 +19,7 @@ DEFFLAGS=-DPS2 -DDEBUG $(FLAGS)
 
 !IFNDEF ASM
 ASM=tools\ml
+FIXASM=tools\fixasm
 !ENDIF
 
 !IFNDEF C32
@@ -53,7 +56,9 @@ H2INC=tools\h2inc
 
 
 .c{obj\}.obj:
-    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fo$@ $(<B).c
+    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fonul -Fa$(<B).asm $(<B).c
+    $(FIXASM) $(<B).asm
+    $(ASM) -nologo -c -Cp -Iinc -W3 -Zm $(DEFFLAGS) -Fm -Fo$@ $(<B).asm
 
 {lib\}.c{obj\}.obj:
     $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fo$@ lib\$(<B).c

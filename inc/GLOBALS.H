@@ -139,7 +139,7 @@ VOID    SetByte(DWORD sel, DWORD off, BYTE b);
  */
 
 VOID    InitMemMgr(VOID);       // initialization-only function!
-VOID    SetPages(PVOID pLinear, DWORD dwPhysical, INT nPages);
+DWORD   SetPages(PVOID pLinear, DWORD dwPhysical, INT nPages);
 PVOID   MemAlloc(INT cbSize);
 BOOL    MemFree(PVOID p, INT cbSize);
 

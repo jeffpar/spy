@@ -363,8 +363,15 @@ init_reset:
 
         cli
         SumVecs                     ; vector chksum ok?
-        jne     short init_vecset   ; no
+        jne     short init_pics     ; no
         CopyVecs                    ; copy vectors back into the IVT
+        jmp     short init_vecset
+
+init_pics:
+        in      al,PIC_MASTER_IMR
+        mov     ds:[rb_SaveMasterIMR],al
+        in      al,PIC_SLAVE_IMR
+        mov     ds:[rb_SaveSlaveIMR],al
 
 init_vecset:
         mov     al,0FFh             ; don't take any chances, shut off
@@ -721,6 +728,7 @@ OPEN_CODE
 
         public  Init32
 Init32  proc    far
+
         mov     ax,SEL_DATA
         mov     ds,ax
         assume  ds:DATA_SEG
@@ -772,7 +780,7 @@ init_idt:
         lea     ebx,[ebx+ecx*4]     ;
         rep     movs dword ptr es:[edi],dword ptr es:[esi]
 ;
-;   The GDT probably has some room for growth, since the page directory
+;   The GDT may have room for growth, since the page directory
 ;   which immediately follows must be located on a page boundary
 ;
         mov     edx,edi             ;

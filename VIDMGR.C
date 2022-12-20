@@ -78,9 +78,10 @@ VOID InitVS(register PVS pvs)
 {
     INT i;
 
-    for (i=0; i<MAX_PLANES; i++)
-        if (pvs->cbPlane[i])
-            pvs->pbPlane[i] = MemAlloc(pvs->cbPlane[i]);
+    for (i=0; i<MAX_PLANES; i++) {
+        pvs->cbPlane[i] = 64 * 1024;
+        pvs->pbPlane[i] = MemAlloc(pvs->cbPlane[i]);
+	}
 
     // BUGBUG: Some fake h/w state initialization;
     // more accurate initialization takes place in SaveVS()
