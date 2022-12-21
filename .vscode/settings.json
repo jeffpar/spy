@@ -80,6 +80,7 @@
     "extrn",
     "FARJMP",
     "FGND",
+    "FIXASM",
     "FRAMEINC",
     "FULLSAVE",
     "GDCMISC",
