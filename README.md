@@ -2,9 +2,10 @@
 
 This is a resurrected version of a tool I wrote some 30 years ago to help debug issues with
 DOS (or other real-mode x86 software), especially issues occurring during the boot process,
-or issues that couldn't easily be debugged with a conventional debugger.  It used v86-mode
-to maintain more control over the machine and any real-mode software, while simultaneously
-being less intrusive.
+or issues that couldn't easily be debugged with a conventional debugger.  It effectively
+reboots the machine in v86-mode, with the debugger running in protected-mode, waiting for a
+hotkey (F12) or any unexpected faults, and interacts with the user via VGA and PC keyboard or
+serial port.
 
 Since this tool was never meant to be an actual product, it makes lots of assumptions,
 does the bare minimum required to get the job done, probably contains a number of mistakes
@@ -69,7 +70,7 @@ There were a number of other minor problems, like some unexpected padding betwee
 data sections, failure to preserve the initial interrupt mask registers (IMRs), and failure to
 allocate memory for the VGA save/restore operations.  I call these problems "minor", but
 they all took a while to track down.  Fortunately, the [PCjs Debugger](http://www.pcjs.org/machines/pcx86/compaq/deskpro386/vga/2048kb/debugger/machine.xml) was a big help.  I even had to use the VSCode debugger to debug a problem
-with the PCjs debugger, so as an added bonus, I ended up fixing a [PCjs bug](https://github.com/jeffpar/pcjs/commit/a2d169129bc8727cd1739f5fa2de50196a1cc587#diff-f6421b18c663fde433cf56c0333dc0961b21e80dc4842aad8d4686452a3f866a) as well.
+with the PCjs debugger, so as an added bonus, I ended up fixing a few [PCjs bugs](https://github.com/jeffpar/pcjs/commit/a2d169129bc8727cd1739f5fa2de50196a1cc587#diff-f6421b18c663fde433cf56c0333dc0961b21e80dc4842aad8d4686452a3f866a) as well.
 
 All these issues made a few things clear: I had probably used an *older* version of **CL3232**
 than what was archived here (I'll keep looking for it, but I probably don't have it anymore), and
