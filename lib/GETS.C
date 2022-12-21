@@ -109,8 +109,8 @@ INT ngets(PCHAR pchIn)
             i = getcurrhistory(psz, n);
             n += i;
             psz += i;
-	    break;
-	}
+            break;
+        }
         if (ch == CTRLJ) {
             i = getcurrhistory(psz, n);
             if (i == 0)
@@ -118,7 +118,7 @@ INT ngets(PCHAR pchIn)
             n += i;
             psz += i;
             continue;
-	}
+        }
         if (ch == CTRLK) {
             i = getcurrhistory(psz, n);
             if (i == 0)
@@ -126,29 +126,29 @@ INT ngets(PCHAR pchIn)
             n += i;
             psz += i;
             continue;
-	}
-	i = (n > 0);
+        }
+        i = (n > 0);
         if (ch == ESCAPE) {
-	    i = n;
-	    ch = BS;
-	}
-	if (ch == BS) {
+            i = n;
+            ch = BS;
+        }
+        if (ch == BS) {
             printf("%#*s", i, "\b \b");
             n -= i;
             psz -= i;
-	}
-	i = 1;
+        }
+        i = 1;
         if (ch == TAB) {
-	    ch = ' ';
+            ch = ' ';
             i = 8 - (colCursor % 8);
         }
-	if (ch < ' ')
-	    continue;
+        if (ch < ' ')
+            continue;
         while (i-- && n < MAXSZ-1) {
-	    n++;
+            n++;
             *psz++ = ch;
             printf("%c", (INT)ch);
-	}
+        }
     }
     *psz = '\0';
     printf("\n");

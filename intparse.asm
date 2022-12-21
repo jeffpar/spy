@@ -243,18 +243,18 @@ EXTRN	_sztodw:NEAR
 EXTRN	_ardRegs:BYTE
 EXTRN	_nstrskip:NEAR
 _DATA	SEGMENT
-$SG748	DB	'Expression symbols', 0aH, 09H, '()', 09H, 'parentheses', 0aH
-	DB	09H, '||', 09H, 'logical OR', 0aH, 09H, '&&', 09H, 'logical AN'
-	DB	'D', 0aH, 09H, '|', 09H, 'bitwise OR', 0aH, 09H, '^', 09H, 'bi'
-	DB	'twise XOR', 0aH, 09H, '&', 09H, 'bitwise AND', 0aH, 09H, '== '
-	DB	'!=', 09H, 'equal, not equal', 0aH, 09H, '< <=', 09H, 'less th'
-	DB	'an, less than or equal', 0aH, 09H, '> >=', 09H, 'greater than'
-	DB	', greater than or equal', 0aH, 09H, '<< >>', 09H, 'shift left'
-	DB	', shift right', 0aH, 09H, '+ -', 09H, 'add, subtract', 0aH, 09H
+$SG748	DB	'Expression operators', 0aH, 09H, '()', 09H, 'parentheses'
+	DB	0aH, 09H, '||', 09H, 'logical OR', 0aH, 09H, '&&', 09H, 'logic'
+	DB	'al AND', 0aH, 09H, '|', 09H, 'bitwise OR', 0aH, 09H, '^', 09H
+	DB	'bitwise XOR', 0aH, 09H, '&', 09H, 'bitwise AND', 0aH, 09H, '='
+	DB	'= !=', 09H, 'equal, not equal', 0aH, 09H, '< <=', 09H, 'less '
+	DB	'than, less than or equal', 0aH, 09H, '> >=', 09H, 'greater th'
+	DB	'an, greater than or equal', 0aH, 09H, '<< >>', 09H, 'shift le'
+	DB	'ft, shift right', 0aH, 09H, '+ -', 09H, 'add, subtract', 0aH, 09H
 	DB	'* /', 09H, 'multiply, divide', 0aH, 09H, '!', 09H, 'logical N'
 	DB	'OT', 0aH, 09H, '~', 09H, 'bitwise NOT', 0aH, 09H, '@', 09H, 'd'
 	DB	'ereference (assumes pointer to dword)', 0aH, 00H
-	ORG $+3
+	ORG $+1
 $SG798	DB	'Unknown symbol "%s"', 0aH, 00H
 	ORG $+3
 $SG807	DB	'Error in expression "%s"', 0aH, 00H

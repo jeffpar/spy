@@ -10587,13 +10587,14 @@ $SG2001	DB	'Trace commands', 0aH, 09H, 't', 09H, 'trace one instruct'
 $SG2028	DB	'Debugger commands', 0aH, 09H, 'b?', 09H, 'breakpoint com'
 	DB	'mands', 0aH, 09H, 'd?', 09H, 'dump commands', 0aH, 09H, 'e', 09H
 	DB	'edit memory', 0aH, 09H, 'g', 09H, 'go until breakpoint', 0aH, 09H
-	DB	'i', 09H, 'display next instruction', 0aH, 09H, 'l?', 09H, 'la'
-	DB	'bel commands', 0aH, 09H, 'o?', 09H, 'options', 0aH, 09H, 'p?', 09H
-	DB	'port commands', 0aH, 09H, 'q', 09H, 'quit', 0aH, 09H, 'r', 09H
-	DB	'display/edit registers', 0aH, 09H, 't?', 09H, 'trace commands'
-	DB	0aH, 09H, 'u', 09H, 'disassemble instructions', 0aH, 09H, 'v?', 09H
-	DB	'VGA commands', 0aH, 'Use F12 to enter the debugger at any tim'
-	DB	'e', 0aH, 00H
+	DB	'i', 09H, 'display next instruction', 0aH, 09H, 'o?', 09H, 'op'
+	DB	'tions', 0aH, 09H, 'p?', 09H, 'port commands', 0aH, 09H, 'q', 09H
+	DB	'quit', 0aH, 09H, 'r', 09H, 'display/edit registers', 0aH, 09H
+	DB	't?', 09H, 'trace commands', 0aH, 09H, 'u', 09H, 'disassemble '
+	DB	'instructions', 0aH, 09H, 'v?', 09H, 'VGA commands', 0aH, 09H, '?'
+	DB	'?', 09H, 'expression operators', 0aH, 'Use F12 to enter the d'
+	DB	'ebugger at any time', 0aH, 00H
+	ORG $+2
 $SG2031	DB	'Value:  ', 00H
 	ORG $+3
 $SG2033	DB	'%c%04x:', 00H
@@ -11476,16 +11477,16 @@ $L2026:
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	jne	$L2027
-; Line 3262
+; Line 3263
 	push	OFFSET FLAT:$SG2028
 	call	_printf
 	add	esp, 4
-; Line 3264
+; Line 3265
 	jmp	$L2029
 $L2027:
-; Line 3265
-	mov	DWORD PTR _sel$[ebp], 0
 ; Line 3266
+	mov	DWORD PTR _sel$[ebp], 0
+; Line 3267
 	push	1
 	lea	eax, DWORD PTR _dw$[ebp]
 	push	eax
@@ -11496,17 +11497,17 @@ $L2027:
 	call	_ParseValue
 	add	esp, 20					; 00000014H
 	mov	DWORD PTR _i$[ebp], eax
-; Line 3267
+; Line 3268
 	cmp	DWORD PTR _i$[ebp], 0
 	je	$L2030
-; Line 3268
+; Line 3269
 	push	OFFSET FLAT:$SG2031
 	call	_printf
 	add	esp, 4
-; Line 3269
+; Line 3270
 	cmp	DWORD PTR _sel$[ebp], 0
 	je	$L2032
-; Line 3270
+; Line 3271
 	movzx	eax, WORD PTR _sel$[ebp]
 	push	eax
 	push	0
@@ -11518,7 +11519,7 @@ $L2027:
 	push	OFFSET FLAT:$SG2033
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 3271
+; Line 3272
 $L2032:
 	movzx	eax, BYTE PTR _dw$[ebp]
 	cmp	eax, 32					; 00000020H
@@ -11538,10 +11539,10 @@ $L2096:
 	push	OFFSET FLAT:$SG2034
 	call	_printf
 	add	esp, 16					; 00000010H
-; Line 3272
+; Line 3273
 	mov	eax, DWORD PTR _i$[ebp]
 	add	DWORD PTR _pch$[ebp], eax
-; Line 3273
+; Line 3274
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
@@ -11550,28 +11551,28 @@ $L2096:
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 59					; 0000003bH
 	je	$L2035
-; Line 3274
+; Line 3275
 	push	DWORD PTR _pch$[ebp]
 	push	OFFSET FLAT:$SG2036
 	call	_printf
 	add	esp, 8
-; Line 3275
-$L2035:
 ; Line 3276
+$L2035:
+; Line 3277
 $L2030:
 $L2029:
-; Line 3277
+; Line 3278
 	jmp	$L1920
-; Line 3279
+; Line 3280
 $L2037:
-; Line 3281
-$CommandError$1925:
 ; Line 3282
+$CommandError$1925:
+; Line 3283
 	mov	eax, DWORD PTR _pflCommand$[ebp]
 	or	DWORD PTR [eax], 2
-; Line 3283
-	jmp	$L1920
 ; Line 3284
+	jmp	$L1920
+; Line 3285
 	jmp	$L1920
 $L1919:
 	cmp	DWORD PTR -68+[ebp], 111		; 0000006fH
@@ -11611,24 +11612,24 @@ $L2100:
 	DD	OFFSET FLAT:$L2018
 	DD	OFFSET FLAT:$L2023
 $L1920:
-; Line 3285
+; Line 3286
 	jmp	$Exit$2038
-; Line 3287
-$BadAddr$1936:
 ; Line 3288
+$BadAddr$1936:
+; Line 3289
 	push	DWORD PTR _pchAddr$[ebp]
 	push	OFFSET FLAT:$SG2039
 	call	_printf
 	add	esp, 8
-; Line 3290
-$Exit$2038:
 ; Line 3291
+$Exit$2038:
+; Line 3292
 	push	59					; 0000003bH
 	push	DWORD PTR _pchCmd$[ebp]
 	call	_nstrskipto
 	add	esp, 8
 	jmp	$L1893
-; Line 3292
+; Line 3293
 $L1893:
 	pop	edi
 	pop	esi
@@ -11658,97 +11659,97 @@ _flCommand$ = -8
 _pchCmd$ = -12
 _pszInput$ = -4
 _x86Debug PROC NEAR
-; Line 3296
+; Line 3297
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 92					; 0000005cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 3302
-	inc	DWORD PTR _iDebugEntry
 ; Line 3303
+	inc	DWORD PTR _iDebugEntry
+; Line 3304
 	test	BYTE PTR _flDebug$[ebp], 16		; 00000010H
 	je	$L2047
-; Line 3304
+; Line 3305
 	inc	DWORD PTR _iIDTEntry
-; Line 3306
+; Line 3307
 $L2047:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86LoadFrame
 	add	esp, 4
-; Line 3308
+; Line 3309
 	cmp	DWORD PTR _iDebugEntry, 1
 	jne	$L2048
-; Line 3309
+; Line 3310
 	test	BYTE PTR _flTrace, 4
 	jne	$L2049
-; Line 3312
+; Line 3313
 	test	BYTE PTR _flDebug$[ebp], 1
 	jne	$L2050
-; Line 3313
+; Line 3314
 	push	0
 	push	OFFSET FLAT:_vsVM
 	call	_SaveVS
 	add	esp, 8
-; Line 3314
+; Line 3315
 	push	OFFSET FLAT:_vsMonitor
 	call	_RestoreVS
 	add	esp, 4
-; Line 3316
+; Line 3317
 $L2050:
-; Line 3318
+; Line 3319
 $L2049:
 	test	BYTE PTR _vsVM+4, 2
 	jne	$L2051
 	cmp	DWORD PTR _vsVM, 0
 	je	$L2051
-; Line 3319
+; Line 3320
 	push	DWORD PTR _vsVM
 	push	OFFSET FLAT:$SG2052
 	call	_printf
 	add	esp, 8
-; Line 3320
+; Line 3321
 $L2051:
 	test	BYTE PTR _vsMonitor+4, 2
 	jne	$L2053
 	cmp	DWORD PTR _vsMonitor, -1
 	je	$L2053
-; Line 3321
+; Line 3322
 	push	DWORD PTR _vsMonitor
 	push	OFFSET FLAT:$SG2054
 	call	_printf
 	add	esp, 8
-; Line 3323
-$L2053:
 ; Line 3324
+$L2053:
+; Line 3325
 $L2048:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86RemoveBPs
 	add	esp, 4
-; Line 3326
+; Line 3327
 	sti
-; Line 3331
+; Line 3332
 	test	BYTE PTR _flTrace, 1
 	je	$L2056
 	test	BYTE PTR _flTrace, 32			; 00000020H
 	je	$L2055
 $L2056:
-; Line 3332
+; Line 3333
 	push	DWORD PTR _flDebug$[ebp]
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86TrapDump
 	add	esp, 8
-; Line 3333
+; Line 3334
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86RegDump
 	add	esp, 4
-; Line 3335
+; Line 3336
 	jmp	$L2057
 $L2055:
 	test	BYTE PTR _flTrace, 98			; 00000062H
 	jne	$L2058
-; Line 3336
+; Line 3337
 	push	0
 	push	DWORD PTR _colCursor
 	mov	eax, DWORD PTR _rowCursor
@@ -11756,12 +11757,12 @@ $L2055:
 	push	eax
 	call	__setcursor
 	add	esp, 12					; 0000000cH
-; Line 3338
+; Line 3339
 $L2058:
 $L2057:
 	test	BYTE PTR _flTrace, 64			; 00000040H
 	jne	$L2059
-; Line 3339
+; Line 3340
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+100]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -11769,16 +11770,16 @@ $L2057:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86InsDump
 	add	esp, 12					; 0000000cH
-; Line 3351
+; Line 3352
 $L2059:
 	test	BYTE PTR _flTrace, 2
 	je	$L2060
-; Line 3352
-	inc	DWORD PTR _lInsCount
 ; Line 3353
+	inc	DWORD PTR _lInsCount
+; Line 3354
 	test	BYTE PTR _flKeyEvent, 2
 	jne	$L2061
-; Line 3354
+; Line 3355
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+100]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -11789,16 +11790,16 @@ $L2059:
 	add	esp, 16					; 00000010H
 	or	eax, eax
 	jne	$L2062
-; Line 3355
+; Line 3356
 	push	DWORD PTR _flTrace
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86Trace
 	add	esp, 8
 	or	eax, eax
 	je	$L2063
-; Line 3356
-	jmp	$Exit$2064
 ; Line 3357
+	jmp	$Exit$2064
+; Line 3358
 $L2063:
 $L2062:
 $L2061:
@@ -11806,22 +11807,22 @@ $L2061:
 	push	OFFSET FLAT:$SG2065
 	call	_printf
 	add	esp, 8
-; Line 3359
+; Line 3360
 $L2060:
 	test	BYTE PTR _flDebug$[ebp], 4
 	je	$L2066
-; Line 3360
+; Line 3361
 	jmp	$Exit$2064
-; Line 3364
+; Line 3365
 $L2066:
 	mov	DWORD PTR _flCommand$[ebp], 0
-; Line 3365
+; Line 3366
 	and	DWORD PTR _flTrace, -488		; fffffe18H
-; Line 3367
+; Line 3368
 $L2068:
 	test	BYTE PTR _flCommand$[ebp], 1
 	jne	$L2069
-; Line 3369
+; Line 3370
 	push	1
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+104]
@@ -11832,23 +11833,23 @@ $L2068:
 	push	OFFSET FLAT:$SG2070
 	call	_printf
 	add	esp, 8
-; Line 3371
+; Line 3372
 	lea	eax, DWORD PTR _achInput$[ebp]
 	mov	DWORD PTR _pszInput$[ebp], eax
-; Line 3372
+; Line 3373
 	push	DWORD PTR _pszInput$[ebp]
 	call	_ngets
 	add	esp, 4
-; Line 3374
+; Line 3375
 $L2072:
 	mov	eax, DWORD PTR _pszInput$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	je	$L2073
-; Line 3375
+; Line 3376
 	mov	eax, DWORD PTR _pszInput$[ebp]
 	mov	DWORD PTR _pchCmd$[ebp], eax
-; Line 3376
+; Line 3377
 	lea	eax, DWORD PTR _flCommand$[ebp]
 	push	eax
 	push	DWORD PTR _pchCmd$[ebp]
@@ -11856,76 +11857,76 @@ $L2072:
 	call	_x86Command
 	add	esp, 12					; 0000000cH
 	add	DWORD PTR _pszInput$[ebp], eax
-; Line 3377
+; Line 3378
 	mov	eax, DWORD PTR _pszInput$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	je	$L2074
-; Line 3378
+; Line 3379
 	inc	DWORD PTR _pszInput$[ebp]
-; Line 3380
+; Line 3381
 $L2074:
 	test	BYTE PTR _flCommand$[ebp], 1
 	je	$L2075
-; Line 3381
+; Line 3382
 	jmp	$L2073
-; Line 3383
+; Line 3384
 $L2075:
 	test	BYTE PTR _flCommand$[ebp], 2
 	je	$L2076
-; Line 3384
+; Line 3385
 	push	DWORD PTR _pchCmd$[ebp]
 	push	OFFSET FLAT:$SG2077
 	call	_printf
 	add	esp, 8
-; Line 3385
+; Line 3386
 	jmp	$L2073
-; Line 3387
+; Line 3388
 $L2076:
 	jmp	$L2072
 $L2073:
-; Line 3388
+; Line 3389
 	jmp	$L2068
 $L2069:
-; Line 3389
-$Exit$2064:
 ; Line 3390
+$Exit$2064:
+; Line 3391
 	cli
-; Line 3392
+; Line 3393
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86ApplyBPs
 	add	esp, 4
-; Line 3394
+; Line 3395
 	cmp	DWORD PTR _iDebugEntry, 1
 	jne	$L2078
-; Line 3395
+; Line 3396
 	test	BYTE PTR _flTrace, 4
 	jne	$L2079
-; Line 3396
+; Line 3397
 	push	0
 	push	OFFSET FLAT:_vsMonitor
 	call	_SaveVS
 	add	esp, 8
-; Line 3397
+; Line 3398
 	push	OFFSET FLAT:_vsVM
 	call	_RestoreVS
 	add	esp, 4
-; Line 3399
-$L2079:
 ; Line 3400
+$L2079:
+; Line 3401
 $L2078:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86SaveFrame
 	add	esp, 4
-; Line 3402
+; Line 3403
 	test	BYTE PTR _flDebug$[ebp], 16		; 00000010H
 	je	$L2080
-; Line 3403
-	dec	DWORD PTR _iIDTEntry
 ; Line 3404
+	dec	DWORD PTR _iIDTEntry
+; Line 3405
 $L2080:
 	dec	DWORD PTR _iDebugEntry
-; Line 3405
+; Line 3406
 $L2042:
 	pop	edi
 	pop	esi

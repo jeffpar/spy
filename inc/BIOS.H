@@ -356,7 +356,7 @@ EnableNMI macro
 endm
 
 ResetNMI macro
-	push	eax
+        push    eax
         mov     al,CMOSADDR_NMIOFF+CMOS_STATUSD
         out     CMOSPORT_ADDR,al
         jmp     $+2

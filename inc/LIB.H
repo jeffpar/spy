@@ -28,29 +28,29 @@
 #define toupper(c)      (_islower(c)? _toupper(c) : (c))
 #define tolower(c)      (_isupper(c)? _tolower(c) : (c))
 
-#define max(a,b)	(((a) > (b)) ? (a) : (b))
-#define min(a,b)	(((a) < (b)) ? (a) : (b))
+#define max(a,b)        (((a) > (b)) ? (a) : (b))
+#define min(a,b)        (((a) < (b)) ? (a) : (b))
 
 #define abs(a)          ((a) < 0 ? -(a) : (a))
 
 
 /* XLATOFF */
 
-#define SXBYTE(i)	((LONG)(SBYTE)(i))
-#define SXWORD(i)	((LONG)(SHORT)(i))
-#define SXSHORT(i)	((LONG)(SHORT)(i))
-#define ZXBYTE(i)	((ULONG)(BYTE)(i))
-#define ZXWORD(i)	((ULONG)(USHORT)(i))
-#define ZXSHORT(i)	((ULONG)(USHORT)(i))
+#define SXBYTE(i)       ((LONG)(SBYTE)(i))
+#define SXWORD(i)       ((LONG)(SHORT)(i))
+#define SXSHORT(i)      ((LONG)(SHORT)(i))
+#define ZXBYTE(i)       ((ULONG)(BYTE)(i))
+#define ZXWORD(i)       ((ULONG)(USHORT)(i))
+#define ZXSHORT(i)      ((ULONG)(USHORT)(i))
 
 #define MAKEDWORD(l,h)  ((LONG)(((WORD)(l)) | (((DWORD)((WORD)(h))) << 16)))
 
-#define Z2(m)		((m)&1?0:(m)&2?1:2)
-#define Z4(m)		((m)&3?Z2(m):Z2((m)>>2)+2)
-#define Z8(m)		((m)&15?Z4(m):Z4((m)>>4)+4)
-#define Z16(m)		((m)&255?Z8(m):Z8((m)>>8)+8)
-#define Z32(m)		((m)&65535?Z16(m):Z16((m)>>16)+16)
-#define SHIFTLEFT(i,m)	(((i)<<Z32(m))&(m))
+#define Z2(m)           ((m)&1?0:(m)&2?1:2)
+#define Z4(m)           ((m)&3?Z2(m):Z2((m)>>2)+2)
+#define Z8(m)           ((m)&15?Z4(m):Z4((m)>>4)+4)
+#define Z16(m)          ((m)&255?Z8(m):Z8((m)>>8)+8)
+#define Z32(m)          ((m)&65535?Z16(m):Z16((m)>>16)+16)
+#define SHIFTLEFT(i,m)  (((i)<<Z32(m))&(m))
 #define SHIFTRIGHT(i,m) (((i)&(m))>>Z32(m))
 
 #undef  OFFSETOF

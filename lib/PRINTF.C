@@ -75,9 +75,9 @@ INT printf(PSZ pszFmt, ...)
             c = min(t, colCursorMax - colCursor);
             if (t) {
                 pbDst = _plogicalvram(&vsMonitor);
-		pbDst += (rowCursor * colCursorMax + colCursor) * 2;
+                pbDst += (rowCursor * colCursorMax + colCursor) * 2;
                 colCursor += c;
-		for (i=c; i>0; i--)
+                for (i=c; i>0; i--)
                     *pbDst++ = ch, *pbDst++ = bDefColor;
             }
             if (colCursor >= colCursorMax) {
@@ -158,7 +158,7 @@ VOID _scroll(INT left, INT top, INT right, INT bottom, INT nLines)
             for (i=cbLine/2; i; i--)
                 *pbDst++ = ' ', *pbDst++ = bDefColor;
             pbDst += cbAdj;
-	}
+        }
     }
 }
 

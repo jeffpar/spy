@@ -69,8 +69,8 @@
 #define VIDMEM_MONOADDR         0xB0000
 #define VIDMEM_MONOSIZE         0x08000
 
-#define VIDMEM_COLRADDR 	0xB8000
-#define VIDMEM_COLRSIZE 	0x08000
+#define VIDMEM_COLRADDR         0xB8000
+#define VIDMEM_COLRSIZE         0x08000
 
 #define PLANE0                  0
 #define PLANE1                  1
@@ -460,10 +460,10 @@ typedef struct _VSTATE {        /* vs */
     INT     cbPlane[MAX_PLANES];        // size of plane buffers
     PBYTE   pbPlane[MAX_PLANES];        // pointers to plane buffers
 
-    WORD    wPortCRTIndx;		// PORT_MONOCRTINDX or PORT_COLRCRTINDX
-    WORD    wPortCRTData;		// PORT_MONOCRTDATA or PORT_COLRCRTDATA
-    WORD    wPortStatus1;		// PORT_MONOSTATUS1 or PORT_COLRSTATUS1
-    WORD    wPortFeature;		// PORT_MONOFEATURE or PORT_COLRFEATURE
+    WORD    wPortCRTIndx;               // PORT_MONOCRTINDX or PORT_COLRCRTINDX
+    WORD    wPortCRTData;               // PORT_MONOCRTDATA or PORT_COLRCRTDATA
+    WORD    wPortStatus1;               // PORT_MONOSTATUS1 or PORT_COLRSTATUS1
+    WORD    wPortFeature;               // PORT_MONOFEATURE or PORT_COLRFEATURE
 
     BYTE    regCRTIndx;                 // shadows PORT_MONOCRTINDX/COLRCRTINDX
     BYTE   aregCRTData[MAX_CRTREGS];    // shadows PORT_MONOCTRDATA/COLRCRTDATA[]

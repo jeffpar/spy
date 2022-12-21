@@ -12,7 +12,10 @@
     "DOSDUMP.C": "cpp",
     "VIDMGR.C": "cpp",
     "MEMMGR.C": "cpp",
-    "INTPARSE.C": "cpp"
+    "INTPARSE.C": "cpp",
+    "GETS.C": "cpp",
+    "SPRINTF.C": "cpp",
+    "STRING.C": "cpp"
   },
   "[cpp]": {
     "editor.detectIndentation": false,

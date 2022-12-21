@@ -4,13 +4,13 @@
  00350H 086C5H 08376H _TEXT                  CODE
  086C8H 086C8H 00000H _ETEXT                 CODE
  086D0H 0881FH 00150H _DATA16                DATA
- 08900H 0DC5FH 05360H _DATA                  DATA
- 0DC60H 0DC60H 00000H CONST                  CONST
- 0DC60H 0DC60H 00000H _STATIC                STATIC
- 0DC60H 0DC60H 00000H _BSS                   BSS
- 0DC60H 0DC60H 00000H c_common               BSS
- 0DC60H 0DC60H 00000H _EDATA                 ENDDATA
- 0DC60H 0DC60H 00000H _TLS                   TLS
+ 08900H 0DD5FH 05460H _DATA                  DATA
+ 0DD60H 0DD60H 00000H CONST                  CONST
+ 0DD60H 0DD60H 00000H _STATIC                STATIC
+ 0DD60H 0DD60H 00000H _BSS                   BSS
+ 0DD60H 0DD60H 00000H c_common               BSS
+ 0DD60H 0DD60H 00000H _EDATA                 ENDDATA
+ 0DD60H 0DD60H 00000H _TLS                   TLS
 
  Origin   Group
  0890:0   DATA
@@ -103,24 +103,24 @@
  0890:0249       _abXlatCtrl
  0890:01C9       _abXlatNorm
  0890:02C9       _abXlatShift
- 0890:4D08       _achHist
+ 0890:4E08       _achHist
  0890:1B44       _achScale
  0000:7930       _addhistory
- 0890:4760       _aexop
+ 0890:4768       _aexop
  0890:0359       _afnEmulate
  0890:2798       _aid0F
  0890:1B98       _aidBase
  0890:0349       _aintSimulate
  0890:1138       _aoffSel
- 0890:4AA4       _apfnDOSDump
- 0890:4AA0       _apszDOSDump
+ 0890:4AAC       _apfnDOSDump
+ 0890:4AA8       _apszDOSDump
  0890:3A60       _apszIDTDesc
  0890:1128       _apszIDTOptions
  0890:1600       _apszMnemonic
  0890:1110       _apszOptions
  0890:1B78       _apszRM
  0890:19E8       _ardRegs
- 0890:4750       _avParse
+ 0890:4758       _avParse
  0890:0F30       _bDefColor
  0890:00D2       _cbBSSData
  0890:0F6C       _cbpdGlobal
@@ -175,8 +175,8 @@
  0000:7A34       _getnexthistory
  0000:7AAA       _getprevhistory
  0890:0F48       _iDebugEntry
- 0890:4D04       _iHistCurr
- 0890:4D00       _iHistFree
+ 0890:4E04       _iHistCurr
+ 0890:4E00       _iHistFree
  0890:0F44       _iIDTEntry
  0000:0CD4       _InitMemMgr
  0000:0E14       _InitVideoMgr
@@ -248,11 +248,11 @@
  0890:00C6       _sel_Text
  0000:0D45       _SetPages
  0000:7B90       _sprintf
- 0890:47E8       _stkOps
- 0890:4840       _stkVals
+ 0890:47F0       _stkOps
+ 0890:4848       _stkVals
  0000:81FB       _strcmp
  0890:0110       _szAssert
- 0890:4898       _szError
+ 0890:48A0       _szError
  0890:0768       _szTitle
  0000:8021       _sztodw
  0890:0000       _v86Init
@@ -317,7 +317,7 @@
  0000:76FF       __kbhit
  0000:74E9       __plogicalvram
  0000:71FB       __putch
- 0890:5360       __ResDataEnd
+ 0890:5460       __ResDataEnd
  0890:00C4       __ResDataStart
  0000:75C5       __resetvistop
  0000:86C8       __ResTextEnd
@@ -325,7 +325,7 @@
  0000:7218       __scroll
  0000:7406       __setcursor
  0000:7540       __setvistop
- 0890:5360       __StaticDataEnd
+ 0890:5460       __StaticDataEnd
  0000:0350       __TextStart
 
   Address         Publics by Value
@@ -627,17 +627,17 @@
  0890:3398       _aaidGroup
  0890:3998       _abTypeSize
  0890:3A60       _apszIDTDesc
- 0890:4750       _avParse
- 0890:4760       _aexop
- 0890:47E8       _stkOps
- 0890:4840       _stkVals
- 0890:4898       _szError
- 0890:4AA0       _apszDOSDump
- 0890:4AA4       _apfnDOSDump
- 0890:4D00       _iHistFree
- 0890:4D04       _iHistCurr
- 0890:4D08       _achHist
- 0890:5360       __ResDataEnd
- 0890:5360       __StaticDataEnd
+ 0890:4758       _avParse
+ 0890:4768       _aexop
+ 0890:47F0       _stkOps
+ 0890:4848       _stkVals
+ 0890:48A0       _szError
+ 0890:4AA8       _apszDOSDump
+ 0890:4AAC       _apfnDOSDump
+ 0890:4E00       _iHistFree
+ 0890:4E04       _iHistCurr
+ 0890:4E08       _achHist
+ 0890:5460       __ResDataEnd
+ 0890:5460       __StaticDataEnd
 
 Program entry point at 0000:0100

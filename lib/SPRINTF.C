@@ -17,7 +17,7 @@
  *      pszFmt -> format control string
  *
  *  EXIT
- *	# of digits
+ *      # of digits
  *
  *  NOTES
  *      Only base 10 (unsigned decimal) and 16 (hexadecimal) supported
@@ -37,7 +37,7 @@ INT sprintf(PCHAR pchOut, PSZ pszFmt, ...)
  *      pArgs  -> arguments, if any
  *
  *  EXIT
- *	# of digits
+ *      # of digits
  *
  *  NOTES
  *      Only base 10 (unsigned decimal) and 16 (hexadecimal) supported
@@ -170,7 +170,7 @@ INT dwtosz(register PCHAR pchOut, DWORD dw, INT iRadix, INT cchMin)
             dw = (DWORD)(-(LONG)dw);
             *pchOut++ = '-';
             cchMin--;
-	    n++;
+            n++;
         }
     }
     while (cchMin != 0 && d != 0) {
@@ -185,7 +185,7 @@ INT dwtosz(register PCHAR pchOut, DWORD dw, INT iRadix, INT cchMin)
                 ch = q - 10 + 'a';
         }
         else if (cSkip > 0)
-	    cSkip--;
+            cSkip--;
         else
             ch = chFill;
         if (ch) {
@@ -195,8 +195,8 @@ INT dwtosz(register PCHAR pchOut, DWORD dw, INT iRadix, INT cchMin)
                 *pchOut++ = fSep;
                 n++;
             }
-	    n++;
-	}
+            n++;
+        }
     }
     *pchOut = '\0';
     return n;
@@ -206,16 +206,16 @@ INT dwtosz(register PCHAR pchOut, DWORD dw, INT iRadix, INT cchMin)
 /*  sztodw - convert string to dword using specified radix
  *
  *  ENTRY
- *	psz -> string
+ *      psz -> string
  *      pdw -> dword
- *	iRadix == conversion radix
- *	cchMax == maximum # of digits to convert (-1 for no limit)
+ *      iRadix == conversion radix
+ *      cchMax == maximum # of digits to convert (-1 for no limit)
  *
  *  EXIT
  *      # of digits processed
  *
  *  NOTES
- *	Only base 10 (unsigned decimal) and base 16 (hexadecimal) supported
+ *      Only base 10 (unsigned decimal) and base 16 (hexadecimal) supported
  */
 
 INT sztodw(register PSZ pszIn, PDWORD pdw, INT iRadix, INT cchMax)
@@ -227,11 +227,11 @@ INT sztodw(register PSZ pszIn, PDWORD pdw, INT iRadix, INT cchMax)
     while (*pszIn && cchMax--) {
         ch = _tolower(*pszIn);
         if (_isdigit(ch))
-	    d = ch - '0';
+            d = ch - '0';
         else if (ch >= 'a' && ch <= 'f' && iRadix == 16)
-	    d = ch - 'a' + 10;
-	else
-	    break;
+            d = ch - 'a' + 10;
+        else
+            break;
         n++;
         pszIn++;
         dw = (dw * iRadix) + d;

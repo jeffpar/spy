@@ -63,7 +63,7 @@ SetPICs macro   irqs
         endif
         endm
 
-	mov	al,ICW1
+        mov     al,ICW1
         out     PIC_MASTER,al
         mov     al,MASTER_BASE
         IODelay
@@ -78,7 +78,7 @@ SetPICs macro   irqs
         mov     al,NOT master_imr
         out     PIC_MASTER_IMR,al
 
-	mov	al,ICW1
+        mov     al,ICW1
         out     PIC_SLAVE,al
         mov     al,SLAVE_BASE
         IODelay
@@ -95,7 +95,7 @@ SetPICs macro   irqs
 endm
 
 ResetPICs macro
-	mov	al,ICW1
+        mov     al,ICW1
         out     PIC_MASTER,al
         mov     al,MASTER_BASE_DEF
         IODelay
@@ -110,7 +110,7 @@ ResetPICs macro
         IODelay
         out     PIC_MASTER_IMR,al
 
-	mov	al,ICW1
+        mov     al,ICW1
         out     PIC_SLAVE,al
         mov     al,SLAVE_BASE_DEF
         IODelay

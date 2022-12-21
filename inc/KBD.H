@@ -71,8 +71,8 @@
 
 #define KBDCMD_READ_CB          0x20    // read command byte (CB)
 #define KBDCMD_WRITE_CB         0x60    // write command byte (CB)
-#define KBDCMD_DISABLE_KBD	0xAD	// disable keyboard
-#define KBDCMD_ENABLE_KBD	0xAE	// enable keyboard
+#define KBDCMD_DISABLE_KBD      0xAD    // disable keyboard
+#define KBDCMD_ENABLE_KBD       0xAE    // enable keyboard
 #define KBDCMD_READ_OPORT       0xD0    // read output port (OP)
 #define KBDCMD_WRITE_OPORT      0xD1    // write output port (OP)
 #define KBDCMD_MSE              0xD4    // PS/2-style mouse command

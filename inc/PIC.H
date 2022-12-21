@@ -34,9 +34,9 @@
 #define ICW1_EDGE_TRIG          0x00
 #define ICW1_ICW                0x10
 #ifndef PS2
-#define ICW1			0x11
+#define ICW1                    0x11
 #else
-#define ICW1			0x19
+#define ICW1                    0x19
 #endif
 
 #define ICW4_8086_MODE          0x01
@@ -84,7 +84,7 @@ SetPICs macro   irqs
         endif
         endm
 
-	mov	al,ICW1
+        mov     al,ICW1
         out     PIC_MASTER,al
         mov     al,MASTER_BASE
         IODelay
@@ -99,7 +99,7 @@ SetPICs macro   irqs
         mov     al,NOT master_imr
         out     PIC_MASTER_IMR,al
 
-	mov	al,ICW1
+        mov     al,ICW1
         out     PIC_SLAVE,al
         mov     al,SLAVE_BASE
         IODelay
@@ -116,7 +116,7 @@ SetPICs macro   irqs
 endm
 
 ResetPICs macro
-	mov	al,ICW1
+        mov     al,ICW1
         out     PIC_MASTER,al
         mov     al,MASTER_BASE_DEF
         IODelay
@@ -131,7 +131,7 @@ ResetPICs macro
         IODelay
         out     PIC_MASTER_IMR,al
 
-	mov	al,ICW1
+        mov     al,ICW1
         out     PIC_SLAVE,al
         mov     al,SLAVE_BASE_DEF
         IODelay
