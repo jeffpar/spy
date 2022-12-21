@@ -2,7 +2,7 @@
 
 This is a resurrected version of a tool I wrote some 30 years ago to help debug issues with
 DOS (or other real-mode x86 software), especially issues occurring during the boot process,
-or issues that couldn't easily be debugged with a conventional debugger.  It used v86-mode to
+or issues that couldn't easily be debugged with a conventional debugger.  It used v86-mode
 to maintain more control over the machine and any real-mode software, while simultaneously
 being less intrusive.
 
@@ -25,7 +25,7 @@ except that *now* the machine is running in v86-mode instead of real-mode.
 
 You can press the F12 key at any time to jump back into the SPY debugger, inspect memory,
 set breakpoints, etc.  You can even inspect the original screen using the 'v' command; pressing
-any other key to return to the debugger's screen.  I have no recollection of how "complete"
+any other key returns control to the debugger.  I have no recollection of how "complete"
 the debugger is, and I'm sure I will find more bugs to fix as I begin using it -- all I've done
 so far is get it loaded and launched into v86-mode successfully.
 
@@ -40,7 +40,7 @@ When I originally archived this project, I also saved a set of [tools](tools/) t
 be used to rebuild SPY from scratch -- which was fortunate, because I'm not sure how easy it
 would be find some of those tools today.
 
-SPY is a bit unusual because it's a a COM file with a mixture of 16-bit and 32-bit code, and
+SPY is a bit unusual because it's a COM file with a mixture of 16-bit and 32-bit code, and
 the 32-bit code is a mixture of assembly and *C*.
 
 The C compiler, **CL3232**, wasn't really designed for producing code in this environment.  One
