@@ -42,7 +42,7 @@ easy it would be find some of those tools today.
 
 SPY is a bit unusual because it's a COM file with a mixture of 16-bit and 32-bit code, and
 the 32-bit code is a mixture of assembly and C.  And except for the initialization code, it
-it does not use any operating system or ROM functions.  All screen, keyboard, and serial port
+does not use any operating system or ROM functions.  All screen, keyboard, and serial port
 hardware operations are handled internally.
 
 The C compiler, [CL3232](tools/), wasn't really designed for producing code in this environment.
