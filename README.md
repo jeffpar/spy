@@ -36,12 +36,14 @@ entire VGA state whenever entering/exiting the SPY debugger.
 
 ### The Tools
 
-When I originally archived this project, I also saved a set of [tools](tools/) that can
-be used to [make](MAKEFILE) SPY from scratch -- which was fortunate, because I'm not sure how
+When I originally archived this project, I also saved a set of tools that can
+be used to build SPY from scratch -- which was fortunate, because I'm not sure how
 easy it would be find some of those tools today.
 
 SPY is a bit unusual because it's a COM file with a mixture of 16-bit and 32-bit code, and
-the 32-bit code is a mixture of assembly and *C*.
+the 32-bit code is a mixture of assembly and C.  And except for the initialization code, it
+it does not use any operating system or ROM functions.  All screen, keyboard, and serial port
+hardware operations are handled internally.
 
 The C compiler, [CL3232](tools/), wasn't really designed for producing code in this environment.
 One of the challenges I ran into when trying to rebuild SPY was re-discovering that code and data
@@ -66,12 +68,14 @@ Strange.]
 There were a number of other minor problems, like some unexpected padding between code and
 data sections, failure to preserve the initial interrupt mask registers (IMRs), and failure to
 allocate memory for the VGA save/restore operations.  I call these problems "minor", but
-they took a while to track down.  Fortunately, the [PCjs Debugger](http://www.pcjs.org/machines/pcx86/compaq/deskpro386/vga/2048kb/debugger/machine.xml) was a big help.
+they all took a while to track down.  Fortunately, the [PCjs Debugger](http://www.pcjs.org/machines/pcx86/compaq/deskpro386/vga/2048kb/debugger/machine.xml) was a big help.  I even had to use the VSCode debugger to debug a problem
+with the PCjs debugger, so as an added bonus, I ended up fixing a [PCjs bug](https://github.com/jeffpar/pcjs/commit/a2d169129bc8727cd1739f5fa2de50196a1cc587#diff-f6421b18c663fde433cf56c0333dc0961b21e80dc4842aad8d4686452a3f866a) as well.
 
 All these issues made a few things clear: I had probably used an *older* version of **CL3232**
 than what was archived here (I'll keep looking for it, but I probably don't have it anymore), and
-I had probably started reworking some of the code in 1993 and never finished the changes --
-all of which made it challenging recreating a working version today.
+I had probably started reworking some of the SPY code in 1993 and never finished the changes.
+
+In any case, SPY is once again operational -- or at least, really close.
 
 ![First Boot](images/First_Boot.jpg)
 
