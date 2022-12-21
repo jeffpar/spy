@@ -60,19 +60,18 @@ have **CL3232** produce assembly files instead object files, running the assembl
 
 [As an added bonus, using CL3232 to produce assembly files instead of object files seems to have
 eliminated some overhead, because the overall size of the COM file dropped by about 5K.  I haven't
-looked into it yet, but I did verify that all DEBUG code, including asserts, is still in place.
+looked into it yet, but I did verify that all DEBUG code, including asserts, was still in place.
 Strange.]
 
 There were a number of other minor problems, like some unexpected padding between code and
 data sections, failure to preserve the initial interrupt mask registers (IMRs), and failure to
 allocate memory for the VGA save/restore operations.  I call these problems "minor", but
-they took a while to track down, even with this handy [PCjs Machine](http://www.pcjs.org/machines/pcx86/compaq/deskpro386/vga/2048kb/debugger/machine.xml).
+they took a while to track down.  Fortunately, the [PCjs Debugger](http://www.pcjs.org/machines/pcx86/compaq/deskpro386/vga/2048kb/debugger/machine.xml) was a big help.
 
-The last issue made me wonder if there was a different version of the code somewhere, because
-I know I had a working version of SPY at one point, whereas the VGA save/restore code could not
-have possibly worked.  I can only guess that I had started to rewrite some of the functions,
-and then never got back to it.  If I find a more complete version of the source code at some point,
-I'll incorporate it into the repository.
+All these issues made a few things clear: I had probably used an *older* version of **CL3232**
+than what was archived here (I'll keep looking for it, but I probably don't have it anymore), and
+I had probably started reworking some of the code in 1993 and never finished the changes --
+all of which made it challenging recreating a working version today.
 
 ![First Boot](images/First_Boot.jpg)
 
