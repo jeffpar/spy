@@ -11,7 +11,8 @@
     "PRINTF.C": "cpp",
     "DOSDUMP.C": "cpp",
     "VIDMGR.C": "cpp",
-    "MEMMGR.C": "cpp"
+    "MEMMGR.C": "cpp",
+    "INTPARSE.C": "cpp"
   },
   "[cpp]": {
     "editor.detectIndentation": false,

@@ -130,7 +130,7 @@ INT ParseValue(PESF pesf, register PSZ psz, PDWORD psel, PDWORD pdw, BOOL fMsg)
 
     if (*psz == '?') {
         if (fMsg)
-            printf("Expression symbols\n"
+            printf("Expression operators\n"
                    "\t()\tparentheses\n"
                    "\t||\tlogical OR\n"
                    "\t&&\tlogical AND\n"

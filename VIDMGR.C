@@ -81,7 +81,7 @@ VOID InitVS(register PVS pvs)
     for (i=0; i<MAX_PLANES; i++) {
         pvs->cbPlane[i] = 64 * 1024;
         pvs->pbPlane[i] = MemAlloc(pvs->cbPlane[i]);
-	}
+    }
 
     // BUGBUG: Some fake h/w state initialization;
     // more accurate initialization takes place in SaveVS()
@@ -93,12 +93,12 @@ VOID InitVS(register PVS pvs)
     pvs->aregGDCData[REG_GDCMISC] = GDCMISC_32K_B0000;
 
     if (!(pmbZero->rb.vga.EGAInfo & EGAINFO_EGAMONO)) {
-	pvs->regMiscOut |= MISCOUT_COLRPORTS;
-	pvs->wPortCRTIndx = PORT_COLRCRTINDX;
-	pvs->wPortCRTData = PORT_COLRCRTDATA;
-	pvs->wPortStatus1 = PORT_COLRSTATUS1;
-	pvs->wPortFeature = PORT_COLRFEATURE;
-	pvs->aregGDCData[REG_GDCMISC] = GDCMISC_32K_B8000;
+    pvs->regMiscOut |= MISCOUT_COLRPORTS;
+    pvs->wPortCRTIndx = PORT_COLRCRTINDX;
+    pvs->wPortCRTData = PORT_COLRCRTDATA;
+    pvs->wPortStatus1 = PORT_COLRSTATUS1;
+    pvs->wPortFeature = PORT_COLRFEATURE;
+    pvs->aregGDCData[REG_GDCMISC] = GDCMISC_32K_B8000;
     }
     pvs->aregSEQData[REG_SEQRESET] = SEQRESET_ASYNC | SEQRESET_SYNC;
 

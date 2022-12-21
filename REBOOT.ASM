@@ -1,5 +1,5 @@
-        page    ,132
-        title   REBOOT.ASM
+	page	,132
+	title	REBOOT.ASM
 
 ;
 ;   REBOOT.ASM
@@ -9,17 +9,17 @@
 ;
 
 
-        __acrtused  equ 1
-        public  __acrtused
+	__acrtused  equ 1
+	public	__acrtused
 
 
-        include all.inc
+	include all.inc
 
 
-ORG_VALUE   equ 100h            ; for .COM file
+ORG_VALUE   equ 100h		; for .COM file
 
 
-GRP16   group   _TEXT16,_DATA16
+GRP16	group	_TEXT16,_DATA16
 
 ;
 ;   Insure that _TEXT16 is the first segment in the image file
@@ -32,97 +32,97 @@ _TEXT16 ends
 
 _DATA16 segment para public 'DATA'
 
-stack   label   word
+stack	label	word
 
 _DATA16 ends
 
 
-ROMSEG  segment at 0FFFFh
+ROMSEG	segment at 0FFFFh
 
-        org     0000h
-Reset   label   far
+	org	0000h
+Reset	label	far
 
-ROMSEG  ends
+ROMSEG	ends
 
 
 _TEXT16 segment para public 'CODE'
 
-        org     ORG_VALUE
+	org	ORG_VALUE
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   Init16
 ;
 ;   ENTRY
-;       None
+;	None
 ;
 ;   EXIT
-;       Never
+;	Never
 ;
 ;   USES
-;       All
+;	All
 ;
-        assume  cs:GRP16,ds:GRP16,es:GRP16,ss:GRP16
+	assume	cs:GRP16,ds:GRP16,es:GRP16,ss:GRP16
 
-        public  Init16
-Init16  proc    far
+	public	Init16
+Init16	proc	far
 
-        mov     ah,DOS_DISK_RESET   ; try to insure that all disk
-        int     INT_DOS             ; buffers are flushed
+	mov	ah,DOS_DISK_RESET   ; try to insure that all disk
+	int	INT_DOS		    ; buffers are flushed
 
-        mov     ax,VIDEO_RESET shl 8 or VMODE_CO80
-        int     INT_VIDEO           ; reset the video mode
+	mov	ax,VIDEO_RESET shl 8 or VMODE_CO80
+	int	INT_VIDEO	    ; reset the video mode
 ;
 ;   Check processor type; if it's not 286 or higher, we can't
 ;   (and needn't) reboot via an 8042 keyboard controller command
 ;
-        Check286
-        je      InitContinue        ; it's pre-286 (808x or 8018x)
+	Check286
+	je	InitContinue	    ; it's pre-286 (808x or 8018x)
 ;
 ;   This is the new, improved way:  reset the processor and get control
 ;   back from the ROM immediately using the appropriate CMOS shutdown code
 ;
-        cli
+	cli
 
-        mov     ax,SEG_ROMDATA
-        mov     ds,ax
-        assume  ds:_ROMDATA
+	mov	ax,SEG_ROMDATA
+	mov	ds,ax
+	assume	ds:_ROMDATA
 
-        mov     [RomData].rb_IOROMInit.w_lo,offset GRP16:InitContinue
-        mov     [RomData].rb_IOROMInit.w_hi,es
+	mov	[RomData].rb_IOROMInit.w_lo,offset GRP16:InitContinue
+	mov	[RomData].rb_IOROMInit.w_hi,es
 
-        ResetCPU CMOSSHUTDOWN_FARJMP
+	ResetCPU CMOSSHUTDOWN_FARJMP
 
 
-        public  InitContinue
+	public	InitContinue
 InitContinue label far
-        assume  ds:nothing,es:nothing,ss:nothing
+	assume	ds:nothing,es:nothing,ss:nothing
 
-        cli
-        cld
-        mov     ax,cs
-        mov     ss,ax
-        mov     sp,offset GRP16:stack+512
+	cli
+	cld
+	mov	ax,cs
+	mov	ss,ax
+	mov	sp,offset GRP16:stack+512
 
-        mov     ax,SEG_ROMDATA
-        mov     ds,ax
-        mov     es,ax
-        assume  ds:_ROMDATA,es:_ROMDATA
+	mov	ax,SEG_ROMDATA
+	mov	ds,ax
+	mov	es,ax
+	assume	ds:_ROMDATA,es:_ROMDATA
 
-        SumVecs                     ; chksum ok?
-        je      init_veccopy        ; yes
-        mov     [RomData].rb_ResetFlag,RESETFLAG_WARM
-        jmp     far ptr ROMSEG:Reset; no, so just do a warm boot
+	SumVecs			    ; chksum ok?
+	je	init_veccopy	    ; yes
+	mov	[RomData].rb_ResetFlag,RESETFLAG_WARM
+	jmp	far ptr ROMSEG:Reset; no, so just do a warm boot
 init_veccopy:
-        CopyVecs                    ; copy vectors back into the IVT
+	CopyVecs		    ; copy vectors back into the IVT
 
-        ResetPICs                   ; reset PICS for real-mode operation
+	ResetPICs		    ; reset PICS for real-mode operation
 
-        int     INT_REBOOT          ; now do an INT 19h soft boot
+	int	INT_REBOOT	    ; now do an INT 19h soft boot
 
-Init16  endp
+Init16	endp
 
 
 _TEXT16 ends
 
 
-        end     Init16
+	end	Init16
