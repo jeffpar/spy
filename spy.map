@@ -112,8 +112,8 @@
  0890:1B98       _aidBase
  0890:0349       _aintSimulate
  0890:1138       _aoffSel
- 0890:4AAC       _apfnDOSDump
- 0890:4AA8       _apszDOSDump
+ 0890:4AEC       _apfnDOSDump
+ 0890:4AE8       _apszDOSDump
  0890:3A60       _apszIDTDesc
  0890:1128       _apszIDTOptions
  0890:1600       _apszMnemonic
@@ -632,8 +632,8 @@
  0890:47F0       _stkOps
  0890:4848       _stkVals
  0890:48A0       _szError
- 0890:4AA8       _apszDOSDump
- 0890:4AAC       _apfnDOSDump
+ 0890:4AE8       _apszDOSDump
+ 0890:4AEC       _apfnDOSDump
  0890:4E00       _iHistFree
  0890:4E04       _iHistCurr
  0890:4E08       _achHist

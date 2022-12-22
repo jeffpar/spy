@@ -146,6 +146,7 @@ INT ParseValue(PESF pesf, register PSZ psz, PDWORD psel, PDWORD pdw, BOOL fMsg)
                    "\t!\tlogical NOT\n"
                    "\t~\tbitwise NOT\n"
                    "\t@\tdereference (assumes pointer to dword)\n"
+                   "Use '?' to evaluate 32-bit hex expressions (eg, '? 200*9*50')\n"
             );
         return 0;
     }
