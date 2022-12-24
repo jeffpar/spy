@@ -253,8 +253,9 @@ $SG748	DB	'Expression operators', 0aH, 09H, '()', 09H, 'parentheses'
 	DB	'ft, shift right', 0aH, 09H, '+ -', 09H, 'add, subtract', 0aH, 09H
 	DB	'* /', 09H, 'multiply, divide', 0aH, 09H, '!', 09H, 'logical N'
 	DB	'OT', 0aH, 09H, '~', 09H, 'bitwise NOT', 0aH, 09H, '@', 09H, 'd'
-	DB	'ereference (assumes pointer to dword)', 0aH, 00H
-	ORG $+1
+	DB	'ereference (assumes pointer to dword)', 0aH, 'Use ''?'' to ev'
+	DB	'aluate 32-bit hex expressions (eg, ''? 200*9*50'')', 0aH, 00H
+	ORG $+3
 $SG798	DB	'Unknown symbol "%s"', 0aH, 00H
 	ORG $+3
 $SG807	DB	'Error in expression "%s"', 0aH, 00H
@@ -291,49 +292,49 @@ _ParseValue PROC NEAR
 ; Line 132
 	cmp	DWORD PTR _fMsg$[ebp], 0
 	je	$L747
-; Line 149
+; Line 150
 	push	OFFSET FLAT:$SG748
 	call	_printf
 	add	esp, 4
-; Line 150
+; Line 151
 $L747:
 	sub	eax, eax
 	jmp	$L741
-; Line 159
+; Line 160
 $L746:
 	mov	DWORD PTR _stkOps, 0
-; Line 160
-	mov	DWORD PTR _stkVals, 0
 ; Line 161
+	mov	DWORD PTR _stkVals, 0
+; Line 162
 	mov	DWORD PTR _iLastToken$[ebp], 0
-; Line 163
+; Line 164
 $L750:
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	je	$L751
-; Line 168
+; Line 169
 	push	32					; 00000020H
 	push	DWORD PTR _psz$[ebp]
 	call	_nstrskip
 	add	esp, 8
 	add	DWORD PTR _psz$[ebp], eax
-; Line 170
+; Line 171
 	push	DWORD PTR _psz$[ebp]
 	call	_ParseReg
 	add	esp, 4
 	mov	DWORD PTR _i$[ebp], eax
 	cmp	DWORD PTR _i$[ebp], 0
 	je	$L752
-; Line 171
+; Line 172
 	cmp	DWORD PTR _iLastToken$[ebp], 1
 	jne	$L753
-; Line 172
-	jmp	$L751
 ; Line 173
+	jmp	$L751
+; Line 174
 $L753:
 	mov	DWORD PTR _iLastToken$[ebp], 1
-; Line 174
+; Line 175
 	dec	DWORD PTR _i$[ebp]
 	push	DWORD PTR _i$[ebp]
 	push	DWORD PTR _pesf$[ebp]
@@ -350,14 +351,14 @@ $L753:
 	jmp	$L755
 $L754:
 $L755:
-; Line 175
+; Line 176
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	push	DWORD PTR _ardRegs[eax]
 	call	_nstrlen
 	add	esp, 4
 	add	DWORD PTR _psz$[ebp], eax
-; Line 177
+; Line 178
 	jmp	$L756
 $L752:
 	push	-1
@@ -370,15 +371,15 @@ $L752:
 	mov	DWORD PTR _i$[ebp], eax
 	cmp	DWORD PTR _i$[ebp], 0
 	je	$L757
-; Line 178
+; Line 179
 	cmp	DWORD PTR _iLastToken$[ebp], 1
 	jne	$L758
-; Line 179
-	jmp	$L751
 ; Line 180
+	jmp	$L751
+; Line 181
 $L758:
 	mov	DWORD PTR _iLastToken$[ebp], 1
-; Line 181
+; Line 182
 	push	DWORD PTR _dw$[ebp]
 	push	OFFSET FLAT:_stkVals
 	call	_ParsePush
@@ -390,10 +391,10 @@ $L758:
 	jmp	$L760
 $L759:
 $L760:
-; Line 182
+; Line 183
 	mov	eax, DWORD PTR _i$[ebp]
 	add	DWORD PTR _psz$[ebp], eax
-; Line 187
+; Line 188
 $L757:
 $L756:
 	push	32					; 00000020H
@@ -401,221 +402,221 @@ $L756:
 	call	_nstrskip
 	add	esp, 8
 	add	DWORD PTR _psz$[ebp], eax
-; Line 189
+; Line 190
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	mov	DWORD PTR -20+[ebp], eax
 	jmp	$L761
-; Line 190
-$L765:
 ; Line 191
-	mov	DWORD PTR _i$[ebp], 0
+$L765:
 ; Line 192
+	mov	DWORD PTR _i$[ebp], 0
+; Line 193
 	jmp	$L762
-; Line 194
-$L766:
 ; Line 195
-	mov	DWORD PTR _i$[ebp], 1
+$L766:
 ; Line 196
+	mov	DWORD PTR _i$[ebp], 1
+; Line 197
 	jmp	$L762
-; Line 198
-$L767:
 ; Line 199
-	mov	DWORD PTR _i$[ebp], 3
+$L767:
 ; Line 200
+	mov	DWORD PTR _i$[ebp], 3
+; Line 201
 	jmp	$L762
-; Line 202
-$L768:
 ; Line 203
-	mov	DWORD PTR _i$[ebp], 4
+$L768:
 ; Line 204
+	mov	DWORD PTR _i$[ebp], 4
+; Line 205
 	jmp	$L762
-; Line 206
-$L769:
 ; Line 207
-	mov	DWORD PTR _i$[ebp], 5
+$L769:
 ; Line 208
+	mov	DWORD PTR _i$[ebp], 5
+; Line 209
 	jmp	$L762
-; Line 210
-$L770:
 ; Line 211
-	mov	DWORD PTR _i$[ebp], 6
+$L770:
 ; Line 212
+	mov	DWORD PTR _i$[ebp], 6
+; Line 213
 	jmp	$L762
-; Line 214
-$L771:
 ; Line 215
-	mov	DWORD PTR _i$[ebp], 7
+$L771:
 ; Line 216
+	mov	DWORD PTR _i$[ebp], 7
+; Line 217
 	jmp	$L762
-; Line 218
-$L772:
 ; Line 219
-	mov	DWORD PTR _i$[ebp], 8
+$L772:
 ; Line 220
+	mov	DWORD PTR _i$[ebp], 8
+; Line 221
 	jmp	$L762
-; Line 222
-$L773:
 ; Line 223
+$L773:
+; Line 224
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax+1]
 	cmp	eax, 60					; 0000003cH
 	jne	$L774
-; Line 224
-	inc	DWORD PTR _psz$[ebp]
 ; Line 225
+	inc	DWORD PTR _psz$[ebp]
+; Line 226
 	mov	DWORD PTR _i$[ebp], 9
-; Line 227
+; Line 228
 	jmp	$L775
 $L774:
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax+1]
 	cmp	eax, 61					; 0000003dH
 	jne	$L776
-; Line 228
-	inc	DWORD PTR _psz$[ebp]
 ; Line 229
+	inc	DWORD PTR _psz$[ebp]
+; Line 230
 	mov	DWORD PTR _i$[ebp], 12			; 0000000cH
-; Line 231
+; Line 232
 	jmp	$L777
 $L776:
-; Line 232
+; Line 233
 	mov	DWORD PTR _i$[ebp], 11			; 0000000bH
 $L777:
 $L775:
-; Line 233
+; Line 234
 	jmp	$L762
-; Line 235
-$L778:
 ; Line 236
+$L778:
+; Line 237
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax+1]
 	cmp	eax, 62					; 0000003eH
 	jne	$L779
-; Line 237
-	inc	DWORD PTR _psz$[ebp]
 ; Line 238
+	inc	DWORD PTR _psz$[ebp]
+; Line 239
 	mov	DWORD PTR _i$[ebp], 10			; 0000000aH
-; Line 240
+; Line 241
 	jmp	$L780
 $L779:
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax+1]
 	cmp	eax, 61					; 0000003dH
 	jne	$L781
-; Line 241
-	inc	DWORD PTR _psz$[ebp]
 ; Line 242
+	inc	DWORD PTR _psz$[ebp]
+; Line 243
 	mov	DWORD PTR _i$[ebp], 14			; 0000000eH
-; Line 244
+; Line 245
 	jmp	$L782
 $L781:
-; Line 245
+; Line 246
 	mov	DWORD PTR _i$[ebp], 13			; 0000000dH
 $L782:
 $L780:
-; Line 246
+; Line 247
 	jmp	$L762
-; Line 248
-$L783:
 ; Line 249
+$L783:
+; Line 250
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax+1]
 	cmp	eax, 61					; 0000003dH
 	jne	$L784
-; Line 250
-	inc	DWORD PTR _psz$[ebp]
 ; Line 251
+	inc	DWORD PTR _psz$[ebp]
+; Line 252
 	mov	DWORD PTR _i$[ebp], 15			; 0000000fH
-; Line 253
+; Line 254
 $L784:
 	jmp	$L762
-; Line 255
-$L785:
 ; Line 256
+$L785:
+; Line 257
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax+1]
 	cmp	eax, 61					; 0000003dH
 	jne	$L786
-; Line 257
-	inc	DWORD PTR _psz$[ebp]
 ; Line 258
+	inc	DWORD PTR _psz$[ebp]
+; Line 259
 	mov	DWORD PTR _i$[ebp], 16			; 00000010H
-; Line 260
+; Line 261
 	jmp	$L787
 $L786:
-; Line 261
+; Line 262
 	mov	DWORD PTR _i$[ebp], 2
 $L787:
-; Line 262
+; Line 263
 	jmp	$L762
-; Line 264
-$L788:
 ; Line 265
+$L788:
+; Line 266
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax+1]
 	cmp	eax, 38					; 00000026H
 	jne	$L789
-; Line 266
-	inc	DWORD PTR _psz$[ebp]
 ; Line 267
+	inc	DWORD PTR _psz$[ebp]
+; Line 268
 	mov	DWORD PTR _i$[ebp], 20			; 00000014H
-; Line 269
+; Line 270
 	jmp	$L790
 $L789:
-; Line 270
+; Line 271
 	mov	DWORD PTR _i$[ebp], 17			; 00000011H
 $L790:
-; Line 271
+; Line 272
 	jmp	$L762
-; Line 273
-$L791:
 ; Line 274
-	mov	DWORD PTR _i$[ebp], 18			; 00000012H
+$L791:
 ; Line 275
+	mov	DWORD PTR _i$[ebp], 18			; 00000012H
+; Line 276
 	jmp	$L762
-; Line 277
-$L792:
 ; Line 278
+$L792:
+; Line 279
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax+1]
 	cmp	eax, 124				; 0000007cH
 	jne	$L793
-; Line 279
-	inc	DWORD PTR _psz$[ebp]
 ; Line 280
+	inc	DWORD PTR _psz$[ebp]
+; Line 281
 	mov	DWORD PTR _i$[ebp], 21			; 00000015H
-; Line 282
+; Line 283
 	jmp	$L794
 $L793:
-; Line 283
+; Line 284
 	mov	DWORD PTR _i$[ebp], 19			; 00000013H
 $L794:
-; Line 284
+; Line 285
 	jmp	$L762
-; Line 286
-$L795:
 ; Line 287
+$L795:
+; Line 288
 	cmp	DWORD PTR _iLastToken$[ebp], 2
 	jne	$L796
-; Line 288
+; Line 289
 	cmp	DWORD PTR _fMsg$[ebp], 0
 	je	$L797
-; Line 289
+; Line 290
 	push	DWORD PTR _psz$[ebp]
 	push	OFFSET FLAT:$SG798
 	call	_printf
 	add	esp, 8
-; Line 290
+; Line 291
 $L797:
 	sub	eax, eax
 	jmp	$L741
-; Line 292
+; Line 293
 $L796:
 $L799:
-; Line 293
-	jmp	$Process$800
 ; Line 294
+	jmp	$Process$800
+; Line 295
 	jmp	$L762
 $L761:
 	cmp	DWORD PTR -20+[ebp], 47			; 0000002fH
@@ -661,7 +662,7 @@ $L1061:
 	je	$L766
 	jmp	$L795
 $L762:
-; Line 296
+; Line 297
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _aexop[eax]
@@ -669,9 +670,9 @@ $L762:
 	je	$L801
 	cmp	DWORD PTR _iLastToken$[ebp], 1
 	jne	$L801
-; Line 297
-	jmp	$Process$800
 ; Line 298
+	jmp	$Process$800
+; Line 299
 $L801:
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
@@ -680,72 +681,72 @@ $L801:
 	je	$L802
 	cmp	DWORD PTR _iLastToken$[ebp], 1
 	je	$L802
-; Line 299
+; Line 300
 	jmp	$Process$800
-; Line 301
+; Line 302
 $L802:
 	push	DWORD PTR _i$[ebp]
 	call	_ParsePushOp
 	add	esp, 4
-; Line 303
+; Line 304
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _aexop[eax]
 	test	al, 4
 	je	$L803
-; Line 304
-	mov	DWORD PTR _iLastToken$[ebp], 1
 ; Line 305
+	mov	DWORD PTR _iLastToken$[ebp], 1
+; Line 306
 $L803:
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _aexop[eax]
 	test	al, 3
 	je	$L804
-; Line 306
+; Line 307
 	mov	DWORD PTR _iLastToken$[ebp], 2
-; Line 308
+; Line 309
 $L804:
 	inc	DWORD PTR _psz$[ebp]
-; Line 309
+; Line 310
 	jmp	$L750
 $L751:
-; Line 311
+; Line 312
 $Process$800:
-; Line 313
+; Line 314
 	push	0
 	call	_ParseEvalOps
 	add	esp, 4
 	or	eax, eax
 	jne	$L805
-; Line 314
+; Line 315
 	cmp	DWORD PTR _fMsg$[ebp], 0
 	je	$L806
-; Line 315
+; Line 316
 	push	DWORD PTR _pszStart$[ebp]
 	push	OFFSET FLAT:$SG807
 	call	_printf
 	add	esp, 8
-; Line 316
+; Line 317
 $L806:
 	sub	eax, eax
 	jmp	$L741
-; Line 319
+; Line 320
 $L805:
 	cmp	DWORD PTR _stkVals, 0
 	jne	$L808
-; Line 320
+; Line 321
 	cmp	DWORD PTR _fMsg$[ebp], 0
 	je	$L809
-; Line 321
+; Line 322
 	push	OFFSET FLAT:$SG810
 	call	_printf
 	add	esp, 4
-; Line 322
+; Line 323
 $L809:
 	sub	eax, eax
 	jmp	$L741
-; Line 325
+; Line 326
 $L808:
 	push	DWORD PTR _pdw$[ebp]
 	push	OFFSET FLAT:_stkVals
@@ -758,26 +759,26 @@ $L808:
 	jmp	$L812
 $L811:
 $L812:
-; Line 327
+; Line 328
 	cmp	DWORD PTR _stkVals, 0
 	je	$L813
-; Line 328
+; Line 329
 	cmp	DWORD PTR _fMsg$[ebp], 0
 	je	$L814
-; Line 329
+; Line 330
 	push	OFFSET FLAT:$SG815
 	call	_printf
 	add	esp, 4
-; Line 330
+; Line 331
 $L814:
 	sub	eax, eax
 	jmp	$L741
-; Line 333
+; Line 334
 $L813:
 	mov	eax, DWORD PTR _psz$[ebp]
 	sub	eax, DWORD PTR _pszStart$[ebp]
 	jmp	$L741
-; Line 334
+; Line 335
 $L741:
 	pop	edi
 	pop	esi
@@ -788,14 +789,14 @@ _ParseValue ENDP
 _psz$ = 8
 _i$ = -4
 _ParseReg PROC NEAR
-; Line 338
+; Line 339
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 341
+; Line 342
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L819
 $L820:
@@ -805,7 +806,7 @@ $L819:
 	imul	eax, 6
 	cmp	DWORD PTR _ardRegs[eax], 0
 	je	$L821
-; Line 342
+; Line 343
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	push	DWORD PTR _ardRegs[eax]
@@ -814,7 +815,7 @@ $L819:
 	add	esp, 8
 	or	eax, eax
 	jne	$L822
-; Line 343
+; Line 344
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	push	DWORD PTR _ardRegs[eax]
@@ -875,19 +876,19 @@ $L825:
 	movsx	eax, BYTE PTR [ecx+eax]
 	cmp	eax, 36					; 00000024H
 	je	$L823
-; Line 344
+; Line 345
 	mov	eax, DWORD PTR _i$[ebp]
 	inc	eax
 	jmp	$L817
-; Line 345
+; Line 346
 $L823:
 $L822:
 	jmp	$L820
 $L821:
-; Line 346
+; Line 347
 	sub	eax, eax
 	jmp	$L817
-; Line 347
+; Line 348
 $L817:
 	pop	edi
 	pop	esi
@@ -904,14 +905,14 @@ _pdwLower$ = 16
 _pdwUpper$ = 20
 _cch$ = -4
 _ParseRange PROC NEAR
-; Line 351
+; Line 352
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 354
+; Line 355
 	push	0
 	push	DWORD PTR _pdwLower$[ebp]
 	push	0
@@ -922,15 +923,15 @@ _ParseRange PROC NEAR
 	mov	DWORD PTR _cch$[ebp], eax
 	cmp	DWORD PTR _cch$[ebp], 0
 	je	$L832
-; Line 355
+; Line 356
 	mov	eax, DWORD PTR _cch$[ebp]
 	add	DWORD PTR _psz$[ebp], eax
-; Line 356
+; Line 357
 	mov	eax, DWORD PTR _pdwLower$[ebp]
 	mov	eax, DWORD PTR [eax]
 	mov	ecx, DWORD PTR _pdwUpper$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 357
+; Line 358
 	mov	eax, DWORD PTR _psz$[ebp]
 	mov	DWORD PTR -8+[ebp], eax
 	inc	DWORD PTR _psz$[ebp]
@@ -945,7 +946,7 @@ _ParseRange PROC NEAR
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 46					; 0000002eH
 	jne	$L833
-; Line 358
+; Line 359
 	push	0
 	push	DWORD PTR _pdwUpper$[ebp]
 	push	0
@@ -955,13 +956,13 @@ _ParseRange PROC NEAR
 	add	esp, 20					; 00000014H
 	add	eax, 2
 	add	DWORD PTR _cch$[ebp], eax
-; Line 360
-$L833:
 ; Line 361
+$L833:
+; Line 362
 $L832:
 	mov	eax, DWORD PTR _cch$[ebp]
 	jmp	$L830
-; Line 362
+; Line 363
 $L830:
 	pop	edi
 	pop	esi
@@ -983,62 +984,62 @@ _i$ = -8
 _cch$ = -4
 _flSelType$ = -12
 _ParseAddr PROC NEAR
-; Line 367
+; Line 368
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 16					; 00000010H
 	push	ebx
 	push	esi
 	push	edi
-; Line 368
+; Line 369
 	mov	DWORD PTR _cch$[ebp], 0
-; Line 371
-	mov	DWORD PTR _flSelType$[ebp], 0
 ; Line 372
+	mov	DWORD PTR _flSelType$[ebp], 0
+; Line 373
 	mov	eax, DWORD PTR _pesf$[ebp]
 	test	BYTE PTR [eax+110], 2
 	je	$L844
-; Line 373
+; Line 374
 	mov	DWORD PTR _flSelType$[ebp], 65536	; 00010000H
-; Line 375
+; Line 376
 $L844:
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 38					; 00000026H
 	jne	$L845
-; Line 376
-	inc	DWORD PTR _psz$[ebp]
 ; Line 377
-	inc	DWORD PTR _cch$[ebp]
+	inc	DWORD PTR _psz$[ebp]
 ; Line 378
+	inc	DWORD PTR _cch$[ebp]
+; Line 379
 	mov	DWORD PTR _flSelType$[ebp], 65536	; 00010000H
-; Line 380
+; Line 381
 	jmp	$L846
 $L845:
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 35					; 00000023H
 	jne	$L847
-; Line 381
-	inc	DWORD PTR _psz$[ebp]
 ; Line 382
-	inc	DWORD PTR _cch$[ebp]
+	inc	DWORD PTR _psz$[ebp]
 ; Line 383
+	inc	DWORD PTR _cch$[ebp]
+; Line 384
 	mov	DWORD PTR _flSelType$[ebp], 0
-; Line 385
+; Line 386
 	jmp	$L848
 $L847:
 	mov	eax, DWORD PTR _psz$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 37					; 00000025H
 	jne	$L849
-; Line 386
-	inc	DWORD PTR _psz$[ebp]
 ; Line 387
-	inc	DWORD PTR _cch$[ebp]
+	inc	DWORD PTR _psz$[ebp]
 ; Line 388
+	inc	DWORD PTR _cch$[ebp]
+; Line 389
 	mov	DWORD PTR _flSelType$[ebp], 131072	; 00020000H
-; Line 391
+; Line 392
 $L849:
 $L848:
 $L846:
@@ -1052,13 +1053,13 @@ $L846:
 	mov	DWORD PTR _i$[ebp], eax
 	cmp	DWORD PTR _i$[ebp], 0
 	je	$L850
-; Line 392
-	mov	eax, DWORD PTR _i$[ebp]
-	add	DWORD PTR _cch$[ebp], eax
 ; Line 393
 	mov	eax, DWORD PTR _i$[ebp]
-	add	DWORD PTR _psz$[ebp], eax
+	add	DWORD PTR _cch$[ebp], eax
 ; Line 394
+	mov	eax, DWORD PTR _i$[ebp]
+	add	DWORD PTR _psz$[ebp], eax
+; Line 395
 	mov	eax, DWORD PTR _psz$[ebp]
 	mov	DWORD PTR -16+[ebp], eax
 	inc	DWORD PTR _psz$[ebp]
@@ -1066,15 +1067,15 @@ $L846:
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 58					; 0000003aH
 	jne	$L851
-; Line 395
-	inc	DWORD PTR _cch$[ebp]
 ; Line 396
+	inc	DWORD PTR _cch$[ebp]
+; Line 397
 	mov	eax, DWORD PTR _poffCode$[ebp]
 	movzx	eax, WORD PTR [eax]
 	or	eax, DWORD PTR _flSelType$[ebp]
 	mov	ecx, DWORD PTR _pselCode$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 397
+; Line 398
 	push	0
 	push	DWORD PTR _poffCode$[ebp]
 	push	DWORD PTR _pselCode$[ebp]
@@ -1083,42 +1084,42 @@ $L846:
 	call	_ParseValue
 	add	esp, 20					; 00000014H
 	add	DWORD PTR _cch$[ebp], eax
-; Line 399
+; Line 400
 	jmp	$L852
 $L851:
 	cmp	DWORD PTR _flSelType$[ebp], 131072	; 00020000H
 	jne	$L853
-; Line 405
+; Line 406
 	movzx	eax, WORD PTR _sel_Flat
 	or	eax, DWORD PTR _flSelType$[ebp]
 	mov	ecx, DWORD PTR _pselCode$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 407
+; Line 408
 $L853:
 $L852:
 	cmp	DWORD PTR _poffData$[ebp], 0
 	je	$L854
-; Line 408
+; Line 409
 	mov	eax, DWORD PTR _poffCode$[ebp]
 	mov	eax, DWORD PTR [eax]
 	mov	ecx, DWORD PTR _poffData$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 409
+; Line 410
 $L854:
 	cmp	DWORD PTR _pselData$[ebp], 0
 	je	$L855
-; Line 410
+; Line 411
 	mov	eax, DWORD PTR _pselCode$[ebp]
 	mov	eax, DWORD PTR [eax]
 	mov	ecx, DWORD PTR _pselData$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 411
-$L855:
 ; Line 412
+$L855:
+; Line 413
 $L850:
 	mov	eax, DWORD PTR _cch$[ebp]
 	jmp	$L840
-; Line 413
+; Line 414
 $L840:
 	pop	edi
 	pop	esi
@@ -1129,22 +1130,22 @@ _ParseAddr ENDP
 _pstk$ = 8
 _th$ = 12
 _ParsePush PROC NEAR
-; Line 417
+; Line 418
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 418
+; Line 419
 	mov	eax, DWORD PTR _pstk$[ebp]
 	mov	ecx, DWORD PTR _pstk$[ebp]
 	mov	ecx, DWORD PTR [ecx+4]
 	cmp	DWORD PTR [eax], ecx
 	jne	$L859
-; Line 419
+; Line 420
 	sub	eax, eax
 	jmp	$L858
-; Line 420
+; Line 421
 $L859:
 	mov	eax, DWORD PTR _th$[ebp]
 	mov	ecx, DWORD PTR _pstk$[ebp]
@@ -1153,10 +1154,10 @@ $L859:
 	mov	DWORD PTR [edx+ecx*4+8], eax
 	mov	eax, DWORD PTR _pstk$[ebp]
 	inc	DWORD PTR [eax]
-; Line 421
+; Line 422
 	mov	eax, 1
 	jmp	$L858
-; Line 422
+; Line 423
 $L858:
 	pop	edi
 	pop	esi
@@ -1167,20 +1168,20 @@ _ParsePush ENDP
 _pstk$ = 8
 _pth$ = 12
 _ParsePop PROC NEAR
-; Line 426
+; Line 427
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 427
+; Line 428
 	mov	eax, DWORD PTR _pstk$[ebp]
 	cmp	DWORD PTR [eax], 0
 	jne	$L863
-; Line 428
+; Line 429
 	sub	eax, eax
 	jmp	$L862
-; Line 429
+; Line 430
 $L863:
 	mov	eax, DWORD PTR _pstk$[ebp]
 	dec	DWORD PTR [eax]
@@ -1190,10 +1191,10 @@ $L863:
 	mov	eax, DWORD PTR [ecx+eax*4+8]
 	mov	ecx, DWORD PTR _pth$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 430
+; Line 431
 	mov	eax, 1
 	jmp	$L862
-; Line 431
+; Line 432
 $L862:
 	pop	edi
 	pop	esi
@@ -1206,36 +1207,36 @@ EXTRN	_szAssert:BYTE
 _TEXT	SEGMENT
 _iOp$ = 8
 _ParsePushOp PROC NEAR
-; Line 435
+; Line 436
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 436
+; Line 437
 	mov	eax, DWORD PTR _stkOps
 	cmp	DWORD PTR _stkOps+4, eax
 	jne	$L866
-; Line 437
+; Line 438
 	sub	eax, eax
 	jmp	$L865
-; Line 439
+; Line 440
 $L866:
 	cmp	DWORD PTR _iOp$[ebp], 22		; 00000016H
 	jb	$L867
-	push	439					; 000001b7H
+	push	440					; 000001b8H
 	push	OFFSET FLAT:_szModule$S691
 	push	OFFSET FLAT:_szAssert
 	call	_printf
 	add	esp, 12					; 0000000cH
 $L867:
-; Line 440
+; Line 441
 	mov	eax, DWORD PTR _iOp$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _aexop[eax]
 	test	al, 1
 	jne	$L868
-; Line 441
+; Line 442
 	mov	eax, DWORD PTR _iOp$[ebp]
 	imul	eax, 6
 	mov	al, BYTE PTR _aexop[eax+1]
@@ -1244,20 +1245,20 @@ $L867:
 	add	esp, 4
 	or	eax, eax
 	jne	$L869
-; Line 442
+; Line 443
 	sub	eax, eax
 	jmp	$L865
-; Line 444
+; Line 445
 $L869:
 $L868:
 	mov	eax, DWORD PTR _iOp$[ebp]
 	mov	ecx, DWORD PTR _stkOps
 	mov	DWORD PTR _stkOps[ecx*4+8], eax
 	inc	DWORD PTR _stkOps
-; Line 445
+; Line 446
 	mov	eax, 1
 	jmp	$L865
-; Line 446
+; Line 447
 $L865:
 	pop	edi
 	pop	esi
@@ -1268,38 +1269,38 @@ _ParsePushOp ENDP
 _bLevel$ = 8
 _iOp$ = -4
 _ParseEvalOps PROC NEAR
-; Line 450
+; Line 451
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 453
+; Line 454
 $L874:
 	cmp	DWORD PTR _stkOps, 0
 	je	$L875
-; Line 454
+; Line 455
 	mov	eax, DWORD PTR _stkOps
 	mov	eax, DWORD PTR _stkOps[eax*4+4]
 	mov	DWORD PTR _iOp$[ebp], eax
-; Line 455
+; Line 456
 	cmp	DWORD PTR _iOp$[ebp], 22		; 00000016H
 	jb	$L876
-	push	455					; 000001c7H
+	push	456					; 000001c8H
 	push	OFFSET FLAT:_szModule$S691
 	push	OFFSET FLAT:_szAssert
 	call	_printf
 	add	esp, 12					; 0000000cH
 $L876:
-; Line 456
+; Line 457
 	mov	eax, DWORD PTR _iOp$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _aexop[eax+1]
 	movzx	ecx, BYTE PTR _bLevel$[ebp]
 	cmp	eax, ecx
 	jl	$L877
-; Line 457
+; Line 458
 	lea	eax, DWORD PTR _iOp$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkOps
@@ -1312,39 +1313,39 @@ $L876:
 	jmp	$L879
 $L878:
 $L879:
-; Line 458
+; Line 459
 	cmp	DWORD PTR _iOp$[ebp], 22		; 00000016H
 	jb	$L880
-	push	458					; 000001caH
+	push	459					; 000001cbH
 	push	OFFSET FLAT:_szModule$S691
 	push	OFFSET FLAT:_szAssert
 	call	_printf
 	add	esp, 12					; 0000000cH
 $L880:
-; Line 459
+; Line 460
 	mov	eax, DWORD PTR _iOp$[ebp]
 	imul	eax, 6
 	call	DWORD PTR _aexop[eax+2]
 	or	eax, eax
 	jne	$L881
-; Line 460
+; Line 461
 	sub	eax, eax
 	jmp	$L871
-; Line 461
-$L881:
 ; Line 462
+$L881:
+; Line 463
 	jmp	$L882
 $L877:
-; Line 463
+; Line 464
 	jmp	$L875
 $L882:
-; Line 464
+; Line 465
 	jmp	$L874
 $L875:
-; Line 465
+; Line 466
 	mov	eax, 1
 	jmp	$L871
-; Line 466
+; Line 467
 $L871:
 	pop	edi
 	pop	esi
@@ -1354,14 +1355,14 @@ $L871:
 _ParseEvalOps ENDP
 _dw1$ = -4
 _fnopDeref PROC NEAR
-; Line 470
+; Line 471
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 473
+; Line 474
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1374,7 +1375,7 @@ _fnopDeref PROC NEAR
 	jmp	$L886
 $L885:
 $L886:
-; Line 474
+; Line 475
 	mov	eax, DWORD PTR _dw1$[ebp]
 	push	DWORD PTR [eax]
 	push	OFFSET FLAT:_stkVals
@@ -1387,10 +1388,10 @@ $L886:
 	jmp	$L888
 $L887:
 $L888:
-; Line 475
+; Line 476
 	mov	eax, 1
 	jmp	$L883
-; Line 476
+; Line 477
 $L883:
 	pop	edi
 	pop	esi
@@ -1400,14 +1401,14 @@ $L883:
 _fnopDeref ENDP
 _dw1$ = -4
 _fnopNot PROC NEAR
-; Line 480
+; Line 481
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 483
+; Line 484
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1420,7 +1421,7 @@ _fnopNot PROC NEAR
 	jmp	$L892
 $L891:
 $L892:
-; Line 484
+; Line 485
 	mov	eax, DWORD PTR _dw1$[ebp]
 	not	eax
 	push	eax
@@ -1434,10 +1435,10 @@ $L892:
 	jmp	$L894
 $L893:
 $L894:
-; Line 485
+; Line 486
 	mov	eax, 1
 	jmp	$L889
-; Line 486
+; Line 487
 $L889:
 	pop	edi
 	pop	esi
@@ -1447,14 +1448,14 @@ $L889:
 _fnopNot ENDP
 _dw1$ = -4
 _fnopLogNot PROC NEAR
-; Line 490
+; Line 491
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 493
+; Line 494
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1467,7 +1468,7 @@ _fnopLogNot PROC NEAR
 	jmp	$L898
 $L897:
 $L898:
-; Line 494
+; Line 495
 	cmp	DWORD PTR _dw1$[ebp], 1
 	sbb	eax, eax
 	neg	eax
@@ -1482,10 +1483,10 @@ $L898:
 	jmp	$L900
 $L899:
 $L900:
-; Line 495
+; Line 496
 	mov	eax, 1
 	jmp	$L895
-; Line 496
+; Line 497
 $L895:
 	pop	edi
 	pop	esi
@@ -1496,14 +1497,14 @@ _fnopLogNot ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopAdd PROC NEAR
-; Line 500
+; Line 501
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 503
+; Line 504
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1516,7 +1517,7 @@ _fnopAdd PROC NEAR
 	jmp	$L905
 $L904:
 $L905:
-; Line 504
+; Line 505
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1529,7 +1530,7 @@ $L905:
 	jmp	$L907
 $L906:
 $L907:
-; Line 505
+; Line 506
 	mov	eax, DWORD PTR _dw2$[ebp]
 	add	eax, DWORD PTR _dw1$[ebp]
 	push	eax
@@ -1543,10 +1544,10 @@ $L907:
 	jmp	$L909
 $L908:
 $L909:
-; Line 506
+; Line 507
 	mov	eax, 1
 	jmp	$L901
-; Line 507
+; Line 508
 $L901:
 	pop	edi
 	pop	esi
@@ -1557,14 +1558,14 @@ _fnopAdd ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopSub PROC NEAR
-; Line 511
+; Line 512
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 514
+; Line 515
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1577,7 +1578,7 @@ _fnopSub PROC NEAR
 	jmp	$L914
 $L913:
 $L914:
-; Line 515
+; Line 516
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1590,7 +1591,7 @@ $L914:
 	jmp	$L916
 $L915:
 $L916:
-; Line 516
+; Line 517
 	mov	eax, DWORD PTR _dw2$[ebp]
 	sub	eax, DWORD PTR _dw1$[ebp]
 	push	eax
@@ -1604,10 +1605,10 @@ $L916:
 	jmp	$L918
 $L917:
 $L918:
-; Line 517
+; Line 518
 	mov	eax, 1
 	jmp	$L910
-; Line 518
+; Line 519
 $L910:
 	pop	edi
 	pop	esi
@@ -1618,14 +1619,14 @@ _fnopSub ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopMul PROC NEAR
-; Line 522
+; Line 523
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 525
+; Line 526
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1638,7 +1639,7 @@ _fnopMul PROC NEAR
 	jmp	$L923
 $L922:
 $L923:
-; Line 526
+; Line 527
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1651,7 +1652,7 @@ $L923:
 	jmp	$L925
 $L924:
 $L925:
-; Line 527
+; Line 528
 	mov	eax, DWORD PTR _dw2$[ebp]
 	imul	eax, DWORD PTR _dw1$[ebp]
 	push	eax
@@ -1665,10 +1666,10 @@ $L925:
 	jmp	$L927
 $L926:
 $L927:
-; Line 528
+; Line 529
 	mov	eax, 1
 	jmp	$L919
-; Line 529
+; Line 530
 $L919:
 	pop	edi
 	pop	esi
@@ -1685,14 +1686,14 @@ _TEXT	SEGMENT
 _dw1$ = -8
 _dw2$ = -4
 _fnopDiv PROC NEAR
-; Line 533
+; Line 534
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 536
+; Line 537
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1705,17 +1706,17 @@ _fnopDiv PROC NEAR
 	jmp	$L932
 $L931:
 $L932:
-; Line 537
+; Line 538
 	cmp	DWORD PTR _dw1$[ebp], 0
 	jne	$L933
-; Line 538
+; Line 539
 	push	OFFSET FLAT:$SG934
 	call	_printf
 	add	esp, 4
-; Line 539
+; Line 540
 	sub	eax, eax
 	jmp	$L928
-; Line 541
+; Line 542
 $L933:
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
@@ -1729,7 +1730,7 @@ $L933:
 	jmp	$L936
 $L935:
 $L936:
-; Line 542
+; Line 543
 	mov	eax, DWORD PTR _dw2$[ebp]
 	sub	edx, edx
 	div	DWORD PTR _dw1$[ebp]
@@ -1744,10 +1745,10 @@ $L936:
 	jmp	$L938
 $L937:
 $L938:
-; Line 543
+; Line 544
 	mov	eax, 1
 	jmp	$L928
-; Line 544
+; Line 545
 $L928:
 	pop	edi
 	pop	esi
@@ -1756,16 +1757,16 @@ $L928:
 	ret	0
 _fnopDiv ENDP
 _fnopOpen PROC NEAR
-; Line 548
+; Line 549
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 549
+; Line 550
 	mov	eax, 1
 	jmp	$L939
-; Line 550
+; Line 551
 $L939:
 	pop	edi
 	pop	esi
@@ -1774,18 +1775,18 @@ $L939:
 	ret	0
 _fnopOpen ENDP
 _fnopClose PROC NEAR
-; Line 554
+; Line 555
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 555
+; Line 556
 	push	10					; 0000000aH
 	call	_ParseEvalOps
 	add	esp, 4
 	jmp	$L940
-; Line 556
+; Line 557
 $L940:
 	pop	edi
 	pop	esi
@@ -1796,14 +1797,14 @@ _fnopClose ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopShl PROC NEAR
-; Line 560
+; Line 561
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 563
+; Line 564
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1816,7 +1817,7 @@ _fnopShl PROC NEAR
 	jmp	$L945
 $L944:
 $L945:
-; Line 564
+; Line 565
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1829,7 +1830,7 @@ $L945:
 	jmp	$L947
 $L946:
 $L947:
-; Line 565
+; Line 566
 	mov	eax, DWORD PTR _dw2$[ebp]
 	mov	cl, BYTE PTR _dw1$[ebp]
 	shl	eax, cl
@@ -1844,10 +1845,10 @@ $L947:
 	jmp	$L949
 $L948:
 $L949:
-; Line 566
+; Line 567
 	mov	eax, 1
 	jmp	$L941
-; Line 567
+; Line 568
 $L941:
 	pop	edi
 	pop	esi
@@ -1858,14 +1859,14 @@ _fnopShl ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopShr PROC NEAR
-; Line 571
+; Line 572
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 574
+; Line 575
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1878,7 +1879,7 @@ _fnopShr PROC NEAR
 	jmp	$L954
 $L953:
 $L954:
-; Line 575
+; Line 576
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1891,7 +1892,7 @@ $L954:
 	jmp	$L956
 $L955:
 $L956:
-; Line 576
+; Line 577
 	mov	eax, DWORD PTR _dw2$[ebp]
 	mov	cl, BYTE PTR _dw1$[ebp]
 	shr	eax, cl
@@ -1906,10 +1907,10 @@ $L956:
 	jmp	$L958
 $L957:
 $L958:
-; Line 577
+; Line 578
 	mov	eax, 1
 	jmp	$L950
-; Line 578
+; Line 579
 $L950:
 	pop	edi
 	pop	esi
@@ -1920,14 +1921,14 @@ _fnopShr ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopLT	PROC NEAR
-; Line 582
+; Line 583
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 585
+; Line 586
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1940,7 +1941,7 @@ _fnopLT	PROC NEAR
 	jmp	$L963
 $L962:
 $L963:
-; Line 586
+; Line 587
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -1953,7 +1954,7 @@ $L963:
 	jmp	$L965
 $L964:
 $L965:
-; Line 587
+; Line 588
 	mov	eax, DWORD PTR _dw1$[ebp]
 	cmp	DWORD PTR _dw2$[ebp], eax
 	mov	eax, 0
@@ -1969,10 +1970,10 @@ $L965:
 	jmp	$L967
 $L966:
 $L967:
-; Line 588
+; Line 589
 	mov	eax, 1
 	jmp	$L959
-; Line 589
+; Line 590
 $L959:
 	pop	edi
 	pop	esi
@@ -1983,14 +1984,14 @@ _fnopLT	ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopLE	PROC NEAR
-; Line 593
+; Line 594
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 596
+; Line 597
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2003,7 +2004,7 @@ _fnopLE	PROC NEAR
 	jmp	$L972
 $L971:
 $L972:
-; Line 597
+; Line 598
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2016,7 +2017,7 @@ $L972:
 	jmp	$L974
 $L973:
 $L974:
-; Line 598
+; Line 599
 	mov	eax, DWORD PTR _dw1$[ebp]
 	cmp	DWORD PTR _dw2$[ebp], eax
 	mov	eax, 0
@@ -2032,10 +2033,10 @@ $L974:
 	jmp	$L976
 $L975:
 $L976:
-; Line 599
+; Line 600
 	mov	eax, 1
 	jmp	$L968
-; Line 600
+; Line 601
 $L968:
 	pop	edi
 	pop	esi
@@ -2046,14 +2047,14 @@ _fnopLE	ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopGT	PROC NEAR
-; Line 604
+; Line 605
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 607
+; Line 608
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2066,7 +2067,7 @@ _fnopGT	PROC NEAR
 	jmp	$L981
 $L980:
 $L981:
-; Line 608
+; Line 609
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2079,7 +2080,7 @@ $L981:
 	jmp	$L983
 $L982:
 $L983:
-; Line 609
+; Line 610
 	mov	eax, DWORD PTR _dw1$[ebp]
 	cmp	DWORD PTR _dw2$[ebp], eax
 	mov	eax, 0
@@ -2095,10 +2096,10 @@ $L983:
 	jmp	$L985
 $L984:
 $L985:
-; Line 610
+; Line 611
 	mov	eax, 1
 	jmp	$L977
-; Line 611
+; Line 612
 $L977:
 	pop	edi
 	pop	esi
@@ -2109,14 +2110,14 @@ _fnopGT	ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopGE	PROC NEAR
-; Line 615
+; Line 616
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 618
+; Line 619
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2129,7 +2130,7 @@ _fnopGE	PROC NEAR
 	jmp	$L990
 $L989:
 $L990:
-; Line 619
+; Line 620
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2142,7 +2143,7 @@ $L990:
 	jmp	$L992
 $L991:
 $L992:
-; Line 620
+; Line 621
 	mov	eax, DWORD PTR _dw1$[ebp]
 	cmp	DWORD PTR _dw2$[ebp], eax
 	mov	eax, 0
@@ -2158,10 +2159,10 @@ $L992:
 	jmp	$L994
 $L993:
 $L994:
-; Line 621
+; Line 622
 	mov	eax, 1
 	jmp	$L986
-; Line 622
+; Line 623
 $L986:
 	pop	edi
 	pop	esi
@@ -2172,14 +2173,14 @@ _fnopGE	ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopEq	PROC NEAR
-; Line 626
+; Line 627
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 629
+; Line 630
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2192,7 +2193,7 @@ _fnopEq	PROC NEAR
 	jmp	$L999
 $L998:
 $L999:
-; Line 630
+; Line 631
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2205,7 +2206,7 @@ $L999:
 	jmp	$L1001
 $L1000:
 $L1001:
-; Line 631
+; Line 632
 	mov	eax, DWORD PTR _dw2$[ebp]
 	sub	eax, DWORD PTR _dw1$[ebp]
 	cmp	eax, 1
@@ -2222,10 +2223,10 @@ $L1001:
 	jmp	$L1003
 $L1002:
 $L1003:
-; Line 632
+; Line 633
 	mov	eax, 1
 	jmp	$L995
-; Line 633
+; Line 634
 $L995:
 	pop	edi
 	pop	esi
@@ -2236,14 +2237,14 @@ _fnopEq	ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopNeq PROC NEAR
-; Line 637
+; Line 638
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 640
+; Line 641
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2256,7 +2257,7 @@ _fnopNeq PROC NEAR
 	jmp	$L1008
 $L1007:
 $L1008:
-; Line 641
+; Line 642
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2269,7 +2270,7 @@ $L1008:
 	jmp	$L1010
 $L1009:
 $L1010:
-; Line 642
+; Line 643
 	mov	eax, DWORD PTR _dw2$[ebp]
 	sub	eax, DWORD PTR _dw1$[ebp]
 	cmp	eax, 1
@@ -2286,10 +2287,10 @@ $L1010:
 	jmp	$L1012
 $L1011:
 $L1012:
-; Line 643
+; Line 644
 	mov	eax, 1
 	jmp	$L1004
-; Line 644
+; Line 645
 $L1004:
 	pop	edi
 	pop	esi
@@ -2300,14 +2301,14 @@ _fnopNeq ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopAnd PROC NEAR
-; Line 648
+; Line 649
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 651
+; Line 652
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2320,7 +2321,7 @@ _fnopAnd PROC NEAR
 	jmp	$L1017
 $L1016:
 $L1017:
-; Line 652
+; Line 653
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2333,7 +2334,7 @@ $L1017:
 	jmp	$L1019
 $L1018:
 $L1019:
-; Line 653
+; Line 654
 	mov	eax, DWORD PTR _dw2$[ebp]
 	and	eax, DWORD PTR _dw1$[ebp]
 	push	eax
@@ -2347,10 +2348,10 @@ $L1019:
 	jmp	$L1021
 $L1020:
 $L1021:
-; Line 654
+; Line 655
 	mov	eax, 1
 	jmp	$L1013
-; Line 655
+; Line 656
 $L1013:
 	pop	edi
 	pop	esi
@@ -2361,14 +2362,14 @@ _fnopAnd ENDP
 _dw2$ = -4
 _dw1$ = -8
 _fnopXor PROC NEAR
-; Line 659
+; Line 660
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 662
+; Line 663
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2381,7 +2382,7 @@ _fnopXor PROC NEAR
 	jmp	$L1026
 $L1025:
 $L1026:
-; Line 663
+; Line 664
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2394,7 +2395,7 @@ $L1026:
 	jmp	$L1028
 $L1027:
 $L1028:
-; Line 664
+; Line 665
 	mov	eax, DWORD PTR _dw2$[ebp]
 	xor	eax, DWORD PTR _dw1$[ebp]
 	push	eax
@@ -2408,10 +2409,10 @@ $L1028:
 	jmp	$L1030
 $L1029:
 $L1030:
-; Line 665
+; Line 666
 	mov	eax, 1
 	jmp	$L1022
-; Line 666
+; Line 667
 $L1022:
 	pop	edi
 	pop	esi
@@ -2422,14 +2423,14 @@ _fnopXor ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopOr	PROC NEAR
-; Line 670
+; Line 671
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 673
+; Line 674
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2442,7 +2443,7 @@ _fnopOr	PROC NEAR
 	jmp	$L1035
 $L1034:
 $L1035:
-; Line 674
+; Line 675
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2455,7 +2456,7 @@ $L1035:
 	jmp	$L1037
 $L1036:
 $L1037:
-; Line 675
+; Line 676
 	mov	eax, DWORD PTR _dw2$[ebp]
 	or	eax, DWORD PTR _dw1$[ebp]
 	push	eax
@@ -2469,10 +2470,10 @@ $L1037:
 	jmp	$L1039
 $L1038:
 $L1039:
-; Line 676
+; Line 677
 	mov	eax, 1
 	jmp	$L1031
-; Line 677
+; Line 678
 $L1031:
 	pop	edi
 	pop	esi
@@ -2483,14 +2484,14 @@ _fnopOr	ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopLogAnd PROC NEAR
-; Line 681
+; Line 682
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 684
+; Line 685
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2503,7 +2504,7 @@ _fnopLogAnd PROC NEAR
 	jmp	$L1044
 $L1043:
 $L1044:
-; Line 685
+; Line 686
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2516,7 +2517,7 @@ $L1044:
 	jmp	$L1046
 $L1045:
 $L1046:
-; Line 686
+; Line 687
 	cmp	DWORD PTR _dw2$[ebp], 0
 	je	$L1062
 	cmp	DWORD PTR _dw1$[ebp], 0
@@ -2537,10 +2538,10 @@ $L1063:
 	jmp	$L1048
 $L1047:
 $L1048:
-; Line 687
+; Line 688
 	mov	eax, 1
 	jmp	$L1040
-; Line 688
+; Line 689
 $L1040:
 	pop	edi
 	pop	esi
@@ -2551,14 +2552,14 @@ _fnopLogAnd ENDP
 _dw1$ = -8
 _dw2$ = -4
 _fnopLogOr PROC NEAR
-; Line 692
+; Line 693
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 695
+; Line 696
 	lea	eax, DWORD PTR _dw1$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2571,7 +2572,7 @@ _fnopLogOr PROC NEAR
 	jmp	$L1053
 $L1052:
 $L1053:
-; Line 696
+; Line 697
 	lea	eax, DWORD PTR _dw2$[ebp]
 	push	eax
 	push	OFFSET FLAT:_stkVals
@@ -2584,7 +2585,7 @@ $L1053:
 	jmp	$L1055
 $L1054:
 $L1055:
-; Line 697
+; Line 698
 	cmp	DWORD PTR _dw2$[ebp], 0
 	jne	$L1066
 	cmp	DWORD PTR _dw1$[ebp], 0
@@ -2606,10 +2607,10 @@ $L1065:
 	jmp	$L1057
 $L1056:
 $L1057:
-; Line 698
+; Line 699
 	mov	eax, 1
 	jmp	$L1049
-; Line 699
+; Line 700
 $L1049:
 	pop	edi
 	pop	esi
@@ -2618,17 +2619,17 @@ $L1049:
 	ret	0
 _fnopLogOr ENDP
 _fnCompress PROC NEAR
-; Line 703
+; Line 704
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 704
+; Line 705
 	push	OFFSET FLAT:_szError
 	call	_printf
 	add	esp, 4
-; Line 705
+; Line 706
 $L1058:
 	pop	edi
 	pop	esi

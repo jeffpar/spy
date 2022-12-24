@@ -998,20 +998,25 @@ VOID x86Trap(PESF pesf, INT flDebug, INT iNum)
         pesf->EIP--;
         flTrace |= TRACE_REEXEC;
     }
-    if (flDebug & DEBUG_VINT3)
-        flTrace |= TRACE_REEXEC;
 
-    if (pesf->iTrap == IDT_DEBUG) {
-        if (!(flTrace & TRACE_INS))
-            return;             // not *my* trace exception
+    if (flDebug & DEBUG_VINT3) {
         flTrace |= TRACE_REEXEC;
     }
+
     // pbpdTempDisable is used when we want to continue execution from an
     // address that contains a breakpoint; x86SetBP detects that condition
     // when breakpoints are reapplied, and sets the trace flag instead of
     // stuffing an INT3.  When we re-enter as a result of the trace, we call
     // x86SetBP again, which will actually store the INT3 this time because
     // the CS:EIP has changed, and then we'll immediately return back
+    //
+    // 2022 Update: This block of code was originally *after* the IDT_DEBUG
+    // code that checked for "foreign" trace exceptions, but if we don't
+    // check pbpdTempDisable first, any breakpoint it's holding onto will never
+    // fire again (at least not until you re-enter the debugger via hotkey).
+    //
+    // In any event, something was broken here, and this is my first attempt
+    // at fixing it.
 
     if (pbpdTempDisable) {
         x86SetBP(pesf, pbpdTempDisable);
@@ -1021,6 +1026,12 @@ VOID x86Trap(PESF pesf, INT flDebug, INT iNum)
             if (!(flTrace & TRACE_INS))
                 return;
         }
+    }
+
+    if (pesf->iTrap == IDT_DEBUG) {
+        if (!(flTrace & TRACE_INS))
+            return;             // not *my* trace exception
+        flTrace |= TRACE_REEXEC;
     }
 
     // If this isn't a debugger exception, set TRACE_VERBOSE to insure

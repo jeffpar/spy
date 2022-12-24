@@ -3715,61 +3715,61 @@ $L1005:
 	dec	DWORD PTR [eax+100]
 ; Line 999
 	or	DWORD PTR _flTrace, 8
-; Line 1001
+; Line 1002
 $L1007:
 	test	BYTE PTR _flDebug$[ebp+2], 2
 	je	$L1008
-; Line 1002
+; Line 1003
 	or	DWORD PTR _flTrace, 8
-; Line 1004
+; Line 1021
 $L1008:
-	mov	eax, DWORD PTR _pesf$[ebp]
-	cmp	DWORD PTR [eax+92], 1
-	jne	$L1009
-; Line 1005
-	test	BYTE PTR _flTrace, 1
-	jne	$L1010
-; Line 1006
-	jmp	$L1004
-; Line 1007
-$L1010:
-	or	DWORD PTR _flTrace, 8
-; Line 1016
-$L1009:
 	cmp	DWORD PTR _pbpdTempDisable, 0
-	je	$L1011
-; Line 1017
+	je	$L1009
+; Line 1022
 	push	DWORD PTR _pbpdTempDisable
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86SetBP
 	add	esp, 8
-; Line 1018
+; Line 1023
 	mov	DWORD PTR _pbpdTempDisable, 0
-; Line 1019
+; Line 1024
+	mov	eax, DWORD PTR _pesf$[ebp]
+	cmp	DWORD PTR [eax+92], 1
+	jne	$L1010
+; Line 1025
+	mov	eax, DWORD PTR _pesf$[ebp]
+	and	DWORD PTR [eax+108], -257		; fffffeffH
+; Line 1026
+	test	BYTE PTR _flTrace, 1
+	jne	$L1011
+; Line 1027
+	jmp	$L1004
+; Line 1028
+$L1011:
+; Line 1029
+$L1010:
+; Line 1031
+$L1009:
 	mov	eax, DWORD PTR _pesf$[ebp]
 	cmp	DWORD PTR [eax+92], 1
 	jne	$L1012
-; Line 1020
-	mov	eax, DWORD PTR _pesf$[ebp]
-	and	DWORD PTR [eax+108], -257		; fffffeffH
-; Line 1021
+; Line 1032
 	test	BYTE PTR _flTrace, 1
 	jne	$L1013
-; Line 1022
+; Line 1033
 	jmp	$L1004
-; Line 1023
+; Line 1034
 $L1013:
-; Line 1024
+	or	DWORD PTR _flTrace, 8
+; Line 1040
 $L1012:
-; Line 1029
-$L1011:
 	test	BYTE PTR _flTrace, 8
 	jne	$L1014
-; Line 1030
+; Line 1041
 	and	DWORD PTR _flTrace, -65			; ffffffbfH
-; Line 1031
+; Line 1042
 	or	DWORD PTR _flTrace, 32			; 00000020H
-; Line 1034
+; Line 1045
 $L1014:
 	mov	eax, DWORD PTR _flDebug$[ebp]
 	or	eax, 2
@@ -3777,7 +3777,7 @@ $L1014:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86Debug
 	add	esp, 8
-; Line 1035
+; Line 1046
 $L1004:
 	pop	edi
 	pop	esi
@@ -3793,53 +3793,53 @@ _pesf$ = 8
 _i$ = -8
 _pdes$ = -4
 _x86LoadFrame PROC NEAR
-; Line 1039
+; Line 1050
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 1046
-	mov	edx, DWORD PTR _pesf$[ebp]
-; Line 1047
-	and	DWORD PTR [edx+104], 65535		; 0000ffffH
-; Line 1048
-	mov	eax, DWORD PTR [edx+56]
-; Line 1049
-	and	eax, 65535				; 0000ffffH
-; Line 1050
-	mov	DWORD PTR [edx+48], eax
-; Line 1051
-	mov	eax, DWORD PTR [edx+52]
-; Line 1052
-	and	eax, 65535				; 0000ffffH
-; Line 1053
-	mov	DWORD PTR [edx+44], eax
-; Line 1054
-	mov	ax, fs
-; Line 1055
-	mov	DWORD PTR [edx+40], eax
-; Line 1056
-	mov	ax, gs
 ; Line 1057
-	mov	DWORD PTR [edx+36], eax
+	mov	edx, DWORD PTR _pesf$[ebp]
 ; Line 1058
-	mov	ax, ss
+	and	DWORD PTR [edx+104], 65535		; 0000ffffH
 ; Line 1059
-	mov	DWORD PTR [edx+32], eax
+	mov	eax, DWORD PTR [edx+56]
 ; Line 1060
-	mov	eax, cr2
+	and	eax, 65535				; 0000ffffH
 ; Line 1061
-	mov	DWORD PTR [edx+24], eax
+	mov	DWORD PTR [edx+48], eax
 ; Line 1062
-	mov	eax, cr3
+	mov	eax, DWORD PTR [edx+52]
 ; Line 1063
-	mov	DWORD PTR [edx+20], eax
+	and	eax, 65535				; 0000ffffH
+; Line 1064
+	mov	DWORD PTR [edx+44], eax
+; Line 1065
+	mov	ax, fs
+; Line 1066
+	mov	DWORD PTR [edx+40], eax
+; Line 1067
+	mov	ax, gs
+; Line 1068
+	mov	DWORD PTR [edx+36], eax
 ; Line 1069
+	mov	ax, ss
+; Line 1070
+	mov	DWORD PTR [edx+32], eax
+; Line 1071
+	mov	eax, cr2
+; Line 1072
+	mov	DWORD PTR [edx+24], eax
+; Line 1073
+	mov	eax, cr3
+; Line 1074
+	mov	DWORD PTR [edx+20], eax
+; Line 1080
 	mov	eax, DWORD PTR _pesf$[ebp]
 	add	DWORD PTR [eax+72], 20			; 00000014H
-; Line 1070
+; Line 1081
 	mov	eax, DWORD PTR _pesf$[ebp]
 	test	BYTE PTR [eax+110], 2
 	jne	$L1020
@@ -3847,17 +3847,17 @@ _x86LoadFrame PROC NEAR
 	test	BYTE PTR [eax+104], 3
 	je	$L1019
 $L1020:
-; Line 1071
+; Line 1082
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+116]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+32], eax
-; Line 1072
+; Line 1083
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+112]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+72], eax
-; Line 1075
+; Line 1086
 $L1019:
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1021
@@ -3866,11 +3866,11 @@ $L1022:
 $L1021:
 	cmp	DWORD PTR _i$[ebp], 6
 	jae	$L1023
-; Line 1079
+; Line 1090
 	mov	eax, DWORD PTR _pesf$[ebp]
 	test	BYTE PTR [eax+110], 2
 	je	$L1024
-; Line 1081
+; Line 1092
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	eax, DWORD PTR _aoffSel[eax*8+4]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -3880,9 +3880,9 @@ $L1021:
 	mov	ecx, DWORD PTR _aoffSel[ecx*8]
 	mov	edx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+edx], eax
-; Line 1082
+; Line 1093
 	jmp	$L1022
-; Line 1087
+; Line 1098
 $L1024:
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	eax, DWORD PTR _aoffSel[eax*8]
@@ -3893,22 +3893,22 @@ $L1024:
 	mov	DWORD PTR _pdes$[ebp], eax
 	cmp	DWORD PTR _pdes$[ebp], 0
 	je	$L1025
-; Line 1088
+; Line 1099
 	mov	eax, DWORD PTR _pdes$[ebp]
 	movzx	eax, BYTE PTR [eax+6]
 	test	al, 64					; 00000040H
 	je	$L1026
-; Line 1089
+; Line 1100
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	eax, DWORD PTR _aoffSel[eax*8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	or	DWORD PTR [eax+ecx], 131072		; 00020000H
-; Line 1090
+; Line 1101
 $L1026:
 $L1025:
 	jmp	$L1022
 $L1023:
-; Line 1091
+; Line 1102
 $L1016:
 	pop	edi
 	pop	esi
@@ -3921,87 +3921,87 @@ PUBLIC	_x86SaveFrame
 _TEXT	SEGMENT
 _pesf$ = 8
 _x86SaveFrame PROC NEAR
-; Line 1095
+; Line 1106
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 1096
+; Line 1107
 	mov	eax, DWORD PTR _pesf$[ebp]
 	test	BYTE PTR [eax+110], 2
 	je	$L1029
-; Line 1097
+; Line 1108
 	mov	eax, DWORD PTR _pesf$[ebp]
 	and	DWORD PTR [eax+104], -65537		; fffeffffH
-; Line 1098
+; Line 1109
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+48]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+124], eax
-; Line 1099
+; Line 1110
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+44]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+120], eax
-; Line 1100
+; Line 1111
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+40]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+128], eax
-; Line 1101
+; Line 1112
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+36]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+132], eax
-; Line 1102
+; Line 1113
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+32]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+116], eax
-; Line 1103
+; Line 1114
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+72]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+112], eax
-; Line 1105
+; Line 1116
 	jmp	$L1030
 $L1029:
-; Line 1107
+; Line 1118
 	mov	edx, DWORD PTR _pesf$[ebp]
-; Line 1108
+; Line 1119
 	mov	eax, DWORD PTR [edx+48]
-; Line 1109
+; Line 1120
 	mov	DWORD PTR [edx+56], eax
-; Line 1110
+; Line 1121
 	mov	eax, DWORD PTR [edx+44]
-; Line 1111
+; Line 1122
 	mov	DWORD PTR [edx+52], eax
-; Line 1112
+; Line 1123
 	mov	eax, DWORD PTR [edx+40]
-; Line 1113
+; Line 1124
 	mov	fs, ax
-; Line 1114
-	mov	eax, DWORD PTR [edx+36]
-; Line 1115
-	mov	gs, ax
 ; Line 1125
-	test	DWORD PTR [edx+104], 3
+	mov	eax, DWORD PTR [edx+36]
 ; Line 1126
+	mov	gs, ax
+; Line 1136
+	test	DWORD PTR [edx+104], 3
+; Line 1137
 	je	$Ring0$1031
-; Line 1127
+; Line 1138
 	mov	eax, DWORD PTR [edx+32]
-; Line 1128
+; Line 1139
 	mov	DWORD PTR [edx+116], eax
-; Line 1129
+; Line 1140
 	mov	eax, DWORD PTR [edx+72]
-; Line 1130
+; Line 1141
 	mov	DWORD PTR [edx+112], eax
-; Line 1131
+; Line 1142
 $Ring0$1031:
-; Line 1133
+; Line 1144
 $L1030:
-; Line 1147
+; Line 1158
 $L1028:
 	pop	edi
 	pop	esi
@@ -4015,50 +4015,50 @@ _TEXT	SEGMENT
 _sel$ = 8
 _fPrompt$ = 12
 _x86AddrType PROC NEAR
-; Line 1151
+; Line 1162
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 1152
+; Line 1163
 	test	BYTE PTR _sel$[ebp+2], 1
 	je	$L1035
-; Line 1153
+; Line 1164
 	cmp	DWORD PTR _fPrompt$[ebp], 0
 	je	$L1036
-; Line 1154
+; Line 1165
 	mov	al, 45					; 0000002dH
 	jmp	$L1034
-; Line 1155
+; Line 1166
 	jmp	$L1037
 $L1036:
-; Line 1156
+; Line 1167
 	mov	al, 38					; 00000026H
 	jmp	$L1034
 $L1037:
-; Line 1158
+; Line 1169
 $L1035:
 	test	BYTE PTR _sel$[ebp+2], 2
 	je	$L1038
-; Line 1159
+; Line 1170
 	cmp	DWORD PTR _fPrompt$[ebp], 0
 	je	$L1039
-; Line 1160
+; Line 1171
 	mov	al, 35					; 00000023H
 	jmp	$L1034
-; Line 1161
+; Line 1172
 	jmp	$L1040
 $L1039:
-; Line 1162
+; Line 1173
 	mov	al, 37					; 00000025H
 	jmp	$L1034
 $L1040:
-; Line 1164
+; Line 1175
 $L1038:
 	mov	al, 35					; 00000023H
 	jmp	$L1034
-; Line 1165
+; Line 1176
 $L1034:
 	pop	edi
 	pop	esi
@@ -4072,53 +4072,53 @@ EXTRN	_pGDT:DWORD
 _TEXT	SEGMENT
 _sel$ = 8
 _x86SelDesc PROC NEAR
-; Line 1169
+; Line 1180
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 1173
+; Line 1184
 	test	BYTE PTR _sel$[ebp+2], 1
 	je	$L1043
-; Line 1174
+; Line 1185
 	mov	eax, OFFSET FLAT:_desV86
 	jmp	$L1042
-; Line 1178
+; Line 1189
 $L1043:
 	movzx	eax, WORD PTR _sel$[ebp]
 	mov	DWORD PTR _sel$[ebp], eax
-; Line 1180
+; Line 1191
 	cmp	DWORD PTR _sel$[ebp], 0
 	jne	$L1044
-; Line 1181
+; Line 1192
 	sub	eax, eax
 	jmp	$L1042
-; Line 1183
+; Line 1194
 $L1044:
 	test	BYTE PTR _sel$[ebp], 4
 	je	$L1045
-; Line 1184
+; Line 1195
 	sub	eax, eax
 	jmp	$L1042
-; Line 1186
+; Line 1197
 $L1045:
 	mov	eax, DWORD PTR _sel$[ebp]
 	and	eax, 65528				; 0000fff8H
 	movzx	ecx, WORD PTR _dtrGDT
 	cmp	eax, ecx
 	jle	$L1046
-; Line 1187
+; Line 1198
 	sub	eax, eax
 	jmp	$L1042
-; Line 1191
+; Line 1202
 $L1046:
 	mov	eax, DWORD PTR _sel$[ebp]
 	and	eax, -8					; fffffff8H
 	imul	eax, 1
 	add	eax, DWORD PTR _pGDT
 	jmp	$L1042
-; Line 1192
+; Line 1203
 $L1042:
 	pop	edi
 	pop	esi
@@ -4132,24 +4132,24 @@ _TEXT	SEGMENT
 _pdes$ = 8
 _iType$ = -4
 _x86IsGate PROC NEAR
-; Line 1196
+; Line 1207
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 1199
+; Line 1210
 	mov	eax, DWORD PTR _pdes$[ebp]
 	movzx	eax, BYTE PTR [eax+5]
 	test	al, 16					; 00000010H
 	jne	$L1050
-; Line 1200
+; Line 1211
 	mov	eax, DWORD PTR _pdes$[ebp]
 	movzx	eax, BYTE PTR [eax+5]
 	and	eax, 15					; 0000000fH
 	mov	DWORD PTR _iType$[ebp], eax
-; Line 1202
+; Line 1213
 	cmp	DWORD PTR _iType$[ebp], 4
 	jl	$L1053
 	cmp	DWORD PTR _iType$[ebp], 7
@@ -4158,16 +4158,16 @@ $L1053:
 	cmp	DWORD PTR _iType$[ebp], 12		; 0000000cH
 	jl	$L1051
 $L1052:
-; Line 1204
+; Line 1215
 	mov	eax, 1
 	jmp	$L1048
-; Line 1206
+; Line 1217
 $L1051:
-; Line 1207
+; Line 1218
 $L1050:
 	sub	eax, eax
 	jmp	$L1048
-; Line 1208
+; Line 1219
 $L1048:
 	pop	edi
 	pop	esi
@@ -4180,19 +4180,19 @@ PUBLIC	_x86DescBase
 _TEXT	SEGMENT
 _pdes$ = 8
 _x86DescBase PROC NEAR
-; Line 1212
+; Line 1223
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 1213
+; Line 1224
 	push	DWORD PTR _pdes$[ebp]
 	call	_x86IsGate
 	add	esp, 4
 	or	eax, eax
 	je	$L1056
-; Line 1214
+; Line 1225
 	mov	eax, DWORD PTR _pdes$[ebp]
 	movzx	eax, WORD PTR [eax+6]
 	shl	eax, 16					; 00000010H
@@ -4200,7 +4200,7 @@ _x86DescBase PROC NEAR
 	movzx	ecx, WORD PTR [ecx]
 	add	eax, ecx
 	jmp	$L1055
-; Line 1216
+; Line 1227
 $L1056:
 	mov	eax, DWORD PTR _pdes$[ebp]
 	movzx	eax, BYTE PTR [eax+4]
@@ -4213,7 +4213,7 @@ $L1056:
 	movzx	ecx, WORD PTR [ecx+2]
 	add	eax, ecx
 	jmp	$L1055
-; Line 1217
+; Line 1228
 $L1055:
 	pop	edi
 	pop	esi
@@ -4227,30 +4227,30 @@ _TEXT	SEGMENT
 _pdes$ = 8
 _dwLimit$ = -4
 _x86DescSize PROC NEAR
-; Line 1224
+; Line 1235
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 1227
+; Line 1238
 	cmp	DWORD PTR _pdes$[ebp], 0
 	jne	$L1060
-; Line 1228
+; Line 1239
 	sub	eax, eax
 	jmp	$L1058
-; Line 1230
+; Line 1241
 $L1060:
 	push	DWORD PTR _pdes$[ebp]
 	call	_x86IsGate
 	add	esp, 4
 	or	eax, eax
 	je	$L1061
-; Line 1231
+; Line 1242
 	sub	eax, eax
 	jmp	$L1058
-; Line 1233
+; Line 1244
 $L1061:
 	mov	eax, DWORD PTR _pdes$[ebp]
 	movzx	eax, BYTE PTR [eax+6]
@@ -4260,22 +4260,22 @@ $L1061:
 	movzx	ecx, WORD PTR [ecx]
 	add	eax, ecx
 	mov	DWORD PTR _dwLimit$[ebp], eax
-; Line 1234
+; Line 1245
 	mov	eax, DWORD PTR _pdes$[ebp]
 	movzx	eax, BYTE PTR [eax+6]
 	test	al, 128					; 00000080H
 	je	$L1062
-; Line 1241
+; Line 1252
 	mov	eax, DWORD PTR _dwLimit$[ebp]
 	shl	eax, 12					; 0000000cH
 	add	eax, 4094				; 00000ffeH
 	mov	DWORD PTR _dwLimit$[ebp], eax
-; Line 1243
+; Line 1254
 $L1062:
 	mov	eax, DWORD PTR _dwLimit$[ebp]
 	inc	eax
 	jmp	$L1058
-; Line 1244
+; Line 1255
 $L1058:
 	pop	edi
 	pop	esi
@@ -4289,47 +4289,47 @@ _TEXT	SEGMENT
 _pesf$ = 8
 _iReg$ = 12
 _x86RegValue PROC NEAR
-; Line 1248
+; Line 1259
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 1249
+; Line 1260
 	mov	eax, DWORD PTR _iReg$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _ardRegs[eax+5]
 	mov	DWORD PTR -4+[ebp], eax
 	jmp	$L1066
-; Line 1250
+; Line 1261
 $L1070:
-; Line 1251
+; Line 1262
 	mov	eax, DWORD PTR _iReg$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _ardRegs[eax+4]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	movzx	eax, BYTE PTR [eax+ecx]
 	jmp	$L1065
-; Line 1252
+; Line 1263
 $L1071:
-; Line 1254
+; Line 1265
 	mov	eax, DWORD PTR _iReg$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _ardRegs[eax+4]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+ecx]
 	jmp	$L1065
-; Line 1255
+; Line 1266
 $L1072:
-; Line 1256
+; Line 1267
 	mov	eax, DWORD PTR _iReg$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _ardRegs[eax+4]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+ecx]
 	jmp	$L1065
-; Line 1257
+; Line 1268
 	jmp	$L1067
 $L1066:
 	cmp	DWORD PTR -4+[ebp], 1
@@ -4342,10 +4342,10 @@ $L1066:
 	je	$L1072
 	jmp	$L1067
 $L1067:
-; Line 1258
+; Line 1269
 	sub	eax, eax
 	jmp	$L1065
-; Line 1259
+; Line 1270
 $L1065:
 	pop	edi
 	pop	esi
@@ -4360,13 +4360,13 @@ _TEXT	SEGMENT
 _sel$ = 8
 _off$ = 12
 _x86GetByte PROC NEAR
-; Line 1263
+; Line 1274
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 1264
+; Line 1275
 	push	DWORD PTR _sel$[ebp]
 	call	_x86SelDesc
 	add	esp, 4
@@ -4375,33 +4375,33 @@ _x86GetByte PROC NEAR
 	add	esp, 4
 	cmp	eax, DWORD PTR _off$[ebp]
 	ja	$L1076
-; Line 1265
+; Line 1276
 	mov	al, 238					; 000000eeH
 	jmp	$L1075
-; Line 1267
+; Line 1278
 $L1076:
 	test	BYTE PTR _sel$[ebp+2], 1
 	je	$L1077
-; Line 1268
+; Line 1279
 	movzx	eax, WORD PTR _sel$[ebp]
 	shl	eax, 4
 	add	DWORD PTR _off$[ebp], eax
-; Line 1269
+; Line 1280
 	movzx	eax, WORD PTR _sel_Flat
 	mov	DWORD PTR _sel$[ebp], eax
-; Line 1272
+; Line 1283
 $L1077:
-; Line 1273
+; Line 1284
 	push	es
-; Line 1274
+; Line 1285
 	mov	es, WORD PTR _sel$[ebp]
-; Line 1275
+; Line 1286
 	mov	edx, DWORD PTR _off$[ebp]
-; Line 1276
+; Line 1287
 	movzx	eax, BYTE PTR es:[edx]
-; Line 1277
+; Line 1288
 	pop	es
-; Line 1279
+; Line 1290
 $L1075:
 	pop	edi
 	pop	esi
@@ -4415,13 +4415,13 @@ _TEXT	SEGMENT
 _sel$ = 8
 _off$ = 12
 _x86GetWord PROC NEAR
-; Line 1283
+; Line 1294
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 1284
+; Line 1295
 	mov	eax, DWORD PTR _off$[ebp]
 	inc	eax
 	push	eax
@@ -4438,7 +4438,7 @@ _x86GetWord PROC NEAR
 	or	ebx, eax
 	mov	ax, bx
 	jmp	$L1080
-; Line 1285
+; Line 1296
 $L1080:
 	pop	edi
 	pop	esi
@@ -4452,13 +4452,13 @@ _TEXT	SEGMENT
 _sel$ = 8
 _off$ = 12
 _x86GetDWord PROC NEAR
-; Line 1289
+; Line 1300
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 1290
+; Line 1301
 	mov	eax, DWORD PTR _off$[ebp]
 	add	eax, 2
 	push	eax
@@ -4475,7 +4475,7 @@ _x86GetDWord PROC NEAR
 	or	ebx, eax
 	mov	eax, ebx
 	jmp	$L1083
-; Line 1291
+; Line 1302
 $L1083:
 	pop	edi
 	pop	esi
@@ -4492,23 +4492,23 @@ _off$ = 12
 _n$ = 16
 _p$ = 20
 _x86GetBytes PROC NEAR
-; Line 1295
+; Line 1306
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 1296
+; Line 1307
 	mov	DWORD PTR _i$[ebp], 0
-; Line 1298
+; Line 1309
 $L1091:
 	mov	eax, DWORD PTR _n$[ebp]
 	mov	DWORD PTR -8+[ebp], eax
 	dec	DWORD PTR _n$[ebp]
 	cmp	DWORD PTR -8+[ebp], 0
 	jle	$L1092
-; Line 1299
+; Line 1310
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	DWORD PTR -12+[ebp], eax
 	inc	DWORD PTR _i$[ebp]
@@ -4523,10 +4523,10 @@ $L1091:
 	inc	DWORD PTR _p$[ebp]
 	jmp	$L1091
 $L1092:
-; Line 1301
+; Line 1312
 	mov	eax, DWORD PTR _i$[ebp]
 	jmp	$L1088
-; Line 1302
+; Line 1313
 $L1088:
 	pop	edi
 	pop	esi
@@ -4543,54 +4543,54 @@ _b$ = 16
 _TypeSave$ = -8
 _pdes$ = -4
 _x86SetByte PROC NEAR
-; Line 1306
+; Line 1317
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 1307
+; Line 1318
 	mov	DWORD PTR _TypeSave$[ebp], -1
-; Line 1310
+; Line 1321
 	push	DWORD PTR _sel$[ebp]
 	call	_x86SelDesc
 	add	esp, 4
 	mov	DWORD PTR _pdes$[ebp], eax
-; Line 1311
+; Line 1322
 	push	DWORD PTR _pdes$[ebp]
 	call	_x86DescSize
 	add	esp, 4
 	cmp	eax, DWORD PTR _off$[ebp]
 	ja	$L1099
-; Line 1312
+; Line 1323
 	jmp	$L1096
-; Line 1314
+; Line 1325
 $L1099:
 	test	BYTE PTR _sel$[ebp+2], 1
 	je	$L1100
-; Line 1315
+; Line 1326
 	movzx	eax, WORD PTR _sel$[ebp]
 	shl	eax, 4
 	add	DWORD PTR _off$[ebp], eax
-; Line 1316
+; Line 1327
 	movzx	eax, WORD PTR _sel_Flat
 	mov	DWORD PTR _sel$[ebp], eax
-; Line 1318
+; Line 1329
 $L1100:
-; Line 1319
+; Line 1330
 	push	es
-; Line 1320
+; Line 1331
 	mov	es, WORD PTR _sel$[ebp]
-; Line 1321
+; Line 1332
 	mov	edx, DWORD PTR _off$[ebp]
-; Line 1322
+; Line 1333
 	mov	al, BYTE PTR _b$[ebp]
-; Line 1323
+; Line 1334
 	mov	BYTE PTR es:[edx], al
-; Line 1324
+; Line 1335
 	pop	es
-; Line 1326
+; Line 1337
 $L1096:
 	pop	edi
 	pop	esi
@@ -4605,14 +4605,14 @@ _sel$ = 8
 _off$ = 12
 _w$ = 16
 _x86SetWord PROC NEAR
-; Line 1330
+; Line 1341
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 1331
+; Line 1342
 	mov	eax, DWORD PTR _off$[ebp]
 	mov	DWORD PTR -4+[ebp], eax
 	inc	DWORD PTR _off$[ebp]
@@ -4621,7 +4621,7 @@ _x86SetWord PROC NEAR
 	push	DWORD PTR _sel$[ebp]
 	call	_x86SetByte
 	add	esp, 12					; 0000000cH
-; Line 1332
+; Line 1343
 	movzx	eax, WORD PTR _w$[ebp]
 	sar	eax, 8
 	push	eax
@@ -4629,7 +4629,7 @@ _x86SetWord PROC NEAR
 	push	DWORD PTR _sel$[ebp]
 	call	_x86SetByte
 	add	esp, 12					; 0000000cH
-; Line 1333
+; Line 1344
 $L1104:
 	pop	edi
 	pop	esi
@@ -4664,57 +4664,57 @@ _pszTrapType$ = -8
 _pszTrapDesc$ = -12
 _pszSource$ = -16
 _x86TrapDump PROC NEAR
-; Line 1337
+; Line 1348
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 16					; 00000010H
 	push	ebx
 	push	esi
 	push	edi
-; Line 1343
+; Line 1354
 	test	BYTE PTR _flDebug$[ebp], 2
 	jne	$L1112
-; Line 1344
+; Line 1355
 	jmp	$L1107
-; Line 1346
+; Line 1357
 $L1112:
 	mov	DWORD PTR _pszSource$[ebp], OFFSET FLAT:$SG1113
-; Line 1347
+; Line 1358
 	test	BYTE PTR _flDebug$[ebp], 8
 	je	$L1114
-; Line 1348
+; Line 1359
 	mov	DWORD PTR _pszSource$[ebp], OFFSET FLAT:$SG1115
-; Line 1350
+; Line 1361
 $L1114:
 	mov	DWORD PTR _pszTrapType$[ebp], OFFSET FLAT:$SG1116
-; Line 1351
+; Line 1362
 	mov	eax, DWORD PTR _pesf$[ebp]
 	cmp	DWORD PTR [eax+92], 32			; 00000020H
 	jb	$L1117
-; Line 1352
+; Line 1363
 	mov	DWORD PTR _pszTrapType$[ebp], OFFSET FLAT:$SG1118
-; Line 1354
+; Line 1365
 $L1117:
 	mov	DWORD PTR _pszTrapDesc$[ebp], OFFSET FLAT:$SG1119
-; Line 1355
+; Line 1366
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+92]
 	mov	DWORD PTR _iTrap$[ebp], eax
-; Line 1356
+; Line 1367
 	cmp	DWORD PTR _iTrap$[ebp], 32		; 00000020H
 	jl	$L1120
-; Line 1358
+; Line 1369
 $L1120:
 	cmp	DWORD PTR _iTrap$[ebp], 48		; 00000030H
 	jae	$L1121
 	mov	eax, DWORD PTR _iTrap$[ebp]
 	cmp	DWORD PTR _apszIDTDesc[eax*4], 0
 	je	$L1121
-; Line 1359
+; Line 1370
 	mov	eax, DWORD PTR _iTrap$[ebp]
 	mov	eax, DWORD PTR _apszIDTDesc[eax*4]
 	mov	DWORD PTR _pszTrapDesc$[ebp], eax
-; Line 1361
+; Line 1372
 $L1121:
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+92]
@@ -4724,25 +4724,25 @@ $L1121:
 	push	OFFSET FLAT:$SG1122
 	call	_printf
 	add	esp, 20					; 00000014H
-; Line 1363
+; Line 1374
 	mov	eax, DWORD PTR _pesf$[ebp]
 	cmp	DWORD PTR [eax+92], 10			; 0000000aH
 	jb	$L1123
 	mov	eax, DWORD PTR _pesf$[ebp]
 	cmp	DWORD PTR [eax+92], 14			; 0000000eH
 	ja	$L1123
-; Line 1364
+; Line 1375
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+96]
 	push	OFFSET FLAT:$SG1124
 	call	_printf
 	add	esp, 8
-; Line 1366
+; Line 1377
 $L1123:
 	push	OFFSET FLAT:$SG1125
 	call	_printf
 	add	esp, 4
-; Line 1367
+; Line 1378
 $L1107:
 	pop	edi
 	pop	esi
@@ -4815,13 +4815,13 @@ _DATA	ENDS
 _TEXT	SEGMENT
 _pesf$ = 8
 _x86RegDump PROC NEAR
-; Line 1371
+; Line 1382
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 1383
+; Line 1394
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+16]
 	shr	eax, 8
@@ -4844,7 +4844,7 @@ _x86RegDump PROC NEAR
 	push	OFFSET FLAT:$SG1146
 	call	_printf
 	add	esp, 32					; 00000020H
-; Line 1389
+; Line 1400
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+60]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -4856,7 +4856,7 @@ _x86RegDump PROC NEAR
 	push	OFFSET FLAT:$SG1147
 	call	_printf
 	add	esp, 20					; 00000014H
-; Line 1399
+; Line 1410
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+108]
 	and	eax, 1
@@ -4908,7 +4908,7 @@ _x86RegDump PROC NEAR
 	push	OFFSET FLAT:$SG1148
 	call	_printf
 	add	esp, 36					; 00000024H
-; Line 1408
+; Line 1419
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+108]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -4934,7 +4934,7 @@ _x86RegDump PROC NEAR
 	push	OFFSET FLAT:$SG1149
 	call	_printf
 	add	esp, 36					; 00000024H
-; Line 1409
+; Line 1420
 $L1127:
 	pop	edi
 	pop	esi
@@ -4970,14 +4970,14 @@ _szData$ = -92
 _pesf$ = 8
 _selCode$ = 12
 _x86InsDump PROC NEAR
-; Line 1413
+; Line 1424
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 188				; 000000bcH
 	push	ebx
 	push	esi
 	push	edi
-; Line 1417
+; Line 1428
 	push	0
 	push	0
 	lea	eax, DWORD PTR _szData$[ebp]
@@ -4990,25 +4990,25 @@ _x86InsDump PROC NEAR
 	call	_x86Decode
 	add	esp, 28					; 0000001cH
 	mov	DWORD PTR _cb$[ebp], eax
-; Line 1419
+; Line 1430
 	mov	DWORD PTR _cbAdj$[ebp], 0
-; Line 1420
+; Line 1431
 	movzx	eax, WORD PTR _sel_Text
 	movzx	ecx, WORD PTR _selCode$[ebp]
 	cmp	eax, ecx
 	jne	$L1160
-; Line 1421
+; Line 1432
 	mov	DWORD PTR _cbAdj$[ebp], 4
-; Line 1422
+; Line 1433
 	push	DWORD PTR _off$[ebp]
 	push	OFFSET FLAT:$SG1161
 	call	_printf
 	add	esp, 8
 	mov	DWORD PTR _cbPrint$[ebp], eax
-; Line 1423
+; Line 1434
 	jmp	$L1162
 $L1160:
-; Line 1424
+; Line 1435
 	push	DWORD PTR _off$[ebp]
 	movzx	eax, WORD PTR _selCode$[ebp]
 	push	eax
@@ -5017,7 +5017,7 @@ $L1160:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _cbPrint$[ebp], eax
 $L1162:
-; Line 1428
+; Line 1439
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1164
 $L1165:
@@ -5031,7 +5031,7 @@ $L1164:
 	sub	eax, DWORD PTR _cbAdj$[ebp]
 	cmp	eax, DWORD PTR _cbPrint$[ebp]
 	jle	$L1166
-; Line 1429
+; Line 1440
 	mov	eax, DWORD PTR _off$[ebp]
 	mov	DWORD PTR -180+[ebp], eax
 	inc	DWORD PTR _off$[ebp]
@@ -5046,7 +5046,7 @@ $L1164:
 	add	esp, 8
 	jmp	$L1165
 $L1166:
-; Line 1431
+; Line 1442
 $L1169:
 	mov	eax, DWORD PTR _cbPrint$[ebp]
 	mov	DWORD PTR -184+[ebp], eax
@@ -5055,19 +5055,19 @@ $L1169:
 	sub	eax, DWORD PTR _cbAdj$[ebp]
 	cmp	eax, DWORD PTR -184+[ebp]
 	jle	$L1170
-; Line 1432
+; Line 1443
 	push	OFFSET FLAT:$SG1171
 	call	_printf
 	add	esp, 4
 	jmp	$L1169
 $L1170:
-; Line 1434
+; Line 1445
 	lea	eax, DWORD PTR _szIns$[ebp]
 	push	eax
 	call	_printf
 	add	esp, 4
 	add	DWORD PTR _cbPrint$[ebp], eax
-; Line 1436
+; Line 1447
 $L1173:
 	mov	eax, DWORD PTR _cbPrint$[ebp]
 	mov	DWORD PTR -188+[ebp], eax
@@ -5076,28 +5076,28 @@ $L1173:
 	sub	eax, DWORD PTR _cbAdj$[ebp]
 	cmp	eax, DWORD PTR -188+[ebp]
 	jle	$L1174
-; Line 1437
+; Line 1448
 	push	OFFSET FLAT:$SG1175
 	call	_printf
 	add	esp, 4
 	jmp	$L1173
 $L1174:
-; Line 1439
+; Line 1450
 	lea	eax, DWORD PTR _szData$[ebp]
 	push	eax
 	push	OFFSET FLAT:$SG1176
 	call	_printf
 	add	esp, 8
-; Line 1443
+; Line 1454
 	mov	eax, DWORD PTR _selCode$[ebp]
 	mov	DWORD PTR _selCodeLast, eax
-; Line 1444
+; Line 1455
 	mov	eax, DWORD PTR _off$[ebp]
 	mov	DWORD PTR _offCodeLast, eax
-; Line 1446
+; Line 1457
 	mov	eax, DWORD PTR _cb$[ebp]
 	jmp	$L1153
-; Line 1447
+; Line 1458
 $L1153:
 	pop	edi
 	pop	esi
@@ -5126,23 +5126,23 @@ _pszTbl$ = 16
 _pchCmd$ = 20
 _sel$ = 24
 _x86DescDump PROC NEAR
-; Line 1451
+; Line 1462
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 1454
+; Line 1465
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	jne	$L1183
-; Line 1455
+; Line 1466
 	mov	DWORD PTR _sel$[ebp], 0
-; Line 1456
+; Line 1467
 	and	DWORD PTR _flKeyEvent, -3		; fffffffdH
-; Line 1457
+; Line 1468
 $L1185:
 	mov	eax, DWORD PTR _sel$[ebp]
 	mov	DWORD PTR -4+[ebp], eax
@@ -5158,18 +5158,18 @@ $L1185:
 	add	esp, 20					; 00000014H
 	or	eax, eax
 	je	$L1186
-; Line 1458
+; Line 1469
 	test	BYTE PTR _flKeyEvent, 2
 	je	$L1188
-; Line 1459
+; Line 1470
 	jmp	$L1186
-; Line 1460
+; Line 1471
 $L1188:
 	jmp	$L1185
 $L1186:
 	mov	eax, 1
 	jmp	$L1182
-; Line 1463
+; Line 1474
 $L1183:
 	mov	eax, DWORD PTR _pdtr$[ebp]
 	movzx	eax, WORD PTR [eax]
@@ -5177,21 +5177,21 @@ $L1183:
 	and	ecx, 65528				; 0000fff8H
 	cmp	eax, ecx
 	jge	$L1189
-; Line 1464
+; Line 1475
 	sub	eax, eax
 	jmp	$L1182
-; Line 1466
+; Line 1477
 $L1189:
 	mov	eax, DWORD PTR _sel$[ebp]
 	and	eax, -8					; fffffff8H
 	add	DWORD PTR _pdesTbl$[ebp], eax
-; Line 1467
+; Line 1478
 	push	DWORD PTR _pdesTbl$[ebp]
 	call	_x86IsGate
 	add	esp, 4
 	or	eax, eax
 	je	$L1190
-; Line 1470
+; Line 1481
 	push	DWORD PTR _pdesTbl$[ebp]
 	call	_x86DescBase
 	add	esp, 4
@@ -5206,10 +5206,10 @@ $L1189:
 	push	OFFSET FLAT:$SG1191
 	call	_printf
 	add	esp, 20					; 00000014H
-; Line 1471
+; Line 1482
 	jmp	$L1192
 $L1190:
-; Line 1475
+; Line 1486
 	mov	eax, OFFSET FLAT:$SG1193
 	mov	ecx, DWORD PTR _pdesTbl$[ebp]
 	movzx	ecx, BYTE PTR [ecx+6]
@@ -5232,12 +5232,12 @@ $L2081:
 	push	OFFSET FLAT:$SG1195
 	call	_printf
 	add	esp, 24					; 00000018H
-; Line 1476
+; Line 1487
 $L1192:
-; Line 1477
+; Line 1488
 	mov	eax, 1
 	jmp	$L1182
-; Line 1478
+; Line 1489
 $L1182:
 	pop	edi
 	pop	esi
@@ -5267,16 +5267,16 @@ _i$ = -8
 _j$ = -4
 _abTmp$ = -28
 _x86MemDump PROC NEAR
-; Line 1482
+; Line 1493
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 28					; 0000001cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 1486
+; Line 1497
 	and	DWORD PTR _flKeyEvent, -3		; fffffffdH
-; Line 1487
+; Line 1498
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1204
 $L1205:
@@ -5285,7 +5285,7 @@ $L1204:
 	mov	eax, DWORD PTR _cLines$[ebp]
 	cmp	DWORD PTR _i$[ebp], eax
 	jge	$L1206
-; Line 1488
+; Line 1499
 	lea	eax, DWORD PTR _abTmp$[ebp]
 	push	eax
 	push	16					; 00000010H
@@ -5293,17 +5293,17 @@ $L1204:
 	push	DWORD PTR _sel$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 1489
+; Line 1500
 	push	DWORD PTR _off$[ebp]
 	movzx	eax, WORD PTR _sel$[ebp]
 	push	eax
 	push	OFFSET FLAT:$SG1207
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 1490
+; Line 1501
 	cmp	DWORD PTR _fSize$[ebp], 4
 	jne	$L1208
-; Line 1491
+; Line 1502
 	mov	DWORD PTR _j$[ebp], 0
 	jmp	$L1209
 $L1210:
@@ -5311,7 +5311,7 @@ $L1210:
 $L1209:
 	cmp	DWORD PTR _j$[ebp], 16			; 00000010H
 	jge	$L1211
-; Line 1496
+; Line 1507
 	mov	eax, DWORD PTR _j$[ebp]
 	movzx	eax, BYTE PTR _abTmp$[ebp+eax+4]
 	push	eax
@@ -5353,15 +5353,15 @@ $L1209:
 	push	OFFSET FLAT:$SG1212
 	call	_printf
 	add	esp, 44					; 0000002cH
-; Line 1497
+; Line 1508
 	jmp	$L1210
 $L1211:
-; Line 1499
+; Line 1510
 	jmp	$L1213
 $L1208:
 	cmp	DWORD PTR _fSize$[ebp], 2
 	jne	$L1214
-; Line 1500
+; Line 1511
 	mov	DWORD PTR _j$[ebp], 0
 	jmp	$L1215
 $L1216:
@@ -5369,7 +5369,7 @@ $L1216:
 $L1215:
 	cmp	DWORD PTR _j$[ebp], 16			; 00000010H
 	jge	$L1217
-; Line 1504
+; Line 1515
 	mov	eax, DWORD PTR _j$[ebp]
 	movzx	eax, BYTE PTR _abTmp$[ebp+eax+6]
 	push	eax
@@ -5404,13 +5404,13 @@ $L1215:
 	push	OFFSET FLAT:$SG1218
 	call	_printf
 	add	esp, 40					; 00000028H
-; Line 1505
+; Line 1516
 	jmp	$L1216
 $L1217:
-; Line 1507
+; Line 1518
 	jmp	$L1219
 $L1214:
-; Line 1508
+; Line 1519
 	mov	DWORD PTR _j$[ebp], 0
 	jmp	$L1220
 $L1221:
@@ -5418,7 +5418,7 @@ $L1221:
 $L1220:
 	cmp	DWORD PTR _j$[ebp], 16			; 00000010H
 	jge	$L1222
-; Line 1512
+; Line 1523
 	mov	eax, DWORD PTR _j$[ebp]
 	movzx	eax, BYTE PTR _abTmp$[ebp+eax+7]
 	push	eax
@@ -5453,13 +5453,13 @@ $L1220:
 	push	OFFSET FLAT:$SG1223
 	call	_printf
 	add	esp, 40					; 00000028H
-; Line 1513
+; Line 1524
 	jmp	$L1221
 $L1222:
-; Line 1514
+; Line 1525
 $L1219:
 $L1213:
-; Line 1515
+; Line 1526
 	mov	DWORD PTR _j$[ebp], 0
 	jmp	$L1224
 $L1225:
@@ -5467,7 +5467,7 @@ $L1225:
 $L1224:
 	cmp	DWORD PTR _j$[ebp], 16			; 00000010H
 	jge	$L1226
-; Line 1516
+; Line 1527
 	mov	eax, DWORD PTR _j$[ebp]
 	movzx	eax, BYTE PTR _abTmp$[ebp+eax]
 	cmp	eax, 32					; 00000020H
@@ -5477,39 +5477,39 @@ $L1224:
 	cmp	eax, 127				; 0000007fH
 	jl	$L1227
 $L1228:
-; Line 1517
+; Line 1528
 	mov	eax, DWORD PTR _j$[ebp]
 	mov	BYTE PTR _abTmp$[ebp+eax], 46		; 0000002eH
-; Line 1518
+; Line 1529
 $L1227:
 	jmp	$L1225
 $L1226:
-; Line 1519
+; Line 1530
 	mov	BYTE PTR _abTmp$[ebp+16], 0
-; Line 1520
+; Line 1531
 	lea	eax, DWORD PTR _abTmp$[ebp]
 	push	eax
 	push	OFFSET FLAT:$SG1229
 	call	_printf
 	add	esp, 8
-; Line 1521
+; Line 1532
 	add	DWORD PTR _off$[ebp], 16		; 00000010H
-; Line 1522
+; Line 1533
 	test	BYTE PTR _flKeyEvent, 2
 	je	$L1230
-; Line 1523
+; Line 1534
 	jmp	$L1206
-; Line 1524
+; Line 1535
 $L1230:
 	jmp	$L1205
 $L1206:
-; Line 1528
+; Line 1539
 	mov	eax, DWORD PTR _sel$[ebp]
 	mov	DWORD PTR _selDataLast, eax
-; Line 1529
+; Line 1540
 	mov	eax, DWORD PTR _off$[ebp]
 	mov	DWORD PTR _offDataLast, eax
-; Line 1530
+; Line 1541
 $L1200:
 	pop	edi
 	pop	esi
@@ -5537,16 +5537,16 @@ _dw$ = -4
 _fSymbol$ = -44
 _szSymbol$ = -36
 _x86StackDump PROC NEAR
-; Line 1534
+; Line 1545
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 44					; 0000002cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 1540
+; Line 1551
 	and	DWORD PTR _flKeyEvent, -3		; fffffffdH
-; Line 1541
+; Line 1552
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1240
 $L1241:
@@ -5555,13 +5555,13 @@ $L1240:
 	mov	eax, DWORD PTR _cLines$[ebp]
 	cmp	DWORD PTR _i$[ebp], eax
 	jge	$L1242
-; Line 1542
+; Line 1553
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	call	_x86GetDWord
 	add	esp, 8
 	mov	DWORD PTR _dw$[ebp], eax
-; Line 1543
+; Line 1554
 	push	DWORD PTR _dw$[ebp]
 	push	DWORD PTR _off$[ebp]
 	movzx	eax, WORD PTR _sel$[ebp]
@@ -5569,9 +5569,9 @@ $L1240:
 	push	OFFSET FLAT:$SG1243
 	call	_printf
 	add	esp, 16					; 00000010H
-; Line 1544
+; Line 1555
 	mov	DWORD PTR _fSymbol$[ebp], 0
-; Line 1545
+; Line 1556
 	push	8
 	push	16					; 00000010H
 	push	DWORD PTR _dw$[ebp]
@@ -5579,38 +5579,38 @@ $L1240:
 	push	eax
 	call	_dwtosz
 	add	esp, 16					; 00000010H
-; Line 1546
+; Line 1557
 	cmp	DWORD PTR _fSymbol$[ebp], 0
 	je	$L1244
-; Line 1547
+; Line 1558
 	lea	eax, DWORD PTR _szSymbol$[ebp]
 	push	eax
 	push	OFFSET FLAT:$SG1245
 	call	_printf
 	add	esp, 8
-; Line 1548
+; Line 1559
 $L1244:
 	push	OFFSET FLAT:$SG1246
 	call	_printf
 	add	esp, 4
-; Line 1549
+; Line 1560
 	add	DWORD PTR _off$[ebp], 4
-; Line 1550
+; Line 1561
 	test	BYTE PTR _flKeyEvent, 2
 	je	$L1247
-; Line 1551
+; Line 1562
 	jmp	$L1242
-; Line 1552
+; Line 1563
 $L1247:
 	jmp	$L1241
 $L1242:
-; Line 1556
+; Line 1567
 	mov	eax, DWORD PTR _sel$[ebp]
 	mov	DWORD PTR _selDataLast, eax
-; Line 1557
+; Line 1568
 	mov	eax, DWORD PTR _off$[ebp]
 	mov	DWORD PTR _offDataLast, eax
-; Line 1558
+; Line 1569
 $L1235:
 	pop	edi
 	pop	esi
@@ -5653,88 +5653,88 @@ _dw$ = -8
 _offCur$ = -32
 _offSave$ = -16
 _x86Decode PROC NEAR
-; Line 1563
+; Line 1574
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 84					; 00000054H
 	push	ebx
 	push	esi
 	push	edi
-; Line 1569
+; Line 1580
 	mov	DWORD PTR _iSegPrefix$[ebp], -1
-; Line 1573
+; Line 1584
 	mov	DWORD PTR _cIns$[ebp], 0
-; Line 1574
+; Line 1585
 	mov	eax, DWORD PTR _off$[ebp]
 	mov	DWORD PTR _offCur$[ebp], eax
-; Line 1576
+; Line 1587
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [eax+12], 0
-; Line 1577
+; Line 1588
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+48]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 1578
+; Line 1589
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+32]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+8], eax
-; Line 1580
+; Line 1591
 $Refetch$1271:
-; Line 1581
+; Line 1592
 	push	DWORD PTR _offCur$[ebp]
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetByte
 	add	esp, 8
 	mov	BYTE PTR _bOp$[ebp], al
-; Line 1582
+; Line 1593
 	inc	DWORD PTR _offCur$[ebp]
-; Line 1583
+; Line 1594
 	push	DWORD PTR _offCur$[ebp]
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetByte
 	add	esp, 8
 	mov	BYTE PTR _bOp2$[ebp], al
-; Line 1584
+; Line 1595
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	imul	eax, 12					; 0000000cH
 	add	eax, OFFSET FLAT:_aidBase
 	mov	DWORD PTR _pid$[ebp], eax
-; Line 1586
+; Line 1597
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	cmp	eax, 15					; 0000000fH
 	jne	$L1272
-; Line 1587
+; Line 1598
 	inc	DWORD PTR _offCur$[ebp]
-; Line 1588
+; Line 1599
 	mov	al, BYTE PTR _bOp2$[ebp]
 	mov	BYTE PTR _bOp$[ebp], al
-; Line 1594
+; Line 1605
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	cmp	eax, 256				; 00000100H
 	jb	$L1273
-; Line 1595
+; Line 1606
 	mov	BYTE PTR _bOp$[ebp], 15			; 0000000fH
-; Line 1596
+; Line 1607
 $L1273:
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	imul	eax, 12					; 0000000cH
 	add	eax, OFFSET FLAT:_aid0F
 	mov	DWORD PTR _pid$[ebp], eax
-; Line 1598
+; Line 1609
 $L1272:
 	mov	eax, DWORD PTR _pid$[ebp]
 	movzx	eax, BYTE PTR [eax+1]
 	mov	DWORD PTR _iFun$[ebp], eax
-; Line 1600
+; Line 1611
 	mov	DWORD PTR _fModRM$[ebp], 0
-; Line 1601
+; Line 1612
 	cmp	DWORD PTR _iFun$[ebp], 150		; 00000096H
 	jl	$L1274
-; Line 1602
+; Line 1613
 	inc	DWORD PTR _fModRM$[ebp]
-; Line 1603
+; Line 1614
 	mov	eax, DWORD PTR _offCur$[ebp]
 	mov	DWORD PTR -68+[ebp], eax
 	inc	DWORD PTR _offCur$[ebp]
@@ -5743,12 +5743,12 @@ $L1272:
 	call	_x86GetByte
 	add	esp, 8
 	mov	BYTE PTR _bModRM$[ebp], al
-; Line 1604
+; Line 1615
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 56					; 00000038H
 	shr	eax, 3
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1605
+; Line 1616
 	mov	eax, DWORD PTR _iFun$[ebp]
 	sub	eax, 150				; 00000096H
 	imul	eax, 96					; 00000060H
@@ -5757,32 +5757,32 @@ $L1272:
 	add	eax, ecx
 	add	eax, OFFSET FLAT:_aaidGroup
 	mov	DWORD PTR _pid$[ebp], eax
-; Line 1606
+; Line 1617
 	mov	eax, DWORD PTR _pid$[ebp]
 	movzx	eax, BYTE PTR [eax+1]
 	mov	DWORD PTR _iFun$[ebp], eax
-; Line 1609
+; Line 1620
 $L1274:
 	mov	eax, DWORD PTR _pid$[ebp]
 	movzx	eax, WORD PTR [eax+2]
 	and	al, 31					; 0000001fH
 	cmp	al, 16					; 00000010H
 	jne	$L1275
-; Line 1615
+; Line 1626
 	mov	eax, DWORD PTR _pid$[ebp]
 	movzx	eax, WORD PTR [eax+2]
 	and	eax, 65504				; 0000ffe0H
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	or	DWORD PTR [ecx+12], eax
-; Line 1617
+; Line 1628
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	mov	DWORD PTR -80+[ebp], eax
 	jmp	$L1276
-; Line 1618
+; Line 1629
 $L1280:
-; Line 1619
+; Line 1630
 	mov	DWORD PTR _iSegPrefix$[ebp], 0
-; Line 1620
+; Line 1631
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+44]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -5791,13 +5791,13 @@ $L1280:
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 1621
+; Line 1632
 	jmp	$L1277
-; Line 1622
+; Line 1633
 $L1281:
-; Line 1623
+; Line 1634
 	mov	DWORD PTR _iSegPrefix$[ebp], 1
-; Line 1624
+; Line 1635
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+104]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -5806,13 +5806,13 @@ $L1281:
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 1625
+; Line 1636
 	jmp	$L1277
-; Line 1626
+; Line 1637
 $L1282:
-; Line 1627
+; Line 1638
 	mov	DWORD PTR _iSegPrefix$[ebp], 2
-; Line 1628
+; Line 1639
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+32]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -5821,13 +5821,13 @@ $L1282:
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 1629
+; Line 1640
 	jmp	$L1277
-; Line 1630
+; Line 1641
 $L1283:
-; Line 1631
+; Line 1642
 	mov	DWORD PTR _iSegPrefix$[ebp], 3
-; Line 1632
+; Line 1643
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+48]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -5836,13 +5836,13 @@ $L1283:
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 1633
+; Line 1644
 	jmp	$L1277
-; Line 1634
+; Line 1645
 $L1284:
-; Line 1635
+; Line 1646
 	mov	DWORD PTR _iSegPrefix$[ebp], 4
-; Line 1636
+; Line 1647
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+40]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -5851,13 +5851,13 @@ $L1284:
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 1637
+; Line 1648
 	jmp	$L1277
-; Line 1638
+; Line 1649
 $L1285:
-; Line 1639
+; Line 1650
 	mov	DWORD PTR _iSegPrefix$[ebp], 5
-; Line 1640
+; Line 1651
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+36]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -5866,18 +5866,18 @@ $L1285:
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 1641
+; Line 1652
 	jmp	$L1277
-; Line 1642
+; Line 1653
 $L1286:
-; Line 1644
+; Line 1655
 	jmp	$L1277
-; Line 1645
+; Line 1656
 $L1287:
-; Line 1646
+; Line 1657
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1288
-; Line 1647
+; Line 1658
 	mov	eax, DWORD PTR _pid$[ebp]
 	movzx	eax, BYTE PTR [eax]
 	push	DWORD PTR _apszMnemonic[eax*4]
@@ -5885,24 +5885,24 @@ $L1287:
 	call	_nstrcpy
 	add	esp, 8
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1648
+; Line 1659
 	mov	eax, DWORD PTR _i$[ebp]
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1649
+; Line 1660
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 32			; 00000020H
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1650
+; Line 1661
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 0
-; Line 1651
+; Line 1662
 	inc	DWORD PTR _i$[ebp]
 	mov	eax, DWORD PTR _i$[ebp]
 	add	DWORD PTR _cIns$[ebp], eax
-; Line 1653
+; Line 1664
 $L1288:
 	jmp	$L1277
-; Line 1654
+; Line 1665
 	jmp	$L1277
 $L1276:
 	cmp	DWORD PTR -80+[ebp], 62			; 0000003eH
@@ -5926,22 +5926,22 @@ $L2082:
 	jle	$L1277
 	jmp	$L1287
 $L1277:
-; Line 1655
+; Line 1666
 	jmp	$Refetch$1271
-; Line 1657
+; Line 1668
 $L1275:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1289
-; Line 1658
+; Line 1669
 	mov	eax, DWORD PTR _pid$[ebp]
 	movzx	eax, BYTE PTR [eax]
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1659
+; Line 1670
 	mov	eax, DWORD PTR _pid$[ebp]
 	movzx	eax, BYTE PTR [eax]
 	cmp	eax, 83					; 00000053H
 	jne	$L1290
-; Line 1660
+; Line 1671
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+12]
 	and	eax, 2048				; 00000800H
@@ -5955,9 +5955,9 @@ $L1275:
 	neg	ecx
 	cmp	eax, ecx
 	jne	$L1291
-; Line 1661
+; Line 1672
 	mov	DWORD PTR _i$[ebp], 84			; 00000054H
-; Line 1662
+; Line 1673
 $L1291:
 $L1290:
 	mov	eax, DWORD PTR _i$[ebp]
@@ -5966,13 +5966,13 @@ $L1290:
 	call	_nstrcpy
 	add	esp, 8
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1663
+; Line 1674
 	mov	eax, DWORD PTR _i$[ebp]
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1664
+; Line 1675
 	mov	eax, DWORD PTR _i$[ebp]
 	add	DWORD PTR _cIns$[ebp], eax
-; Line 1665
+; Line 1676
 	mov	eax, 8
 	sub	eax, DWORD PTR _cIns$[ebp]
 	cmp	eax, 1
@@ -5985,25 +5985,25 @@ $L2083:
 	call	_nstrcpyn
 	add	esp, 12					; 0000000cH
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1667
+; Line 1678
 $L1289:
 	cmp	DWORD PTR _pszData$[ebp], 0
 	je	$L1293
-; Line 1668
+; Line 1679
 	mov	eax, DWORD PTR _pszData$[ebp]
 	mov	BYTE PTR [eax], 0
-; Line 1670
+; Line 1681
 $L1293:
 	cmp	DWORD PTR _iFun$[ebp], 3
 	je	$L1295
 	cmp	DWORD PTR _iFun$[ebp], 2
 	jne	$L1294
 $L1295:
-; Line 1671
+; Line 1682
 	inc	DWORD PTR _offCur$[ebp]
-; Line 1674
+; Line 1685
 $L1294:
-; Line 1675
+; Line 1686
 	mov	eax, DWORD PTR _pid$[ebp]
 	movzx	eax, WORD PTR [eax+2]
 	and	al, 240					; 000000f0H
@@ -6015,13 +6015,13 @@ $L1294:
 	cmp	al, 128					; 00000080H
 	jb	$L1296
 $L1297:
-; Line 1676
+; Line 1687
 	mov	eax, DWORD PTR _fModRM$[ebp]
 	mov	DWORD PTR -72+[ebp], eax
 	inc	DWORD PTR _fModRM$[ebp]
 	cmp	DWORD PTR -72+[ebp], 0
 	jne	$L1298
-; Line 1677
+; Line 1688
 	mov	eax, DWORD PTR _offCur$[ebp]
 	mov	DWORD PTR -76+[ebp], eax
 	inc	DWORD PTR _offCur$[ebp]
@@ -6030,49 +6030,49 @@ $L1297:
 	call	_x86GetByte
 	add	esp, 8
 	mov	BYTE PTR _bModRM$[ebp], al
-; Line 1678
+; Line 1689
 $L1298:
-; Line 1680
+; Line 1691
 $L1296:
 	mov	DWORD PTR _cData$[ebp], 0
 	mov	eax, DWORD PTR _cData$[ebp]
 	mov	DWORD PTR _cIns$[ebp], eax
-; Line 1681
+; Line 1692
 	mov	eax, DWORD PTR _pid$[ebp]
 	add	eax, 2
 	mov	DWORD PTR _pwType$[ebp], eax
-; Line 1683
+; Line 1694
 $L1300:
 	mov	eax, DWORD PTR _pid$[ebp]
 	add	eax, 6
 	cmp	eax, DWORD PTR _pwType$[ebp]
 	jb	$L1301
-; Line 1685
+; Line 1696
 	mov	eax, DWORD PTR _pwType$[ebp]
 	mov	ax, WORD PTR [eax]
 	mov	WORD PTR _wType$1302[ebp], ax
 	add	DWORD PTR _pwType$[ebp], 2
-; Line 1687
+; Line 1698
 	movzx	eax, WORD PTR _wType$1302[ebp]
 	test	al, 15					; 0000000fH
 	je	$L1303
-; Line 1688
+; Line 1699
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1304
 	cmp	DWORD PTR _cIns$[ebp], 0
 	je	$L1304
-; Line 1689
+; Line 1700
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 44			; 0000002cH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1690
+; Line 1701
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 0
-; Line 1692
+; Line 1703
 $L1304:
 	mov	eax, DWORD PTR _offCur$[ebp]
 	mov	DWORD PTR _offSave$[ebp], eax
-; Line 1694
+; Line 1705
 	push	DWORD PTR _pszIns$[ebp]
 	lea	eax, DWORD PTR _offCur$[ebp]
 	push	eax
@@ -6086,25 +6086,25 @@ $L1304:
 	add	esp, 28					; 0000001cH
 	or	eax, eax
 	jne	$L1305
-; Line 1695
+; Line 1706
 	jmp	$Exit$1306
-; Line 1697
+; Line 1708
 $L1305:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1307
-; Line 1698
+; Line 1709
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrlen
 	add	esp, 4
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1699
+; Line 1710
 $L1307:
 	cmp	DWORD PTR _pszData$[ebp], 0
 	je	$L1308
-; Line 1700
+; Line 1711
 	lea	eax, DWORD PTR _dw$[ebp]
 	mov	DWORD PTR _pdw$[ebp], eax
-; Line 1701
+; Line 1712
 	lea	eax, DWORD PTR _pdw$[ebp]
 	push	eax
 	lea	eax, DWORD PTR _i$[ebp]
@@ -6118,70 +6118,70 @@ $L1307:
 	add	esp, 28					; 0000001cH
 	cmp	eax, 1
 	jne	$L1309
-; Line 1702
+; Line 1713
 	cmp	DWORD PTR _cData$[ebp], 0
 	jne	$L1310
-; Line 1703
+; Line 1714
 	mov	eax, DWORD PTR _pszData$[ebp]
 	mov	BYTE PTR [eax], 40			; 00000028H
 	inc	DWORD PTR _pszData$[ebp]
-; Line 1704
+; Line 1715
 	jmp	$L1311
 $L1310:
-; Line 1705
+; Line 1716
 	mov	eax, DWORD PTR _pszData$[ebp]
 	mov	BYTE PTR [eax], 44			; 0000002cH
 	inc	DWORD PTR _pszData$[ebp]
 $L1311:
-; Line 1706
+; Line 1717
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	DWORD PTR -84+[ebp], eax
 	jmp	$L1312
-; Line 1707
+; Line 1718
 $L1316:
-; Line 1708
+; Line 1719
 	mov	eax, DWORD PTR _pdw$[ebp]
 	movzx	eax, BYTE PTR [eax]
 	mov	DWORD PTR _dw$[ebp], eax
-; Line 1709
+; Line 1720
 	movzx	eax, WORD PTR _wType$1302[ebp]
 	test	al, 240					; 000000f0H
 	jne	$L1317
-; Line 1710
+; Line 1721
 	mov	eax, DWORD PTR _pszData$[ebp]
 	mov	BYTE PTR [eax], 39			; 00000027H
 	inc	DWORD PTR _pszData$[ebp]
-; Line 1711
+; Line 1722
 	mov	al, BYTE PTR _dw$[ebp]
 	mov	ecx, DWORD PTR _pszData$[ebp]
 	mov	BYTE PTR [ecx], al
 	inc	DWORD PTR _pszData$[ebp]
-; Line 1712
+; Line 1723
 	mov	eax, DWORD PTR _pszData$[ebp]
 	mov	BYTE PTR [eax], 39			; 00000027H
 	inc	DWORD PTR _pszData$[ebp]
-; Line 1713
+; Line 1724
 	jmp	$FinishOp$1318
-; Line 1715
+; Line 1726
 $L1317:
 	jmp	$L1313
-; Line 1716
+; Line 1727
 $L1319:
-; Line 1717
+; Line 1728
 	mov	eax, DWORD PTR _pdw$[ebp]
 	movzx	eax, WORD PTR [eax]
 	mov	DWORD PTR _dw$[ebp], eax
-; Line 1718
+; Line 1729
 	jmp	$L1313
-; Line 1719
+; Line 1730
 $L1320:
-; Line 1723
+; Line 1734
 	mov	eax, DWORD PTR _pdw$[ebp]
 	mov	eax, DWORD PTR [eax]
 	mov	DWORD PTR _dw$[ebp], eax
-; Line 1724
+; Line 1735
 	jmp	$L1313
-; Line 1725
+; Line 1736
 	jmp	$L1313
 $L1312:
 	cmp	DWORD PTR -84+[ebp], 1
@@ -6190,7 +6190,7 @@ $L1312:
 	je	$L1319
 	jmp	$L1320
 $L1313:
-; Line 1726
+; Line 1737
 	mov	eax, DWORD PTR _i$[ebp]
 	add	eax, eax
 	push	eax
@@ -6200,48 +6200,48 @@ $L1313:
 	call	_dwtosz
 	add	esp, 16					; 00000010H
 	add	DWORD PTR _pszData$[ebp], eax
-; Line 1727
+; Line 1738
 $FinishOp$1318:
-; Line 1728
+; Line 1739
 	mov	eax, DWORD PTR _pszData$[ebp]
 	mov	BYTE PTR [eax], 41			; 00000029H
-; Line 1729
+; Line 1740
 	mov	eax, DWORD PTR _pszData$[ebp]
 	mov	BYTE PTR [eax+1], 0
-; Line 1730
+; Line 1741
 	inc	DWORD PTR _cData$[ebp]
-; Line 1732
+; Line 1743
 $L1309:
-; Line 1733
+; Line 1744
 $L1308:
 	inc	DWORD PTR _cIns$[ebp]
-; Line 1735
+; Line 1746
 $L1303:
 	jmp	$L1300
 $L1301:
-; Line 1770
+; Line 1781
 $Exit$1306:
-; Line 1771
+; Line 1782
 	cmp	DWORD PTR _pbOp$[ebp], 0
 	je	$L1321
-; Line 1772
+; Line 1783
 	mov	al, BYTE PTR _bOp$[ebp]
 	mov	ecx, DWORD PTR _pbOp$[ebp]
 	mov	BYTE PTR [ecx], al
-; Line 1773
+; Line 1784
 $L1321:
 	cmp	DWORD PTR _pbModRM$[ebp], 0
 	je	$L1322
-; Line 1774
+; Line 1785
 	mov	al, BYTE PTR _bModRM$[ebp]
 	mov	ecx, DWORD PTR _pbModRM$[ebp]
 	mov	BYTE PTR [ecx], al
-; Line 1775
+; Line 1786
 $L1322:
 	mov	eax, DWORD PTR _offCur$[ebp]
 	sub	eax, DWORD PTR _off$[ebp]
 	jmp	$L1255
-; Line 1776
+; Line 1787
 $L1255:
 	pop	edi
 	pop	esi
@@ -6280,31 +6280,31 @@ _s$ = -4
 _sib$ = -28
 _w$ = -32
 _x86DecodeOperand PROC NEAR
-; Line 1781
+; Line 1792
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 44					; 0000002cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 1785
+; Line 1796
 	movzx	eax, WORD PTR _wType$[ebp]
 	and	eax, 15					; 0000000fH
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1786
+; Line 1797
 	mov	eax, DWORD PTR _i$[ebp]
 	movzx	eax, BYTE PTR _abTypeSize[eax]
 	mov	DWORD PTR _n$[ebp], eax
 	cmp	DWORD PTR _n$[ebp], 0
 	jne	$L1340
-; Line 1787
+; Line 1798
 	jmp	$Error$1341
-; Line 1789
+; Line 1800
 $L1340:
 	movzx	eax, WORD PTR _wType$[ebp]
 	and	eax, 240				; 000000f0H
 	mov	DWORD PTR _w$[ebp], eax
-; Line 1790
+; Line 1801
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+12]
 	and	eax, 2048				; 00000800H
@@ -6318,34 +6318,34 @@ $L1340:
 	neg	ecx
 	cmp	eax, ecx
 	jne	$L1342
-; Line 1791
+; Line 1802
 	cmp	DWORD PTR _i$[ebp], 4
 	jne	$L1343
-; Line 1792
+; Line 1803
 	shl	DWORD PTR _n$[ebp], 1
-; Line 1793
+; Line 1804
 $L1343:
 	cmp	DWORD PTR _i$[ebp], 7
 	jne	$L1344
-; Line 1794
+; Line 1805
 	mov	DWORD PTR _n$[ebp], 6
-; Line 1795
+; Line 1806
 	cmp	DWORD PTR _w$[ebp], 0
 	je	$L1345
 	cmp	DWORD PTR _w$[ebp], 144			; 00000090H
 	je	$L1345
-	push	1795					; 00000703H
+	push	1806					; 0000070eH
 	push	OFFSET FLAT:_szModule$S696
 	push	OFFSET FLAT:_szAssert
 	call	_printf
 	add	esp, 12					; 0000000cH
 $L1345:
-; Line 1797
+; Line 1808
 $L1344:
-; Line 1798
+; Line 1809
 $L1342:
 	mov	DWORD PTR _a$[ebp], 2
-; Line 1799
+; Line 1810
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+12]
 	and	eax, 4096				; 00001000H
@@ -6359,32 +6359,32 @@ $L1342:
 	neg	ecx
 	cmp	eax, ecx
 	jne	$L1346
-; Line 1800
+; Line 1811
 	mov	DWORD PTR _a$[ebp], 4
-; Line 1802
+; Line 1813
 $L1346:
 	cmp	DWORD PTR _w$[ebp], 176			; 000000b0H
 	jl	$L1347
-; Line 1803
+; Line 1814
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 56					; 00000038H
 	shr	eax, 3
 	mov	DWORD PTR _r$[ebp], eax
-; Line 1805
+; Line 1816
 $L1347:
 	mov	DWORD PTR _dw$[ebp+4], 0
 	mov	eax, DWORD PTR _dw$[ebp+4]
 	mov	DWORD PTR _dw$[ebp], eax
-; Line 1806
+; Line 1817
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	DWORD PTR -44+[ebp], eax
 	jmp	$L1348
-; Line 1808
+; Line 1819
 $L1352:
-; Line 1809
+; Line 1820
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1353
-; Line 1810
+; Line 1821
 	lea	eax, DWORD PTR _dw$[ebp]
 	push	eax
 	push	DWORD PTR _n$[ebp]
@@ -6393,18 +6393,18 @@ $L1352:
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 1811
+; Line 1822
 	cmp	DWORD PTR _i$[ebp], 2
 	jne	$L1354
-; Line 1812
+; Line 1823
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 43			; 0000002bH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1813
+; Line 1824
 $L1354:
 	cmp	DWORD PTR _n$[ebp], 6
 	jne	$L1355
-; Line 1815
+; Line 1826
 	push	4
 	push	-16					; fffffff0H
 	push	DWORD PTR _dw$[ebp+4]
@@ -6412,21 +6412,21 @@ $L1354:
 	call	_dwtosz
 	add	esp, 16					; 00000010H
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1816
+; Line 1827
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 58			; 0000003aH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1817
+; Line 1828
 	push	8
 	push	-16					; fffffff0H
 	push	DWORD PTR _dw$[ebp]
 	push	DWORD PTR _pszIns$[ebp]
 	call	_dwtosz
 	add	esp, 16					; 00000010H
-; Line 1819
+; Line 1830
 	jmp	$L1356
 $L1355:
-; Line 1820
+; Line 1831
 	mov	eax, DWORD PTR _i$[ebp]
 	sub	eax, 7
 	cmp	eax, 1
@@ -6441,34 +6441,34 @@ $L1355:
 	call	_dwtosz
 	add	esp, 16					; 00000010H
 $L1356:
-; Line 1822
+; Line 1833
 $L1353:
 	mov	eax, DWORD PTR _n$[ebp]
 	mov	ecx, DWORD PTR _poffCur$[ebp]
 	add	DWORD PTR [ecx], eax
-; Line 1823
+; Line 1834
 	jmp	$L1349
-; Line 1825
+; Line 1836
 $L1357:
-; Line 1826
+; Line 1837
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1358
-; Line 1827
+; Line 1838
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 49			; 00000031H
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1828
+; Line 1839
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 0
-; Line 1830
+; Line 1841
 $L1358:
 	jmp	$L1349
-; Line 1832
+; Line 1843
 $L1359:
-; Line 1833
+; Line 1844
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1360
-; Line 1834
+; Line 1845
 	lea	eax, DWORD PTR _dw$[ebp]
 	push	eax
 	push	DWORD PTR _a$[ebp]
@@ -6477,11 +6477,11 @@ $L1359:
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 1835
+; Line 1846
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	cmp	DWORD PTR [eax], 0
 	jl	$L1361
-; Line 1836
+; Line 1847
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	mov	eax, DWORD PTR [eax]
 	add	eax, 16					; 00000010H
@@ -6491,19 +6491,19 @@ $L1359:
 	call	_nstrcpy
 	add	esp, 8
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1837
+; Line 1848
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 58			; 0000003aH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1838
+; Line 1849
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	mov	DWORD PTR [eax], -1
-; Line 1840
+; Line 1851
 $L1361:
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 91			; 0000005bH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1841
+; Line 1852
 	mov	eax, DWORD PTR _a$[ebp]
 	add	eax, eax
 	push	eax
@@ -6513,26 +6513,26 @@ $L1361:
 	call	_dwtosz
 	add	esp, 16					; 00000010H
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1842
+; Line 1853
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 93			; 0000005dH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1843
+; Line 1854
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 0
-; Line 1845
+; Line 1856
 $L1360:
 	mov	eax, DWORD PTR _a$[ebp]
 	mov	ecx, DWORD PTR _poffCur$[ebp]
 	add	DWORD PTR [ecx], eax
-; Line 1846
+; Line 1857
 	jmp	$L1349
-; Line 1848
+; Line 1859
 $L1362:
-; Line 1849
+; Line 1860
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1363
-; Line 1850
+; Line 1861
 	lea	eax, DWORD PTR _dw$[ebp]
 	push	eax
 	push	DWORD PTR _n$[ebp]
@@ -6541,42 +6541,42 @@ $L1362:
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 1851
+; Line 1862
 $L1363:
 	mov	eax, DWORD PTR _n$[ebp]
 	mov	ecx, DWORD PTR _poffCur$[ebp]
 	add	DWORD PTR [ecx], eax
-; Line 1852
+; Line 1863
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1364
-; Line 1853
+; Line 1864
 	cmp	DWORD PTR _n$[ebp], 1
 	jne	$L1365
-; Line 1854
+; Line 1865
 	movsx	eax, BYTE PTR _dw$[ebp]
 	mov	DWORD PTR _dw$[ebp], eax
-; Line 1855
+; Line 1866
 $L1365:
 	cmp	DWORD PTR _a$[ebp], 4
 	jne	$L1366
-; Line 1856
+; Line 1867
 	mov	eax, DWORD PTR _poffCur$[ebp]
 	mov	eax, DWORD PTR [eax]
 	add	DWORD PTR _dw$[ebp], eax
-; Line 1857
+; Line 1868
 	jmp	$L1367
 $L1366:
-; Line 1858
+; Line 1869
 	mov	eax, DWORD PTR _dw$[ebp]
 	mov	ecx, DWORD PTR _poffCur$[ebp]
 	add	eax, DWORD PTR [ecx]
 	movzx	eax, ax
 	mov	DWORD PTR _dw$[ebp], eax
 $L1367:
-; Line 1859
+; Line 1870
 	cmp	DWORD PTR _n$[ebp], 1
 	jne	$L1368
-; Line 1860
+; Line 1871
 	mov	eax, DWORD PTR _a$[ebp]
 	add	eax, eax
 	push	eax
@@ -6585,10 +6585,10 @@ $L1367:
 	push	DWORD PTR _pszIns$[ebp]
 	call	_dwtosz
 	add	esp, 16					; 00000010H
-; Line 1861
+; Line 1872
 	jmp	$L1369
 $L1368:
-; Line 1862
+; Line 1873
 	mov	eax, DWORD PTR _a$[ebp]
 	add	eax, eax
 	push	eax
@@ -6598,19 +6598,19 @@ $L1368:
 	call	_dwtosz
 	add	esp, 16					; 00000010H
 $L1369:
-; Line 1864
+; Line 1875
 $L1364:
 	jmp	$L1349
-; Line 1866
+; Line 1877
 $L1370:
-; Line 1867
+; Line 1878
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1371
-; Line 1868
+; Line 1879
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	cmp	DWORD PTR [eax], 0
 	jl	$L1372
-; Line 1869
+; Line 1880
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	mov	eax, DWORD PTR [eax]
 	add	eax, 16					; 00000010H
@@ -6620,65 +6620,65 @@ $L1370:
 	call	_nstrcpy
 	add	esp, 8
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1870
+; Line 1881
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 58			; 0000003aH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1871
+; Line 1882
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	mov	DWORD PTR [eax], -1
-; Line 1873
+; Line 1884
 $L1372:
 	cmp	DWORD PTR _a$[ebp], 2
 	jne	$L1373
-; Line 1874
+; Line 1885
 	push	OFFSET FLAT:$SG1374
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 1875
+; Line 1886
 	jmp	$L1375
 $L1373:
-; Line 1876
+; Line 1887
 	push	OFFSET FLAT:$SG1376
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
 $L1375:
-; Line 1878
+; Line 1889
 $L1371:
 	jmp	$L1349
-; Line 1880
+; Line 1891
 $L1377:
-; Line 1881
+; Line 1892
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1378
-; Line 1882
+; Line 1893
 	cmp	DWORD PTR _a$[ebp], 2
 	jne	$L1379
-; Line 1883
+; Line 1894
 	push	OFFSET FLAT:$SG1380
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 1884
+; Line 1895
 	jmp	$L1381
 $L1379:
-; Line 1885
+; Line 1896
 	push	OFFSET FLAT:$SG1382
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
 $L1381:
-; Line 1887
+; Line 1898
 $L1378:
 	jmp	$L1349
-; Line 1889
+; Line 1900
 $L1383:
-; Line 1890
+; Line 1901
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1384
-; Line 1891
+; Line 1902
 	mov	eax, DWORD PTR _n$[ebp]
 	sub	eax, 4
 	cmp	eax, 1
@@ -6690,27 +6690,27 @@ $L1383:
 	shr	ecx, 8
 	add	eax, ecx
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1892
+; Line 1903
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	push	DWORD PTR _ardRegs[eax]
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 1894
+; Line 1905
 $L1384:
 	jmp	$L1349
-; Line 1896
+; Line 1907
 $L1385:
-; Line 1897
+; Line 1908
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1386
-; Line 1898
+; Line 1909
 	movzx	eax, WORD PTR _wType$[ebp]
 	and	eax, 3840				; 00000f00H
 	shr	eax, 8
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1899
+; Line 1910
 	mov	eax, DWORD PTR _i$[ebp]
 	add	eax, 16					; 00000010H
 	imul	eax, 6
@@ -6718,55 +6718,55 @@ $L1385:
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 1901
+; Line 1912
 $L1386:
 	jmp	$L1349
-; Line 1903
+; Line 1914
 $L1387:
-; Line 1904
+; Line 1915
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 192				; 000000c0H
 	mov	ecx, 192				; 000000c0H
 	and	ecx, -64				; ffffffc0H
 	cmp	eax, ecx
 	jne	$L1388
-; Line 1905
+; Line 1916
 	jmp	$Error$1341
-; Line 1907
+; Line 1918
 $L1388:
 	jmp	$ModRM$1389
-; Line 1909
+; Line 1920
 $L1390:
-; Line 1910
+; Line 1921
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 192				; 000000c0H
 	mov	ecx, 192				; 000000c0H
 	and	ecx, -64				; ffffffc0H
 	cmp	eax, ecx
 	je	$L1391
-; Line 1911
+; Line 1922
 	jmp	$Error$1341
-; Line 1914
+; Line 1925
 $L1391:
 $L1392:
-; Line 1915
+; Line 1926
 $ModRM$1389:
-; Line 1916
+; Line 1927
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 7
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1917
+; Line 1928
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 192				; 000000c0H
 	shr	eax, 6
 	mov	DWORD PTR _m$[ebp], eax
-; Line 1918
+; Line 1929
 	cmp	DWORD PTR _m$[ebp], 3
 	jne	$L1393
-; Line 1919
+; Line 1930
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1394
-; Line 1920
+; Line 1931
 	mov	eax, DWORD PTR _n$[ebp]
 	lea	eax, DWORD PTR [eax*8-8]
 	add	eax, DWORD PTR _i$[ebp]
@@ -6776,18 +6776,18 @@ $ModRM$1389:
 	call	_nstrcpy
 	add	esp, 8
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1921
+; Line 1932
 $L1394:
 	jmp	$L1349
-; Line 1923
+; Line 1934
 $L1393:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1395
-; Line 1924
+; Line 1935
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	cmp	DWORD PTR [eax], 0
 	jl	$L1396
-; Line 1925
+; Line 1936
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	mov	eax, DWORD PTR [eax]
 	add	eax, 16					; 00000010H
@@ -6797,63 +6797,63 @@ $L1393:
 	call	_nstrcpy
 	add	esp, 8
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1926
+; Line 1937
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 58			; 0000003aH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1927
+; Line 1938
 	mov	eax, DWORD PTR _piSegPrefix$[ebp]
 	mov	DWORD PTR [eax], -1
-; Line 1929
+; Line 1940
 $L1396:
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 91			; 0000005bH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1930
+; Line 1941
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 0
-; Line 1932
+; Line 1943
 $L1395:
 	cmp	DWORD PTR _a$[ebp], 2
 	jne	$L1397
-; Line 1933
+; Line 1944
 	cmp	DWORD PTR _m$[ebp], 0
 	jne	$L1398
 	cmp	DWORD PTR _i$[ebp], 6
 	jne	$L1398
-; Line 1934
+; Line 1945
 	mov	DWORD PTR _m$[ebp], 2
-; Line 1935
+; Line 1946
 	jmp	$L1399
 $L1398:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1400
-; Line 1936
+; Line 1947
 	mov	eax, DWORD PTR _i$[ebp]
 	push	DWORD PTR _apszRM[eax*4]
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1937
+; Line 1948
 	cmp	DWORD PTR _m$[ebp], 0
 	jle	$L1401
-; Line 1938
+; Line 1949
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 43			; 0000002bH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1939
+; Line 1950
 $L1401:
-; Line 1940
+; Line 1951
 $L1400:
 $L1399:
-; Line 1941
+; Line 1952
 	jmp	$L1402
 $L1397:
-; Line 1942
+; Line 1953
 	cmp	DWORD PTR _i$[ebp], 4
 	jne	$L1403
-; Line 1943
+; Line 1954
 	mov	eax, DWORD PTR _poffCur$[ebp]
 	push	DWORD PTR [eax]
 	push	DWORD PTR _selCode$[ebp]
@@ -6861,66 +6861,20 @@ $L1397:
 	add	esp, 8
 	movzx	eax, al
 	mov	DWORD PTR _sib$[ebp], eax
-; Line 1944
+; Line 1955
 	mov	eax, DWORD PTR _poffCur$[ebp]
 	inc	DWORD PTR [eax]
-; Line 1946
+; Line 1957
 	mov	eax, DWORD PTR _sib$[ebp]
 	and	eax, 56					; 00000038H
 	shr	eax, 3
 	mov	DWORD PTR _i$[ebp], eax
-; Line 1954
+; Line 1965
 	cmp	DWORD PTR _i$[ebp], 4
 	je	$L1404
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1404
-; Line 1956
-	mov	eax, DWORD PTR _i$[ebp]
-	add	eax, 24					; 00000018H
-	imul	eax, 6
-	push	DWORD PTR _ardRegs[eax]
-	push	DWORD PTR _pszIns$[ebp]
-	call	_nstrcpy
-	add	esp, 8
-	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1959
-	mov	eax, DWORD PTR _sib$[ebp]
-	and	eax, 192				; 000000c0H
-	shr	eax, 6
-	mov	DWORD PTR _s$[ebp], eax
-; Line 1960
-	mov	eax, DWORD PTR _pszIns$[ebp]
-	mov	BYTE PTR [eax], 42			; 0000002aH
-	inc	DWORD PTR _pszIns$[ebp]
-; Line 1961
-	mov	eax, DWORD PTR _s$[ebp]
-	mov	al, BYTE PTR _achScale[eax]
-	mov	ecx, DWORD PTR _pszIns$[ebp]
-	mov	BYTE PTR [ecx], al
-	inc	DWORD PTR _pszIns$[ebp]
-; Line 1962
-	mov	eax, DWORD PTR _pszIns$[ebp]
-	mov	BYTE PTR [eax], 43			; 0000002bH
-	inc	DWORD PTR _pszIns$[ebp]
-; Line 1964
-$L1404:
-	mov	eax, DWORD PTR _sib$[ebp]
-	and	eax, 7
-	mov	DWORD PTR _i$[ebp], eax
-; Line 1966
-$L1403:
-	cmp	DWORD PTR _m$[ebp], 0
-	jne	$L1405
-	cmp	DWORD PTR _i$[ebp], 5
-	jne	$L1405
 ; Line 1967
-	mov	DWORD PTR _m$[ebp], 2
-; Line 1968
-	jmp	$L1406
-$L1405:
-	cmp	DWORD PTR _pszIns$[ebp], 0
-	je	$L1407
-; Line 1969
 	mov	eax, DWORD PTR _i$[ebp]
 	add	eax, 24					; 00000018H
 	imul	eax, 6
@@ -6930,31 +6884,77 @@ $L1405:
 	add	esp, 8
 	add	DWORD PTR _pszIns$[ebp], eax
 ; Line 1970
-	cmp	DWORD PTR _m$[ebp], 0
-	jle	$L1408
+	mov	eax, DWORD PTR _sib$[ebp]
+	and	eax, 192				; 000000c0H
+	shr	eax, 6
+	mov	DWORD PTR _s$[ebp], eax
 ; Line 1971
+	mov	eax, DWORD PTR _pszIns$[ebp]
+	mov	BYTE PTR [eax], 42			; 0000002aH
+	inc	DWORD PTR _pszIns$[ebp]
+; Line 1972
+	mov	eax, DWORD PTR _s$[ebp]
+	mov	al, BYTE PTR _achScale[eax]
+	mov	ecx, DWORD PTR _pszIns$[ebp]
+	mov	BYTE PTR [ecx], al
+	inc	DWORD PTR _pszIns$[ebp]
+; Line 1973
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 43			; 0000002bH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1972
+; Line 1975
+$L1404:
+	mov	eax, DWORD PTR _sib$[ebp]
+	and	eax, 7
+	mov	DWORD PTR _i$[ebp], eax
+; Line 1977
+$L1403:
+	cmp	DWORD PTR _m$[ebp], 0
+	jne	$L1405
+	cmp	DWORD PTR _i$[ebp], 5
+	jne	$L1405
+; Line 1978
+	mov	DWORD PTR _m$[ebp], 2
+; Line 1979
+	jmp	$L1406
+$L1405:
+	cmp	DWORD PTR _pszIns$[ebp], 0
+	je	$L1407
+; Line 1980
+	mov	eax, DWORD PTR _i$[ebp]
+	add	eax, 24					; 00000018H
+	imul	eax, 6
+	push	DWORD PTR _ardRegs[eax]
+	push	DWORD PTR _pszIns$[ebp]
+	call	_nstrcpy
+	add	esp, 8
+	add	DWORD PTR _pszIns$[ebp], eax
+; Line 1981
+	cmp	DWORD PTR _m$[ebp], 0
+	jle	$L1408
+; Line 1982
+	mov	eax, DWORD PTR _pszIns$[ebp]
+	mov	BYTE PTR [eax], 43			; 0000002bH
+	inc	DWORD PTR _pszIns$[ebp]
+; Line 1983
 $L1408:
-; Line 1973
+; Line 1984
 $L1407:
 $L1406:
 	cmp	DWORD PTR _m$[ebp], 2
 	jne	$L1409
-; Line 1974
+; Line 1985
 	mov	DWORD PTR _m$[ebp], 4
-; Line 1975
+; Line 1986
 $L1409:
 $L1402:
-; Line 1976
+; Line 1987
 	cmp	DWORD PTR _m$[ebp], 0
 	jle	$L1410
-; Line 1977
+; Line 1988
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1411
-; Line 1978
+; Line 1989
 	lea	eax, DWORD PTR _dw$[ebp]
 	push	eax
 	push	DWORD PTR _m$[ebp]
@@ -6963,7 +6963,7 @@ $L1402:
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 1981
+; Line 1992
 	mov	eax, DWORD PTR _m$[ebp]
 	add	eax, eax
 	push	eax
@@ -6973,31 +6973,31 @@ $L1402:
 	call	_dwtosz
 	add	esp, 16					; 00000010H
 	add	DWORD PTR _pszIns$[ebp], eax
-; Line 1983
+; Line 1994
 $L1411:
 	mov	eax, DWORD PTR _m$[ebp]
 	mov	ecx, DWORD PTR _poffCur$[ebp]
 	add	DWORD PTR [ecx], eax
-; Line 1985
+; Line 1996
 $L1410:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1412
-; Line 1986
+; Line 1997
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 93			; 0000005dH
 	inc	DWORD PTR _pszIns$[ebp]
-; Line 1987
+; Line 1998
 	mov	eax, DWORD PTR _pszIns$[ebp]
 	mov	BYTE PTR [eax], 0
-; Line 1989
+; Line 2000
 $L1412:
 	jmp	$L1349
-; Line 1991
+; Line 2002
 $L1413:
-; Line 1992
+; Line 2003
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1414
-; Line 1993
+; Line 2004
 	mov	eax, DWORD PTR _n$[ebp]
 	lea	eax, DWORD PTR [eax*8-8]
 	add	eax, DWORD PTR _r$[ebp]
@@ -7006,21 +7006,21 @@ $L1413:
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 1994
+; Line 2005
 $L1414:
 	jmp	$L1349
-; Line 1996
+; Line 2007
 $L1415:
-; Line 1997
+; Line 2008
 	cmp	DWORD PTR _r$[ebp], 5
 	jle	$L1416
-; Line 1998
+; Line 2009
 	jmp	$Error$1341
-; Line 1999
+; Line 2010
 $L1416:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1417
-; Line 2000
+; Line 2011
 	mov	eax, DWORD PTR _r$[ebp]
 	add	eax, 16					; 00000010H
 	imul	eax, 6
@@ -7028,25 +7028,25 @@ $L1416:
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 2001
+; Line 2012
 $L1417:
 	jmp	$L1349
-; Line 2003
+; Line 2014
 $L1418:
-; Line 2004
+; Line 2015
 	cmp	DWORD PTR _r$[ebp], 0
 	je	$L1419
 	cmp	DWORD PTR _r$[ebp], 2
 	je	$L1419
 	cmp	DWORD PTR _r$[ebp], 3
 	je	$L1419
-; Line 2005
+; Line 2016
 	jmp	$Error$1341
-; Line 2006
+; Line 2017
 $L1419:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1420
-; Line 2007
+; Line 2018
 	mov	eax, DWORD PTR _r$[ebp]
 	add	eax, 32					; 00000020H
 	imul	eax, 6
@@ -7054,24 +7054,24 @@ $L1419:
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 2008
+; Line 2019
 $L1420:
 	jmp	$L1349
-; Line 2010
+; Line 2021
 $L1421:
-; Line 2011
+; Line 2022
 	cmp	DWORD PTR _r$[ebp], 4
 	je	$L1423
 	cmp	DWORD PTR _r$[ebp], 5
 	jne	$L1422
 $L1423:
-; Line 2012
+; Line 2023
 	jmp	$Error$1341
-; Line 2013
+; Line 2024
 $L1422:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1424
-; Line 2014
+; Line 2025
 	mov	eax, DWORD PTR _r$[ebp]
 	add	eax, 40					; 00000028H
 	imul	eax, 6
@@ -7079,23 +7079,23 @@ $L1422:
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 2015
+; Line 2026
 $L1424:
 	jmp	$L1349
-; Line 2017
+; Line 2028
 $L1425:
-; Line 2018
+; Line 2029
 	cmp	DWORD PTR _r$[ebp], 6
 	je	$L1426
 	cmp	DWORD PTR _r$[ebp], 7
 	je	$L1426
-; Line 2019
+; Line 2030
 	jmp	$Error$1341
-; Line 2020
+; Line 2031
 $L1426:
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1427
-; Line 2021
+; Line 2032
 	mov	eax, DWORD PTR _r$[ebp]
 	add	eax, 48					; 00000030H
 	imul	eax, 6
@@ -7103,26 +7103,26 @@ $L1426:
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 2022
+; Line 2033
 $L1427:
 	jmp	$L1349
-; Line 2024
+; Line 2035
 $L1428:
-; Line 2025
+; Line 2036
 $Error$1341:
-; Line 2026
+; Line 2037
 	cmp	DWORD PTR _pszIns$[ebp], 0
 	je	$L1429
-; Line 2027
+; Line 2038
 	push	OFFSET FLAT:$SG1430
 	push	DWORD PTR _pszIns$[ebp]
 	call	_nstrcpy
 	add	esp, 8
-; Line 2028
+; Line 2039
 $L1429:
 	sub	eax, eax
 	jmp	$L1330
-; Line 2029
+; Line 2040
 	jmp	$L1349
 $L1348:
 	cmp	DWORD PTR -44+[ebp], 128		; 00000080H
@@ -7168,10 +7168,10 @@ $L2086:
 	je	$L1425
 	jmp	$L1428
 $L1349:
-; Line 2030
+; Line 2041
 	mov	eax, 1
 	jmp	$L1330
-; Line 2031
+; Line 2042
 $L1330:
 	pop	edi
 	pop	esi
@@ -7199,39 +7199,39 @@ _dwEA$ = -4
 _dwTmp$ = -44
 _pdw$ = -16
 _x86CopyOperand PROC NEAR
-; Line 2036
+; Line 2047
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 64					; 00000040H
 	push	ebx
 	push	esi
 	push	edi
-; Line 2037
+; Line 2048
 	mov	DWORD PTR _fSuccess$[ebp], 1
-; Line 2040
+; Line 2051
 	mov	eax, DWORD PTR _ppdw$[ebp]
 	mov	eax, DWORD PTR [eax]
 	mov	DWORD PTR _pdw$[ebp], eax
-; Line 2042
+; Line 2053
 	movzx	eax, WORD PTR _wType$[ebp]
 	and	eax, 15					; 0000000fH
 	mov	DWORD PTR _i$[ebp], eax
-; Line 2043
+; Line 2054
 	mov	eax, DWORD PTR _i$[ebp]
 	movzx	eax, BYTE PTR _abTypeSize[eax]
 	mov	DWORD PTR _n$[ebp], eax
-; Line 2046
+; Line 2057
 	cmp	DWORD PTR _n$[ebp], 0
 	jne	$L1451
-; Line 2047
+; Line 2058
 	sub	eax, eax
 	jmp	$L1438
-; Line 2049
+; Line 2060
 $L1451:
 	movzx	eax, WORD PTR _wType$[ebp]
 	and	eax, 240				; 000000f0H
 	mov	DWORD PTR _w$[ebp], eax
-; Line 2050
+; Line 2061
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+12]
 	and	eax, 2048				; 00000800H
@@ -7245,40 +7245,40 @@ $L1451:
 	neg	ecx
 	cmp	eax, ecx
 	jne	$L1452
-; Line 2051
+; Line 2062
 	cmp	DWORD PTR _i$[ebp], 4
 	jne	$L1453
-; Line 2052
+; Line 2063
 	shl	DWORD PTR _n$[ebp], 1
-; Line 2053
+; Line 2064
 $L1453:
 	cmp	DWORD PTR _i$[ebp], 7
 	jne	$L1454
-; Line 2054
+; Line 2065
 	mov	DWORD PTR _n$[ebp], 6
-; Line 2055
+; Line 2066
 	cmp	DWORD PTR _w$[ebp], 0
 	je	$L1455
 	cmp	DWORD PTR _w$[ebp], 144			; 00000090H
 	je	$L1455
-	push	2055					; 00000807H
+	push	2066					; 00000812H
 	push	OFFSET FLAT:_szModule$S696
 	push	OFFSET FLAT:_szAssert
 	call	_printf
 	add	esp, 12					; 0000000cH
 $L1455:
-; Line 2057
+; Line 2068
 $L1454:
-; Line 2059
+; Line 2070
 $L1452:
 	cmp	DWORD PTR _n$[ebp], 6
 	jne	$L1456
-; Line 2060
+; Line 2071
 	mov	DWORD PTR _n$[ebp], 4
-; Line 2062
+; Line 2073
 $L1456:
 	mov	DWORD PTR _a$[ebp], 2
-; Line 2063
+; Line 2074
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+12]
 	and	eax, 4096				; 00001000H
@@ -7292,43 +7292,43 @@ $L1456:
 	neg	ecx
 	cmp	eax, ecx
 	jne	$L1457
-; Line 2064
+; Line 2075
 	mov	DWORD PTR _a$[ebp], 4
-; Line 2066
+; Line 2077
 $L1457:
 	cmp	DWORD PTR _w$[ebp], 176			; 000000b0H
 	jl	$L1458
-; Line 2067
+; Line 2078
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 56					; 00000038H
 	shr	eax, 3
 	mov	DWORD PTR _r$[ebp], eax
-; Line 2069
+; Line 2080
 $L1458:
 	mov	eax, DWORD PTR _pdw$[ebp]
 	mov	DWORD PTR [eax], 0
-; Line 2070
+; Line 2081
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	DWORD PTR -52+[ebp], eax
 	jmp	$L1459
-; Line 2072
+; Line 2083
 $L1463:
-; Line 2073
+; Line 2084
 	push	DWORD PTR _pdw$[ebp]
 	push	DWORD PTR _n$[ebp]
 	push	DWORD PTR _offCur$[ebp]
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 2074
+; Line 2085
 	cmp	DWORD PTR _i$[ebp], 2
 	jne	$L1464
-; Line 2075
+; Line 2086
 	mov	eax, DWORD PTR _pdw$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	mov	ecx, DWORD PTR _pdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2076
+; Line 2087
 $L1464:
 	cmp	DWORD PTR _n$[ebp], 1
 	jg	$L1466
@@ -7340,23 +7340,23 @@ $L1464:
 	jb	$L1465
 $L1467:
 $L1466:
-; Line 2077
+; Line 2088
 	inc	DWORD PTR _fSuccess$[ebp]
-; Line 2078
+; Line 2089
 $L1465:
 	jmp	$L1460
-; Line 2080
+; Line 2091
 $L1468:
-; Line 2081
+; Line 2092
 	inc	DWORD PTR _fSuccess$[ebp]
-; Line 2082
+; Line 2093
 	mov	eax, DWORD PTR _pdw$[ebp]
 	mov	BYTE PTR [eax], 1
-; Line 2083
+; Line 2094
 	jmp	$L1460
-; Line 2085
+; Line 2096
 $L1469:
-; Line 2086
+; Line 2097
 	lea	eax, DWORD PTR _dwEA$[ebp]
 	push	eax
 	push	DWORD PTR _a$[ebp]
@@ -7364,7 +7364,7 @@ $L1469:
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 2087
+; Line 2098
 	push	DWORD PTR _pdw$[ebp]
 	push	DWORD PTR _n$[ebp]
 	push	DWORD PTR _dwEA$[ebp]
@@ -7372,56 +7372,56 @@ $L1469:
 	push	DWORD PTR [eax+4]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 2088
+; Line 2099
 	jmp	$L1460
-; Line 2090
+; Line 2101
 $L1470:
-; Line 2091
+; Line 2102
 	inc	DWORD PTR _fSuccess$[ebp]
-; Line 2092
+; Line 2103
 	push	DWORD PTR _pdw$[ebp]
 	push	DWORD PTR _n$[ebp]
 	push	DWORD PTR _offCur$[ebp]
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 2093
+; Line 2104
 	cmp	DWORD PTR _n$[ebp], 1
 	jne	$L1471
-; Line 2094
+; Line 2105
 	mov	eax, DWORD PTR _pdw$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	mov	ecx, DWORD PTR _pdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2095
+; Line 2106
 $L1471:
 	mov	eax, DWORD PTR _offCur$[ebp]
 	add	eax, DWORD PTR _n$[ebp]
 	mov	ecx, DWORD PTR _pdw$[ebp]
 	add	DWORD PTR [ecx], eax
-; Line 2096
+; Line 2107
 	mov	eax, DWORD PTR _a$[ebp]
 	mov	DWORD PTR _n$[ebp], eax
-; Line 2097
+; Line 2108
 	jmp	$L1460
-; Line 2099
+; Line 2110
 $L1472:
-; Line 2100
+; Line 2111
 	cmp	DWORD PTR _a$[ebp], 2
 	jne	$L1473
-; Line 2101
+; Line 2112
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+64]
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2102
+; Line 2113
 	jmp	$L1474
 $L1473:
-; Line 2103
+; Line 2114
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+64]
 	mov	DWORD PTR _dwEA$[ebp], eax
 $L1474:
-; Line 2104
+; Line 2115
 	push	DWORD PTR _pdw$[ebp]
 	push	DWORD PTR _n$[ebp]
 	push	DWORD PTR _dwEA$[ebp]
@@ -7429,26 +7429,26 @@ $L1474:
 	push	DWORD PTR [eax+4]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 2105
+; Line 2116
 	jmp	$L1460
-; Line 2107
+; Line 2118
 $L1475:
-; Line 2108
+; Line 2119
 	cmp	DWORD PTR _a$[ebp], 2
 	jne	$L1476
-; Line 2109
+; Line 2120
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+60]
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2110
+; Line 2121
 	jmp	$L1477
 $L1476:
-; Line 2111
+; Line 2122
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+60]
 	mov	DWORD PTR _dwEA$[ebp], eax
 $L1477:
-; Line 2112
+; Line 2123
 	push	DWORD PTR _pdw$[ebp]
 	push	DWORD PTR _n$[ebp]
 	push	DWORD PTR _dwEA$[ebp]
@@ -7456,11 +7456,11 @@ $L1477:
 	push	DWORD PTR [eax+44]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 2113
+; Line 2124
 	jmp	$L1460
-; Line 2115
+; Line 2126
 $L1478:
-; Line 2116
+; Line 2127
 	mov	eax, DWORD PTR _n$[ebp]
 	sub	eax, 4
 	cmp	eax, 1
@@ -7472,23 +7472,23 @@ $L1478:
 	shr	ecx, 8
 	add	eax, ecx
 	mov	DWORD PTR _i$[ebp], eax
-; Line 2117
+; Line 2128
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _ardRegs[eax+4]
 	add	eax, DWORD PTR _pesf$[ebp]
 	mov	ecx, DWORD PTR _ppdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2118
+; Line 2129
 	jmp	$L1460
-; Line 2120
+; Line 2131
 $L1479:
-; Line 2121
+; Line 2132
 	movzx	eax, WORD PTR _wType$[ebp]
 	and	eax, 3840				; 00000f00H
 	shr	eax, 8
 	mov	DWORD PTR _i$[ebp], eax
-; Line 2122
+; Line 2133
 	mov	eax, DWORD PTR _i$[ebp]
 	add	eax, 16					; 00000010H
 	imul	eax, 6
@@ -7496,36 +7496,36 @@ $L1479:
 	add	eax, DWORD PTR _pesf$[ebp]
 	mov	ecx, DWORD PTR _ppdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2123
+; Line 2134
 	jmp	$L1460
-; Line 2125
+; Line 2136
 $L1480:
-; Line 2126
+; Line 2137
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 192				; 000000c0H
 	mov	ecx, 192				; 000000c0H
 	and	ecx, -64				; ffffffc0H
 	cmp	eax, ecx
 	jne	$L1481
-; Line 2127
+; Line 2138
 	sub	eax, eax
 	jmp	$L1438
-; Line 2130
+; Line 2141
 $L1481:
 $L1482:
-; Line 2131
+; Line 2142
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 7
 	mov	DWORD PTR _i$[ebp], eax
-; Line 2132
+; Line 2143
 	movzx	eax, BYTE PTR _bModRM$[ebp]
 	and	eax, 192				; 000000c0H
 	shr	eax, 6
 	mov	DWORD PTR _m$[ebp], eax
-; Line 2133
+; Line 2144
 	cmp	DWORD PTR _m$[ebp], 3
 	jne	$L1483
-; Line 2134
+; Line 2145
 	mov	eax, DWORD PTR _n$[ebp]
 	lea	eax, DWORD PTR [eax*8-8]
 	add	eax, DWORD PTR _i$[ebp]
@@ -7534,66 +7534,66 @@ $L1482:
 	add	eax, DWORD PTR _pesf$[ebp]
 	mov	ecx, DWORD PTR _ppdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2135
+; Line 2146
 	jmp	$L1460
-; Line 2137
+; Line 2148
 $L1483:
 	cmp	DWORD PTR _a$[ebp], 2
 	jne	$L1484
-; Line 2138
+; Line 2149
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	DWORD PTR -56+[ebp], eax
 	jmp	$L1485
-; Line 2139
+; Line 2150
 $L1489:
-; Line 2140
+; Line 2151
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+64]
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2141
+; Line 2152
 	jmp	$L1486
-; Line 2142
+; Line 2153
 $L1490:
-; Line 2143
+; Line 2154
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+60]
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2144
+; Line 2155
 	jmp	$L1486
-; Line 2145
+; Line 2156
 $L1491:
-; Line 2146
+; Line 2157
 	cmp	DWORD PTR _m$[ebp], 0
 	jne	$L1492
-; Line 2147
+; Line 2158
 	mov	DWORD PTR _m$[ebp], 2
-; Line 2148
+; Line 2159
 	mov	DWORD PTR _dwEA$[ebp], 0
-; Line 2149
+; Line 2160
 	jmp	$L1486
-; Line 2151
+; Line 2162
 $L1492:
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+68]
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2152
+; Line 2163
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 2153
+; Line 2164
 	jmp	$L1486
-; Line 2154
+; Line 2165
 $L1493:
-; Line 2155
+; Line 2166
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+76]
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2156
+; Line 2167
 	jmp	$L1486
-; Line 2157
+; Line 2168
 $L1494:
-; Line 2158
+; Line 2169
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+76]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -7601,11 +7601,11 @@ $L1494:
 	add	eax, ecx
 	movzx	eax, ax
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2159
+; Line 2170
 	jmp	$L1486
-; Line 2160
+; Line 2171
 $L1495:
-; Line 2161
+; Line 2172
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+76]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -7613,11 +7613,11 @@ $L1495:
 	add	eax, ecx
 	movzx	eax, ax
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2162
+; Line 2173
 	jmp	$L1486
-; Line 2163
+; Line 2174
 $L1496:
-; Line 2164
+; Line 2175
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+64]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -7625,16 +7625,16 @@ $L1496:
 	add	eax, ecx
 	movzx	eax, ax
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2165
+; Line 2176
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 2166
+; Line 2177
 	jmp	$L1486
-; Line 2167
+; Line 2178
 $L1497:
-; Line 2168
+; Line 2179
 	mov	eax, DWORD PTR _pesf$[ebp]
 	movzx	eax, WORD PTR [eax+60]
 	mov	ecx, DWORD PTR _pesf$[ebp]
@@ -7642,14 +7642,14 @@ $L1497:
 	add	eax, ecx
 	movzx	eax, ax
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2169
+; Line 2180
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 2170
+; Line 2181
 	jmp	$L1486
-; Line 2171
+; Line 2182
 	jmp	$L1486
 $L1485:
 	cmp	DWORD PTR -56+[ebp], 7
@@ -7667,32 +7667,32 @@ $L2090:
 	DD	OFFSET FLAT:$L1491
 	DD	OFFSET FLAT:$L1493
 $L1486:
-; Line 2172
+; Line 2183
 	jmp	$L1498
 $L1484:
-; Line 2173
+; Line 2184
 	mov	DWORD PTR _dwEA$[ebp], 0
-; Line 2174
+; Line 2185
 	cmp	DWORD PTR _i$[ebp], 4
 	jne	$L1499
-; Line 2175
+; Line 2186
 	push	DWORD PTR _offCur$[ebp]
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetByte
 	add	esp, 8
 	movzx	eax, al
 	mov	DWORD PTR _sib$[ebp], eax
-; Line 2176
+; Line 2187
 	inc	DWORD PTR _offCur$[ebp]
-; Line 2178
+; Line 2189
 	mov	eax, DWORD PTR _sib$[ebp]
 	and	eax, 56					; 00000038H
 	shr	eax, 3
 	mov	DWORD PTR _i$[ebp], eax
-; Line 2186
+; Line 2197
 	cmp	DWORD PTR _i$[ebp], 4
 	je	$L1500
-; Line 2189
+; Line 2200
 	mov	eax, 1
 	mov	edx, DWORD PTR _sib$[ebp]
 	and	edx, 192				; 000000c0H
@@ -7700,7 +7700,7 @@ $L1484:
 	mov	cl, dl
 	shl	eax, cl
 	mov	DWORD PTR _s$[ebp], eax
-; Line 2191
+; Line 2202
 	mov	eax, DWORD PTR _i$[ebp]
 	add	eax, 24					; 00000018H
 	imul	eax, 6
@@ -7709,19 +7709,19 @@ $L1484:
 	mov	eax, DWORD PTR [eax+ecx]
 	imul	eax, DWORD PTR _s$[ebp]
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2193
+; Line 2204
 $L1500:
 	mov	eax, DWORD PTR _sib$[ebp]
 	and	eax, 7
 	mov	DWORD PTR _i$[ebp], eax
-; Line 2195
+; Line 2206
 $L1499:
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	DWORD PTR -60+[ebp], eax
 	jmp	$L1501
-; Line 2196
+; Line 2207
 $L1505:
-; Line 2202
+; Line 2213
 	mov	eax, DWORD PTR _i$[ebp]
 	add	eax, 24					; 00000018H
 	imul	eax, 6
@@ -7729,43 +7729,43 @@ $L1505:
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+ecx]
 	add	DWORD PTR _dwEA$[ebp], eax
-; Line 2203
+; Line 2214
 	jmp	$L1502
-; Line 2204
+; Line 2215
 $L1506:
-; Line 2205
+; Line 2216
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+72]
 	add	DWORD PTR _dwEA$[ebp], eax
-; Line 2206
+; Line 2217
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 2207
+; Line 2218
 	jmp	$L1502
-; Line 2208
+; Line 2219
 $L1507:
-; Line 2209
+; Line 2220
 	cmp	DWORD PTR _m$[ebp], 0
 	jne	$L1508
-; Line 2210
+; Line 2221
 	mov	DWORD PTR _m$[ebp], 2
-; Line 2211
+; Line 2222
 	jmp	$L1502
-; Line 2213
+; Line 2224
 $L1508:
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+68]
 	add	DWORD PTR _dwEA$[ebp], eax
-; Line 2214
+; Line 2225
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+8]
 	mov	ecx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 2215
+; Line 2226
 	jmp	$L1502
-; Line 2216
+; Line 2227
 	jmp	$L1502
 $L1501:
 	cmp	DWORD PTR -60+[ebp], 7
@@ -7783,17 +7783,17 @@ $L2091:
 	DD	OFFSET FLAT:$L1505
 	DD	OFFSET FLAT:$L1505
 $L1502:
-; Line 2217
+; Line 2228
 $L1498:
-; Line 2218
+; Line 2229
 	mov	DWORD PTR _dwTmp$[ebp], 0
-; Line 2219
+; Line 2230
 	mov	eax, DWORD PTR _m$[ebp]
 	mov	DWORD PTR -64+[ebp], eax
 	jmp	$L1509
-; Line 2220
+; Line 2231
 $L1513:
-; Line 2221
+; Line 2232
 	lea	eax, DWORD PTR _dwTmp$[ebp]
 	push	eax
 	push	1
@@ -7801,14 +7801,14 @@ $L1513:
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 2222
+; Line 2233
 	movsx	eax, BYTE PTR _dwTmp$[ebp]
 	add	DWORD PTR _dwEA$[ebp], eax
-; Line 2223
+; Line 2234
 	jmp	$L1510
-; Line 2224
+; Line 2235
 $L1514:
-; Line 2225
+; Line 2236
 	lea	eax, DWORD PTR _dwTmp$[ebp]
 	push	eax
 	push	DWORD PTR _a$[ebp]
@@ -7816,12 +7816,12 @@ $L1514:
 	push	DWORD PTR _selCode$[ebp]
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
-; Line 2226
+; Line 2237
 	mov	eax, DWORD PTR _dwTmp$[ebp]
 	add	DWORD PTR _dwEA$[ebp], eax
-; Line 2227
+; Line 2238
 	jmp	$L1510
-; Line 2228
+; Line 2239
 	jmp	$L1510
 $L1509:
 	cmp	DWORD PTR -64+[ebp], 1
@@ -7830,25 +7830,25 @@ $L1509:
 	je	$L1514
 	jmp	$L1510
 $L1510:
-; Line 2229
+; Line 2240
 	cmp	DWORD PTR _a$[ebp], 2
 	jne	$L1515
-; Line 2230
+; Line 2241
 	movzx	eax, WORD PTR _dwEA$[ebp]
 	mov	DWORD PTR _dwEA$[ebp], eax
-; Line 2231
+; Line 2242
 $L1515:
 	movzx	eax, WORD PTR _wType$[ebp]
 	test	ah, 48					; 00000030H
 	jne	$L1516
-; Line 2232
+; Line 2243
 	mov	eax, DWORD PTR _dwEA$[ebp]
 	mov	ecx, DWORD PTR _pdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2233
+; Line 2244
 	jmp	$L1517
 $L1516:
-; Line 2234
+; Line 2245
 	push	DWORD PTR _pdw$[ebp]
 	push	DWORD PTR _n$[ebp]
 	push	DWORD PTR _dwEA$[ebp]
@@ -7857,11 +7857,11 @@ $L1516:
 	call	_x86GetBytes
 	add	esp, 16					; 00000010H
 $L1517:
-; Line 2235
+; Line 2246
 	jmp	$L1460
-; Line 2237
+; Line 2248
 $L1518:
-; Line 2238
+; Line 2249
 	mov	eax, DWORD PTR _n$[ebp]
 	lea	eax, DWORD PTR [eax*8-8]
 	add	eax, DWORD PTR _r$[ebp]
@@ -7870,17 +7870,17 @@ $L1518:
 	add	eax, DWORD PTR _pesf$[ebp]
 	mov	ecx, DWORD PTR _ppdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2239
+; Line 2250
 	jmp	$L1460
-; Line 2241
+; Line 2252
 $L1519:
-; Line 2242
+; Line 2253
 	cmp	DWORD PTR _r$[ebp], 5
 	jle	$L1520
-; Line 2243
+; Line 2254
 	sub	eax, eax
 	jmp	$L1438
-; Line 2244
+; Line 2255
 $L1520:
 	mov	eax, DWORD PTR _r$[ebp]
 	add	eax, 16					; 00000010H
@@ -7889,21 +7889,21 @@ $L1520:
 	add	eax, DWORD PTR _pesf$[ebp]
 	mov	ecx, DWORD PTR _ppdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2245
+; Line 2256
 	jmp	$L1460
-; Line 2247
+; Line 2258
 $L1521:
-; Line 2248
+; Line 2259
 	cmp	DWORD PTR _r$[ebp], 0
 	je	$L1522
 	cmp	DWORD PTR _r$[ebp], 2
 	je	$L1522
 	cmp	DWORD PTR _r$[ebp], 3
 	je	$L1522
-; Line 2249
+; Line 2260
 	sub	eax, eax
 	jmp	$L1438
-; Line 2250
+; Line 2261
 $L1522:
 	mov	eax, DWORD PTR _r$[ebp]
 	add	eax, 32					; 00000020H
@@ -7912,20 +7912,20 @@ $L1522:
 	add	eax, DWORD PTR _pesf$[ebp]
 	mov	ecx, DWORD PTR _ppdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2251
+; Line 2262
 	jmp	$L1460
-; Line 2253
+; Line 2264
 $L1523:
-; Line 2254
+; Line 2265
 	cmp	DWORD PTR _r$[ebp], 4
 	je	$L1525
 	cmp	DWORD PTR _r$[ebp], 5
 	jne	$L1524
 $L1525:
-; Line 2255
+; Line 2266
 	sub	eax, eax
 	jmp	$L1438
-; Line 2256
+; Line 2267
 $L1524:
 	mov	eax, DWORD PTR _r$[ebp]
 	add	eax, 40					; 00000028H
@@ -7934,19 +7934,19 @@ $L1524:
 	add	eax, DWORD PTR _pesf$[ebp]
 	mov	ecx, DWORD PTR _ppdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2257
+; Line 2268
 	jmp	$L1460
-; Line 2259
+; Line 2270
 $L1526:
-; Line 2260
+; Line 2271
 	cmp	DWORD PTR _r$[ebp], 6
 	je	$L1527
 	cmp	DWORD PTR _r$[ebp], 7
 	je	$L1527
-; Line 2261
+; Line 2272
 	sub	eax, eax
 	jmp	$L1438
-; Line 2262
+; Line 2273
 $L1527:
 	mov	eax, DWORD PTR _r$[ebp]
 	add	eax, 48					; 00000030H
@@ -7955,14 +7955,14 @@ $L1527:
 	add	eax, DWORD PTR _pesf$[ebp]
 	mov	ecx, DWORD PTR _ppdw$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2263
+; Line 2274
 	jmp	$L1460
-; Line 2265
+; Line 2276
 $L1528:
-; Line 2266
+; Line 2277
 	sub	eax, eax
 	jmp	$L1438
-; Line 2267
+; Line 2278
 	jmp	$L1460
 $L1459:
 	cmp	DWORD PTR -52+[ebp], 112		; 00000070H
@@ -8006,14 +8006,14 @@ $L2089:
 	je	$L1526
 	jmp	$L1528
 $L1460:
-; Line 2268
+; Line 2279
 	mov	eax, DWORD PTR _n$[ebp]
 	mov	ecx, DWORD PTR _pSize$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2269
+; Line 2280
 	mov	eax, DWORD PTR _fSuccess$[ebp]
 	jmp	$L1438
-; Line 2270
+; Line 2281
 $L1438:
 	pop	edi
 	pop	esi
@@ -8034,18 +8034,18 @@ _i$ = -4
 _pbpdCandidate$ = -8
 _pbpd$ = -12
 _x86AllocBP PROC NEAR
-; Line 2274
+; Line 2285
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 2276
+; Line 2287
 	mov	DWORD PTR _pbpdCandidate$[ebp], 0
-; Line 2277
+; Line 2288
 	mov	DWORD PTR _pbpd$[ebp], OFFSET FLAT:_abpdGlobal
-; Line 2279
+; Line 2290
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1536
 $L1537:
@@ -8054,23 +8054,23 @@ $L1537:
 $L1536:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jae	$L1538
-; Line 2280
+; Line 2291
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	test	BYTE PTR [eax+17], 1
 	jne	$L1539
 	cmp	DWORD PTR _pbpdCandidate$[ebp], 0
 	jne	$L1539
-; Line 2281
+; Line 2292
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	DWORD PTR _pbpdCandidate$[ebp], eax
-; Line 2282
+; Line 2293
 $L1539:
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	eax, DWORD PTR [eax+16]
 	and	eax, DWORD PTR _flBP$[ebp]
 	cmp	eax, DWORD PTR _flBP$[ebp]
 	jne	$L1540
-; Line 2283
+; Line 2294
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	ecx, DWORD PTR _sel$[ebp]
 	cmp	DWORD PTR [eax], ecx
@@ -8079,53 +8079,53 @@ $L1539:
 	mov	ecx, DWORD PTR _off$[ebp]
 	cmp	DWORD PTR [eax+4], ecx
 	jne	$L1541
-; Line 2284
+; Line 2295
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	DWORD PTR _pbpdCandidate$[ebp], eax
-; Line 2285
+; Line 2296
 	jmp	$L1538
-; Line 2287
+; Line 2298
 $L1541:
-; Line 2288
+; Line 2299
 $L1540:
 	jmp	$L1537
 $L1538:
-; Line 2289
+; Line 2300
 	cmp	DWORD PTR _pbpdCandidate$[ebp], 0
 	je	$L1542
-; Line 2290
+; Line 2301
 	inc	DWORD PTR _cbpdGlobal
-; Line 2291
+; Line 2302
 	mov	eax, DWORD PTR _pbpdCandidate$[ebp]
 	mov	DWORD PTR _pbpd$[ebp], eax
-; Line 2292
+; Line 2303
 	mov	eax, DWORD PTR _flBP$[ebp]
 	or	eax, 768				; 00000300H
 	mov	ecx, DWORD PTR _pbpd$[ebp]
 	mov	DWORD PTR [ecx+16], eax
-; Line 2293
+; Line 2304
 	mov	eax, DWORD PTR _sel$[ebp]
 	mov	ecx, DWORD PTR _pbpd$[ebp]
 	mov	DWORD PTR [ecx], eax
-; Line 2294
+; Line 2305
 	mov	eax, DWORD PTR _off$[ebp]
 	mov	ecx, DWORD PTR _pbpd$[ebp]
 	mov	DWORD PTR [ecx+4], eax
-; Line 2295
+; Line 2306
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	DWORD PTR [eax+8], 0
-; Line 2297
+; Line 2308
 	jmp	$L1543
 $L1542:
-; Line 2298
+; Line 2309
 	push	OFFSET FLAT:$SG1544
 	call	_printf
 	add	esp, 4
 $L1543:
-; Line 2299
+; Line 2310
 	mov	eax, DWORD PTR _pbpdCandidate$[ebp]
 	jmp	$L1532
-; Line 2300
+; Line 2311
 $L1532:
 	pop	edi
 	pop	esi
@@ -8141,45 +8141,45 @@ _DATA	ENDS
 _TEXT	SEGMENT
 _i$ = 8
 _x86DisableBP PROC NEAR
-; Line 2304
+; Line 2315
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 2305
+; Line 2316
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jae	$L1548
-; Line 2306
+; Line 2317
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	test	BYTE PTR _abpdGlobal[eax+17], 1
 	je	$L1549
-; Line 2307
+; Line 2318
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	test	BYTE PTR _abpdGlobal[eax+17], 2
 	je	$L1550
-; Line 2308
+; Line 2319
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	and	DWORD PTR _abpdGlobal[eax+16], -513	; fffffdffH
-; Line 2309
+; Line 2320
 	push	DWORD PTR _i$[ebp]
 	push	OFFSET FLAT:$SG1551
 	call	_printf
 	add	esp, 8
-; Line 2311
+; Line 2322
 $L1550:
-; Line 2312
+; Line 2323
 $L1549:
 	mov	eax, 1
 	jmp	$L1547
-; Line 2314
+; Line 2325
 $L1548:
 	sub	eax, eax
 	jmp	$L1547
-; Line 2315
+; Line 2326
 $L1547:
 	pop	edi
 	pop	esi
@@ -8195,45 +8195,45 @@ _DATA	ENDS
 _TEXT	SEGMENT
 _i$ = 8
 _x86EnableBP PROC NEAR
-; Line 2319
+; Line 2330
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 2320
+; Line 2331
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jae	$L1555
-; Line 2321
+; Line 2332
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	test	BYTE PTR _abpdGlobal[eax+17], 1
 	je	$L1556
-; Line 2322
+; Line 2333
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	test	BYTE PTR _abpdGlobal[eax+17], 2
 	jne	$L1557
-; Line 2323
+; Line 2334
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	or	DWORD PTR _abpdGlobal[eax+16], 512	; 00000200H
-; Line 2324
+; Line 2335
 	push	DWORD PTR _i$[ebp]
 	push	OFFSET FLAT:$SG1558
 	call	_printf
 	add	esp, 8
-; Line 2326
+; Line 2337
 $L1557:
-; Line 2327
+; Line 2338
 $L1556:
 	mov	eax, 1
 	jmp	$L1554
-; Line 2329
+; Line 2340
 $L1555:
 	sub	eax, eax
 	jmp	$L1554
-; Line 2330
+; Line 2341
 $L1554:
 	pop	edi
 	pop	esi
@@ -8250,47 +8250,47 @@ _DATA	ENDS
 _TEXT	SEGMENT
 _i$ = 8
 _x86FreeBP PROC NEAR
-; Line 2334
+; Line 2345
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 2335
+; Line 2346
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jae	$L1561
-; Line 2336
+; Line 2347
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	test	BYTE PTR _abpdGlobal[eax+17], 1
 	je	$L1562
-; Line 2337
+; Line 2348
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	and	DWORD PTR _abpdGlobal[eax+16], -257	; fffffeffH
-; Line 2338
+; Line 2349
 	dec	DWORD PTR _cbpdGlobal
-; Line 2339
+; Line 2350
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 20					; 00000014H
 	test	BYTE PTR _abpdGlobal[eax+17], 4
 	jne	$L1563
-; Line 2340
+; Line 2351
 	push	DWORD PTR _i$[ebp]
 	push	OFFSET FLAT:$SG1564
 	call	_printf
 	add	esp, 8
-; Line 2341
+; Line 2352
 $L1563:
-; Line 2342
+; Line 2353
 $L1562:
 	mov	eax, 1
 	jmp	$L1560
-; Line 2344
+; Line 2355
 $L1561:
 	sub	eax, eax
 	jmp	$L1560
-; Line 2345
+; Line 2356
 $L1560:
 	pop	edi
 	pop	esi
@@ -8318,16 +8318,16 @@ _TEXT	SEGMENT
 _i$ = -4
 _pbpd$ = -8
 _x86ListBPs PROC NEAR
-; Line 2349
+; Line 2360
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 2351
+; Line 2362
 	mov	DWORD PTR _pbpd$[ebp], OFFSET FLAT:_abpdGlobal
-; Line 2353
+; Line 2364
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1569
 $L1570:
@@ -8336,25 +8336,25 @@ $L1570:
 $L1569:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jae	$L1571
-; Line 2354
+; Line 2365
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	test	BYTE PTR [eax+17], 1
 	je	$L1572
-; Line 2355
+; Line 2366
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	test	BYTE PTR [eax+17], 16			; 00000010H
 	je	$L1573
-; Line 2356
+; Line 2367
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	push	DWORD PTR [eax+4]
 	push	DWORD PTR _i$[ebp]
 	push	OFFSET FLAT:$SG1574
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 2357
+; Line 2368
 	jmp	$L1575
 $L1573:
-; Line 2360
+; Line 2371
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	push	DWORD PTR [eax+4]
 	mov	eax, DWORD PTR _pbpd$[ebp]
@@ -8372,38 +8372,38 @@ $L1573:
 	call	_printf
 	add	esp, 20					; 00000014H
 $L1575:
-; Line 2361
+; Line 2372
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	test	BYTE PTR [eax+17], 2
 	jne	$L1577
-; Line 2362
+; Line 2373
 	push	OFFSET FLAT:$SG1578
 	call	_printf
 	add	esp, 4
-; Line 2363
+; Line 2374
 	jmp	$L1579
 $L1577:
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	test	BYTE PTR [eax+17], 4
 	je	$L1580
-; Line 2364
+; Line 2375
 	push	OFFSET FLAT:$SG1581
 	call	_printf
 	add	esp, 4
-; Line 2365
+; Line 2376
 	jmp	$L1582
 $L1580:
-; Line 2366
+; Line 2377
 	push	OFFSET FLAT:$SG1583
 	call	_printf
 	add	esp, 4
 $L1582:
 $L1579:
-; Line 2367
+; Line 2378
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	cmp	DWORD PTR [eax+8], 0
 	je	$L1584
-; Line 2368
+; Line 2379
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	push	DWORD PTR [eax+12]
 	mov	eax, DWORD PTR _pbpd$[ebp]
@@ -8414,16 +8414,16 @@ $L1579:
 	push	OFFSET FLAT:$SG1585
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 2369
+; Line 2380
 $L1584:
 	push	OFFSET FLAT:$SG1586
 	call	_printf
 	add	esp, 4
-; Line 2371
+; Line 2382
 $L1572:
 	jmp	$L1570
 $L1571:
-; Line 2372
+; Line 2383
 $L1566:
 	pop	edi
 	pop	esi
@@ -8438,16 +8438,16 @@ _off$ = 20
 _i$ = -4
 _pbpd$ = -8
 _x86FindBP PROC NEAR
-; Line 2376
+; Line 2387
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 2378
+; Line 2389
 	mov	DWORD PTR _pbpd$[ebp], OFFSET FLAT:_abpdGlobal
-; Line 2380
+; Line 2391
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1594
 $L1595:
@@ -8456,13 +8456,13 @@ $L1595:
 $L1594:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jae	$L1596
-; Line 2381
+; Line 2392
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	eax, DWORD PTR [eax+16]
 	and	eax, DWORD PTR _flBP$[ebp]
 	cmp	eax, DWORD PTR _flBP$[ebp]
 	jne	$L1597
-; Line 2382
+; Line 2393
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	ecx, DWORD PTR _sel$[ebp]
 	cmp	DWORD PTR [eax], ecx
@@ -8471,15 +8471,15 @@ $L1594:
 	mov	ecx, DWORD PTR _off$[ebp]
 	cmp	DWORD PTR [eax+4], ecx
 	jne	$L1598
-; Line 2383
+; Line 2394
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	cmp	DWORD PTR [eax+8], 0
 	jne	$L1599
-; Line 2384
+; Line 2395
 	mov	eax, DWORD PTR _i$[ebp]
 	inc	eax
 	jmp	$L1591
-; Line 2385
+; Line 2396
 	jmp	$L1600
 $L1599:
 	mov	eax, DWORD PTR _pbpd$[ebp]
@@ -8492,21 +8492,21 @@ $L1599:
 	mov	ecx, DWORD PTR _pbpd$[ebp]
 	cmp	eax, DWORD PTR [ecx+12]
 	jne	$L1601
-; Line 2386
+; Line 2397
 	mov	eax, DWORD PTR _i$[ebp]
 	inc	eax
 	jmp	$L1591
-; Line 2387
+; Line 2398
 $L1601:
 $L1600:
 $L1598:
 $L1597:
 	jmp	$L1595
 $L1596:
-; Line 2388
+; Line 2399
 	sub	eax, eax
 	jmp	$L1591
-; Line 2389
+; Line 2400
 $L1591:
 	pop	edi
 	pop	esi
@@ -8521,16 +8521,16 @@ _pesf$ = 8
 _i$ = -4
 _pbpd$ = -8
 _x86ApplyBPs PROC NEAR
-; Line 2402
+; Line 2413
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 2404
+; Line 2415
 	mov	DWORD PTR _pbpd$[ebp], OFFSET FLAT:_abpdGlobal
-; Line 2406
+; Line 2417
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1606
 $L1607:
@@ -8539,14 +8539,14 @@ $L1607:
 $L1606:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jae	$L1608
-; Line 2407
+; Line 2418
 	push	DWORD PTR _pbpd$[ebp]
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86SetBP
 	add	esp, 8
 	jmp	$L1607
 $L1608:
-; Line 2408
+; Line 2419
 $L1603:
 	pop	edi
 	pop	esi
@@ -8557,19 +8557,19 @@ _x86ApplyBPs ENDP
 _pesf$ = 8
 _pbpd$ = 12
 _x86SetBP PROC NEAR
-; Line 2427
+; Line 2438
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 2428
+; Line 2439
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	eax, DWORD PTR [eax+16]
 	and	ah, 11					; 0000000bH
 	cmp	ah, 3
 	jne	$L1612
-; Line 2429
+; Line 2440
 	cmp	DWORD PTR _pbpdTempDisable, 0
 	jne	$L1613
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -8582,19 +8582,19 @@ _x86SetBP PROC NEAR
 	mov	ecx, DWORD PTR [ecx+4]
 	cmp	DWORD PTR [eax+100], ecx
 	jne	$L1613
-; Line 2430
+; Line 2441
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	DWORD PTR _pbpdTempDisable, eax
-; Line 2431
+; Line 2442
 	mov	eax, DWORD PTR _pesf$[ebp]
 	or	DWORD PTR [eax+108], 256		; 00000100H
-; Line 2433
+; Line 2444
 	jmp	$L1614
 $L1613:
-; Line 2434
+; Line 2445
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	and	DWORD PTR [eax+16], -256		; ffffff00H
-; Line 2435
+; Line 2446
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	push	DWORD PTR [eax+4]
 	mov	eax, DWORD PTR _pbpd$[ebp]
@@ -8605,7 +8605,7 @@ $L1613:
 	or	eax, 2048				; 00000800H
 	mov	ecx, DWORD PTR _pbpd$[ebp]
 	or	DWORD PTR [ecx+16], eax
-; Line 2436
+; Line 2447
 	push	204					; 000000ccH
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	push	DWORD PTR [eax+4]
@@ -8613,9 +8613,9 @@ $L1613:
 	push	DWORD PTR [eax]
 	call	_x86SetByte
 	add	esp, 12					; 0000000cH
-; Line 2437
+; Line 2448
 $L1614:
-; Line 2439
+; Line 2450
 $L1612:
 $L1611:
 	pop	edi
@@ -8631,16 +8631,16 @@ _pesf$ = 8
 _i$ = -4
 _pbpd$ = -8
 _x86RemoveBPs PROC NEAR
-; Line 2459
+; Line 2470
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 2461
+; Line 2472
 	mov	DWORD PTR _pbpd$[ebp], OFFSET FLAT:_abpdGlobal
-; Line 2463
+; Line 2474
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1619
 $L1620:
@@ -8649,16 +8649,16 @@ $L1620:
 $L1619:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jae	$L1621
-; Line 2464
+; Line 2475
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	mov	eax, DWORD PTR [eax+16]
 	and	ah, 9
 	cmp	ah, 9
 	jne	$L1622
-; Line 2465
+; Line 2476
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	and	DWORD PTR [eax+16], -2049		; fffff7ffH
-; Line 2466
+; Line 2477
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	push	DWORD PTR [eax+4]
 	mov	eax, DWORD PTR _pbpd$[ebp]
@@ -8668,7 +8668,7 @@ $L1619:
 	movzx	eax, al
 	cmp	eax, 204				; 000000ccH
 	jne	$L1623
-; Line 2467
+; Line 2478
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	push	DWORD PTR [eax+16]
 	mov	eax, DWORD PTR _pbpd$[ebp]
@@ -8677,7 +8677,7 @@ $L1619:
 	push	DWORD PTR [eax]
 	call	_x86SetByte
 	add	esp, 12					; 0000000cH
-; Line 2468
+; Line 2479
 $L1623:
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	test	BYTE PTR [eax+17], 4
@@ -8692,17 +8692,17 @@ $L1623:
 	mov	ecx, DWORD PTR [ecx+100]
 	cmp	DWORD PTR [eax+4], ecx
 	jne	$L1624
-; Line 2469
+; Line 2480
 	push	DWORD PTR _i$[ebp]
 	call	_x86FreeBP
 	add	esp, 4
-; Line 2470
+; Line 2481
 $L1624:
-; Line 2471
+; Line 2482
 $L1622:
 	jmp	$L1620
 $L1621:
-; Line 2472
+; Line 2483
 $L1616:
 	pop	edi
 	pop	esi
@@ -8716,14 +8716,14 @@ _TEXT	SEGMENT
 _piopm$ = 8
 _wPort$ = 12
 _x86PortTrap PROC NEAR
-; Line 2476
+; Line 2487
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 2477
+; Line 2488
 	movzx	eax, WORD PTR _wPort$[ebp]
 	sar	eax, 3
 	mov	ecx, DWORD PTR _piopm$[ebp]
@@ -8745,7 +8745,7 @@ _x86PortTrap PROC NEAR
 	sar	ecx, 3
 	mov	edx, DWORD PTR _piopm$[ebp]
 	mov	BYTE PTR [ecx+edx], al
-; Line 2478
+; Line 2489
 $L1627:
 	pop	edi
 	pop	esi
@@ -8759,13 +8759,13 @@ _TEXT	SEGMENT
 _piopm$ = 8
 _wPort$ = 12
 _x86PortUntrap PROC NEAR
-; Line 2482
+; Line 2493
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 2483
+; Line 2494
 	movzx	eax, WORD PTR _wPort$[ebp]
 	sar	eax, 3
 	mov	ecx, DWORD PTR _piopm$[ebp]
@@ -8786,7 +8786,7 @@ _x86PortUntrap PROC NEAR
 	sar	eax, 3
 	mov	ecx, DWORD PTR _piopm$[ebp]
 	mov	BYTE PTR [eax+ecx], bl
-; Line 2484
+; Line 2495
 $L1630:
 	pop	edi
 	pop	esi
@@ -8800,13 +8800,13 @@ _TEXT	SEGMENT
 _piopm$ = 8
 _wPort$ = 12
 _x86PortTrapped PROC NEAR
-; Line 2488
+; Line 2499
 	push	ebp
 	mov	ebp, esp
 	push	ebx
 	push	esi
 	push	edi
-; Line 2497
+; Line 2508
 	movzx	eax, WORD PTR _wPort$[ebp]
 	sar	eax, 3
 	mov	ecx, DWORD PTR _piopm$[ebp]
@@ -8826,7 +8826,7 @@ _x86PortTrapped PROC NEAR
 	sbb	eax, eax
 	inc	eax
 	jmp	$L1633
-; Line 2498
+; Line 2509
 $L1633:
 	pop	edi
 	pop	esi
@@ -8841,23 +8841,23 @@ _dwFirst$ = 8
 _dwLast$ = 12
 _pszMsg$ = -4
 _x86DispTrapRange PROC NEAR
-; Line 2502
+; Line 2513
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 4
 	push	ebx
 	push	esi
 	push	edi
-; Line 2507
+; Line 2518
 	mov	DWORD PTR _pszMsg$[ebp], OFFSET FLAT:_?szTrapMsg@?1??x86DispTrapRange@@9@9$S1639
-; Line 2508
+; Line 2519
 	mov	eax, DWORD PTR _dwLast$[ebp]
 	dec	eax
 	cmp	eax, DWORD PTR _dwFirst$[ebp]
 	je	$L1642
-; Line 2509
+; Line 2520
 	mov	DWORD PTR _pszMsg$[ebp], OFFSET FLAT:_?szTrapMsg2@?1??x86DispTrapRange@@9@9$S1641
-; Line 2510
+; Line 2521
 $L1642:
 	mov	eax, DWORD PTR _dwLast$[ebp]
 	dec	eax
@@ -8866,7 +8866,7 @@ $L1642:
 	push	DWORD PTR _pszMsg$[ebp]
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 2511
+; Line 2522
 $L1636:
 	pop	edi
 	pop	esi
@@ -8885,14 +8885,14 @@ _n$ = -8
 _bOp$ = -4
 _bModRM$ = -16
 _x86StepSize PROC NEAR
-; Line 2515
+; Line 2526
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 16					; 00000010H
 	push	ebx
 	push	esi
 	push	edi
-; Line 2525
+; Line 2536
 	lea	eax, DWORD PTR _bModRM$[ebp]
 	push	eax
 	lea	eax, DWORD PTR _bOp$[ebp]
@@ -8905,7 +8905,7 @@ _x86StepSize PROC NEAR
 	call	_x86Decode
 	add	esp, 28					; 0000001cH
 	mov	DWORD PTR _n$[ebp], eax
-; Line 2530
+; Line 2541
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1654
 $L1655:
@@ -8913,20 +8913,20 @@ $L1655:
 $L1654:
 	cmp	DWORD PTR _i$[ebp], 25			; 00000019H
 	jae	$L1656
-; Line 2531
+; Line 2542
 	mov	eax, DWORD PTR _i$[ebp]
 	movzx	eax, BYTE PTR _?abTransferOp@?1??x86StepSize@@9@9$S1653[eax]
 	movzx	ecx, BYTE PTR _bOp$[ebp]
 	cmp	eax, ecx
 	jne	$L1657
-; Line 2532
+; Line 2543
 	sub	eax, eax
 	jmp	$L1647
-; Line 2534
+; Line 2545
 $L1657:
 	jmp	$L1655
 $L1656:
-; Line 2535
+; Line 2546
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	cmp	eax, 255				; 000000ffH
 	jne	$L1658
@@ -8943,14 +8943,14 @@ $L1656:
 	cmp	eax, ecx
 	jne	$L1658
 $L1659:
-; Line 2536
+; Line 2547
 	sub	eax, eax
 	jmp	$L1647
-; Line 2538
+; Line 2549
 $L1658:
 	mov	eax, DWORD PTR _n$[ebp]
 	jmp	$L1647
-; Line 2539
+; Line 2550
 $L1647:
 	pop	edi
 	pop	esi
@@ -8966,14 +8966,14 @@ _pesf$ = 8
 _fl$ = 12
 _i$ = -8
 _x86Trace PROC NEAR
-; Line 2543
+; Line 2554
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 2545
+; Line 2556
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+100]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -8981,29 +8981,29 @@ _x86Trace PROC NEAR
 	call	_x86GetByte
 	add	esp, 8
 	mov	BYTE PTR _bOp$[ebp], al
-; Line 2547
+; Line 2558
 	mov	eax, DWORD PTR _pesf$[ebp]
 	or	DWORD PTR [eax+108], 256		; 00000100H
-; Line 2548
+; Line 2559
 	mov	eax, DWORD PTR _fl$[ebp]
 	or	eax, 5
 	or	DWORD PTR _flTrace, eax
-; Line 2549
+; Line 2560
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	cmp	eax, 99					; 00000063H
 	jne	$L1665
 	mov	eax, DWORD PTR _pesf$[ebp]
 	test	BYTE PTR [eax+106], 1
 	je	$L1665
-; Line 2550
+; Line 2561
 	and	DWORD PTR _flTrace, -5			; fffffffbH
-; Line 2552
+; Line 2563
 $L1665:
 	test	BYTE PTR _flTrace, 2
 	je	$L1666
-; Line 2553
+; Line 2564
 	and	DWORD PTR _flKeyEvent, -3		; fffffffdH
-; Line 2555
+; Line 2566
 $L1666:
 	test	BYTE PTR _flTrace, 128			; 00000080H
 	jne	$L1668
@@ -9011,7 +9011,7 @@ $L1666:
 	cmp	eax, 156				; 0000009cH
 	jne	$L1667
 $L1668:
-; Line 2556
+; Line 2567
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+100]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -9022,18 +9022,18 @@ $L1668:
 	mov	DWORD PTR _i$[ebp], eax
 	cmp	DWORD PTR _i$[ebp], 0
 	je	$L1669
-; Line 2557
+; Line 2568
 	mov	eax, DWORD PTR _pesf$[ebp]
 	and	DWORD PTR [eax+108], -257		; fffffeffH
-; Line 2558
+; Line 2569
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	cmp	eax, 156				; 0000009cH
 	je	$L1670
 	test	BYTE PTR _flTrace+1, 1
 	jne	$L1670
-; Line 2559
+; Line 2570
 	and	DWORD PTR _flTrace, -5			; fffffffbH
-; Line 2560
+; Line 2571
 $L1670:
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+100]
@@ -9046,43 +9046,43 @@ $L1670:
 	add	esp, 12					; 0000000cH
 	or	eax, eax
 	jne	$L1671
-; Line 2561
+; Line 2572
 	and	DWORD PTR _flTrace, -488		; fffffe18H
-; Line 2562
+; Line 2573
 	sub	eax, eax
 	jmp	$L1662
-; Line 2564
+; Line 2575
 $L1671:
-; Line 2565
+; Line 2576
 $L1669:
-; Line 2566
+; Line 2577
 $L1667:
 	test	BYTE PTR _flTrace, 64			; 00000040H
 	je	$L1672
-; Line 2567
+; Line 2578
 	and	DWORD PTR _flTrace, -33			; ffffffdfH
-; Line 2569
+; Line 2580
 $L1672:
 	test	BYTE PTR _flTrace, 32			; 00000020H
 	je	$L1673
-; Line 2570
+; Line 2581
 	and	DWORD PTR _flTrace, -65			; ffffffbfH
-; Line 2572
+; Line 2583
 $L1673:
 	movzx	eax, BYTE PTR _bOp$[ebp]
 	cmp	eax, 204				; 000000ccH
 	jne	$L1674
-; Line 2573
+; Line 2584
 	mov	eax, DWORD PTR _pesf$[ebp]
 	inc	DWORD PTR [eax+100]
-; Line 2574
+; Line 2585
 	test	BYTE PTR _flTrace, 32			; 00000020H
 	je	$L1675
-; Line 2575
+; Line 2586
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86RegDump
 	add	esp, 4
-; Line 2576
+; Line 2587
 $L1675:
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+100]
@@ -9091,16 +9091,16 @@ $L1675:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86InsDump
 	add	esp, 12					; 0000000cH
-; Line 2577
+; Line 2588
 	and	DWORD PTR _flTrace, -488		; fffffe18H
-; Line 2578
+; Line 2589
 	sub	eax, eax
 	jmp	$L1662
-; Line 2580
+; Line 2591
 $L1674:
 	mov	eax, 1
 	jmp	$L1662
-; Line 2581
+; Line 2592
 $L1662:
 	pop	edi
 	pop	esi
@@ -9133,48 +9133,48 @@ _i$ = -8
 _flBP$ = -4
 _pbpd$ = -16
 _x86BPCommand PROC NEAR
-; Line 2585
+; Line 2596
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 28					; 0000001cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 2587
+; Line 2598
 	mov	DWORD PTR _flBP$[ebp], 0
-; Line 2590
+; Line 2601
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	al, 32					; 00000020H
 	mov	BYTE PTR _ch$[ebp], al
 	inc	DWORD PTR _pchCmd$[ebp]
-; Line 2592
+; Line 2603
 	movsx	eax, BYTE PTR _ch$[ebp]
 	mov	DWORD PTR -24+[ebp], eax
 	jmp	$L1687
-; Line 2593
+; Line 2604
 $L1691:
-; Line 2596
+; Line 2607
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 42					; 0000002aH
 	jne	$L1692
-; Line 2597
+; Line 2608
 	jmp	$L1688
-; Line 2598
+; Line 2609
 $L1692:
 $L1693:
-; Line 2600
+; Line 2611
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	cmp	DWORD PTR _pchArgs$[ebp], eax
 	jne	$L1694
-; Line 2601
+; Line 2612
 	sub	eax, eax
 	jmp	$L1682
-; Line 2602
+; Line 2613
 $L1694:
 	jmp	$L1688
-; Line 2603
+; Line 2614
 	jmp	$L1688
 $L1687:
 	cmp	DWORD PTR -24+[ebp], 99			; 00000063H
@@ -9187,26 +9187,26 @@ $L1687:
 	je	$L1693
 	jmp	$L1688
 $L1688:
-; Line 2605
+; Line 2616
 	movsx	eax, BYTE PTR _ch$[ebp]
 	mov	DWORD PTR -28+[ebp], eax
 	jmp	$L1695
-; Line 2606
+; Line 2617
 $L1699:
-; Line 2614
+; Line 2625
 	push	OFFSET FLAT:$SG1700
 	call	_printf
 	add	esp, 4
-; Line 2615
+; Line 2626
 	jmp	$L1696
-; Line 2617
+; Line 2628
 $L1701:
-; Line 2618
+; Line 2629
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 42					; 0000002aH
 	jne	$L1702
-; Line 2619
+; Line 2630
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1703
 $L1704:
@@ -9214,28 +9214,28 @@ $L1704:
 $L1703:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jge	$L1705
-; Line 2620
+; Line 2631
 	push	DWORD PTR _i$[ebp]
 	call	_x86FreeBP
 	add	esp, 4
 	jmp	$L1704
 $L1705:
-; Line 2621
+; Line 2632
 	jmp	$L1696
-; Line 2623
+; Line 2634
 $L1702:
 	push	DWORD PTR _off$[ebp]
 	call	_x86FreeBP
 	add	esp, 4
 	jmp	$L1682
-; Line 2625
+; Line 2636
 $L1706:
-; Line 2626
+; Line 2637
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 42					; 0000002aH
 	jne	$L1707
-; Line 2627
+; Line 2638
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1708
 $L1709:
@@ -9243,28 +9243,28 @@ $L1709:
 $L1708:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jge	$L1710
-; Line 2628
+; Line 2639
 	push	DWORD PTR _i$[ebp]
 	call	_x86DisableBP
 	add	esp, 4
 	jmp	$L1709
 $L1710:
-; Line 2629
+; Line 2640
 	jmp	$L1696
-; Line 2631
+; Line 2642
 $L1707:
 	push	DWORD PTR _off$[ebp]
 	call	_x86DisableBP
 	add	esp, 4
 	jmp	$L1682
-; Line 2633
+; Line 2644
 $L1711:
-; Line 2634
+; Line 2645
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 42					; 0000002aH
 	jne	$L1712
-; Line 2635
+; Line 2646
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1713
 $L1714:
@@ -9272,50 +9272,50 @@ $L1714:
 $L1713:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
 	jge	$L1715
-; Line 2636
+; Line 2647
 	push	DWORD PTR _i$[ebp]
 	call	_x86EnableBP
 	add	esp, 4
 	jmp	$L1714
 $L1715:
-; Line 2637
+; Line 2648
 	jmp	$L1696
-; Line 2639
+; Line 2650
 $L1712:
 	push	DWORD PTR _off$[ebp]
 	call	_x86EnableBP
 	add	esp, 4
 	jmp	$L1682
-; Line 2641
+; Line 2652
 $L1716:
-; Line 2642
+; Line 2653
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86ListBPs
 	add	esp, 4
-; Line 2643
+; Line 2654
 	jmp	$L1696
-; Line 2645
+; Line 2656
 $L1717:
-; Line 2646
+; Line 2657
 	mov	DWORD PTR _sel$[ebp], 0
-; Line 2647
+; Line 2658
 	mov	DWORD PTR _flBP$[ebp], 4096		; 00001000H
-; Line 2650
+; Line 2661
 $L1718:
-; Line 2652
+; Line 2663
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	push	DWORD PTR _flBP$[ebp]
 	call	_x86AllocBP
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _pbpd$[ebp], eax
-; Line 2653
+; Line 2664
 	cmp	DWORD PTR _pbpd$[ebp], 0
 	jne	$L1719
-; Line 2654
+; Line 2665
 	sub	eax, eax
 	jmp	$L1682
-; Line 2655
+; Line 2666
 $L1719:
 	push	DWORD PTR _pchArgs$[ebp]
 	call	_ParseReg
@@ -9329,7 +9329,7 @@ $L1719:
 	movzx	eax, BYTE PTR _ardRegs[eax+5]
 	or	eax, eax
 	je	$L1720
-; Line 2656
+; Line 2667
 	mov	eax, DWORD PTR _i$[ebp]
 	dec	eax
 	imul	eax, 6
@@ -9337,7 +9337,7 @@ $L1719:
 	call	_nstrlen
 	add	esp, 4
 	add	DWORD PTR _pchArgs$[ebp], eax
-; Line 2657
+; Line 2668
 	mov	eax, DWORD PTR _pchArgs$[ebp]
 	mov	DWORD PTR -20+[ebp], eax
 	inc	DWORD PTR _pchArgs$[ebp]
@@ -9345,15 +9345,15 @@ $L1719:
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 61					; 0000003dH
 	je	$L1721
-; Line 2658
+; Line 2669
 	sub	eax, eax
 	jmp	$L1682
-; Line 2659
+; Line 2670
 $L1721:
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	ecx, DWORD PTR _pbpd$[ebp]
 	mov	DWORD PTR [ecx+8], eax
-; Line 2660
+; Line 2671
 	push	1
 	mov	eax, DWORD PTR _pbpd$[ebp]
 	add	eax, 12					; 0000000cH
@@ -9363,15 +9363,15 @@ $L1721:
 	push	DWORD PTR _pesf$[ebp]
 	call	_ParseValue
 	add	esp, 20					; 00000014H
-; Line 2662
+; Line 2673
 $L1720:
 	jmp	$L1696
-; Line 2664
+; Line 2675
 $L1722:
-; Line 2665
+; Line 2676
 	sub	eax, eax
 	jmp	$L1682
-; Line 2666
+; Line 2677
 	jmp	$L1696
 $L1695:
 	cmp	DWORD PTR -28+[ebp], 105		; 00000069H
@@ -9395,10 +9395,10 @@ $L2092:
 	je	$L1718
 	jmp	$L1722
 $L1696:
-; Line 2667
+; Line 2678
 	mov	eax, 1
 	jmp	$L1682
-; Line 2668
+; Line 2679
 $L1682:
 	pop	edi
 	pop	esi
@@ -9439,28 +9439,28 @@ _sel$ = 16
 _off$ = 20
 _pchAddr$ = 24
 _x86DumpCommand PROC NEAR
-; Line 2672
+; Line 2683
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 	push	ebx
 	push	esi
 	push	edi
-; Line 2673
+; Line 2684
 	mov	DWORD PTR _cLines$[ebp], 0
-; Line 2675
+; Line 2686
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 63					; 0000003fH
 	jne	$L1731
-; Line 2685
+; Line 2696
 	push	OFFSET FLAT:$SG1732
 	call	_printf
 	add	esp, 4
-; Line 2686
+; Line 2697
 	mov	eax, 1
 	jmp	$L1729
-; Line 2688
+; Line 2699
 $L1731:
 	push	OFFSET FLAT:$SG1734
 	push	DWORD PTR _pchCmd$[ebp]
@@ -9468,7 +9468,7 @@ $L1731:
 	add	esp, 8
 	or	eax, eax
 	jne	$L1733
-; Line 2689
+; Line 2700
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	add	eax, 2
 	push	eax
@@ -9476,7 +9476,7 @@ $L1731:
 	call	_DOSDumpCommand
 	add	esp, 8
 	jmp	$L1729
-; Line 2694
+; Line 2705
 $L1733:
 	mov	eax, DWORD PTR _pchArgs$[ebp]
 	movsx	eax, BYTE PTR [eax]
@@ -9484,9 +9484,9 @@ $L1733:
 	movsx	eax, al
 	cmp	eax, 108				; 0000006cH
 	jne	$L1735
-; Line 2695
+; Line 2706
 	inc	DWORD PTR _pchArgs$[ebp]
-; Line 2696
+; Line 2707
 	push	1
 	lea	eax, DWORD PTR _cLines$[ebp]
 	push	eax
@@ -9496,7 +9496,7 @@ $L1733:
 	call	_ParseValue
 	add	esp, 20					; 00000014H
 	add	DWORD PTR _pchArgs$[ebp], eax
-; Line 2698
+; Line 2709
 	jmp	$L1736
 $L1735:
 	mov	eax, DWORD PTR _pchArgs$[ebp]
@@ -9506,17 +9506,17 @@ $L1735:
 	mov	eax, DWORD PTR _pchArgs$[ebp]
 	cmp	DWORD PTR _pchCmd$[ebp], eax
 	je	$L1737
-; Line 2699
+; Line 2710
 	sub	eax, eax
 	jmp	$L1729
-; Line 2701
+; Line 2712
 $L1737:
 $L1736:
 	cmp	DWORD PTR _cLines$[ebp], 0
 	jne	$L1738
-; Line 2702
+; Line 2713
 	mov	DWORD PTR _cLines$[ebp], 8
-; Line 2704
+; Line 2715
 $L1738:
 	push	OFFSET FLAT:$SG1740
 	push	DWORD PTR _pchCmd$[ebp]
@@ -9524,7 +9524,7 @@ $L1738:
 	add	esp, 8
 	or	eax, eax
 	jne	$L1739
-; Line 2705
+; Line 2716
 	push	DWORD PTR _cLines$[ebp]
 	push	4
 	push	DWORD PTR _pTSS
@@ -9532,7 +9532,7 @@ $L1738:
 	push	eax
 	call	_x86MemDump
 	add	esp, 16					; 00000010H
-; Line 2707
+; Line 2718
 	jmp	$L1741
 $L1739:
 	push	OFFSET FLAT:$SG1743
@@ -9541,7 +9541,7 @@ $L1739:
 	add	esp, 8
 	or	eax, eax
 	jne	$L1742
-; Line 2708
+; Line 2719
 	push	DWORD PTR _cLines$[ebp]
 	push	1
 	mov	eax, DWORD PTR _pTSS
@@ -9551,69 +9551,69 @@ $L1739:
 	push	eax
 	call	_x86MemDump
 	add	esp, 16					; 00000010H
-; Line 2710
+; Line 2721
 	jmp	$L1744
 $L1742:
-; Line 2713
+; Line 2724
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, 32					; 00000020H
 	movsx	eax, al
 	mov	DWORD PTR -8+[ebp], eax
 	jmp	$L1745
-; Line 2715
+; Line 2726
 $L1749:
-; Line 2716
+; Line 2727
 	push	DWORD PTR _cLines$[ebp]
 	push	1
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	call	_x86MemDump
 	add	esp, 16					; 00000010H
-; Line 2717
+; Line 2728
 	mov	DWORD PTR _iSizeLast, 1
-; Line 2718
+; Line 2729
 	jmp	$L1746
-; Line 2719
+; Line 2730
 $L1750:
-; Line 2720
+; Line 2731
 	push	DWORD PTR _cLines$[ebp]
 	push	2
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	call	_x86MemDump
 	add	esp, 16					; 00000010H
-; Line 2721
+; Line 2732
 	mov	DWORD PTR _iSizeLast, 2
-; Line 2722
+; Line 2733
 	jmp	$L1746
-; Line 2723
+; Line 2734
 $L1751:
-; Line 2724
+; Line 2735
 	push	DWORD PTR _cLines$[ebp]
 	push	4
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	call	_x86MemDump
 	add	esp, 16					; 00000010H
-; Line 2725
+; Line 2736
 	mov	DWORD PTR _iSizeLast, 4
-; Line 2726
+; Line 2737
 	jmp	$L1746
-; Line 2727
+; Line 2738
 $L1752:
-; Line 2728
+; Line 2739
 	push	DWORD PTR _cLines$[ebp]
 	push	DWORD PTR _iSizeLast
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	call	_x86MemDump
 	add	esp, 16					; 00000010H
-; Line 2729
+; Line 2740
 	jmp	$L1746
-; Line 2737
+; Line 2748
 $L1753:
-; Line 2738
+; Line 2749
 	inc	DWORD PTR _pchCmd$[ebp]
 	movzx	eax, WORD PTR _off$[ebp]
 	push	eax
@@ -9623,11 +9623,11 @@ $L1753:
 	push	DWORD PTR _pGDT
 	call	_x86DescDump
 	add	esp, 20					; 00000014H
-; Line 2739
+; Line 2750
 	jmp	$L1746
-; Line 2741
+; Line 2752
 $L1755:
-; Line 2742
+; Line 2753
 	inc	DWORD PTR _pchCmd$[ebp]
 	movzx	eax, WORD PTR _off$[ebp]
 	push	eax
@@ -9637,32 +9637,32 @@ $L1755:
 	push	DWORD PTR _pIDT
 	call	_x86DescDump
 	add	esp, 20					; 00000014H
-; Line 2743
+; Line 2754
 	jmp	$L1746
-; Line 2745
+; Line 2756
 $L1757:
-; Line 2747
+; Line 2758
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	cmp	DWORD PTR _pchCmd$[ebp], eax
 	jne	$L1758
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	cmp	DWORD PTR _pchArgs$[ebp], eax
 	je	$L1758
-; Line 2748
+; Line 2759
 	push	DWORD PTR _cLines$[ebp]
 	push	DWORD PTR _iSizeLast
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	call	_x86MemDump
 	add	esp, 16					; 00000010H
-; Line 2749
+; Line 2760
 	jmp	$L1759
 $L1758:
-; Line 2750
+; Line 2761
 	sub	eax, eax
 	jmp	$L1729
 $L1759:
-; Line 2751
+; Line 2762
 	jmp	$L1746
 $L1745:
 	cmp	DWORD PTR -8+[ebp], 103			; 00000067H
@@ -9682,13 +9682,13 @@ $L2093:
 	je	$L1750
 	jmp	$L1757
 $L1746:
-; Line 2752
+; Line 2763
 $L1744:
 $L1741:
-; Line 2753
+; Line 2764
 	mov	eax, 1
 	jmp	$L1729
-; Line 2754
+; Line 2765
 $L1729:
 	pop	edi
 	pop	esi
@@ -9720,16 +9720,16 @@ _i$ = -12
 _n$ = -8
 _fWord$ = -16
 _x86EditCommand PROC NEAR
-; Line 2758
+; Line 2769
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 20					; 00000014H
 	push	ebx
 	push	esi
 	push	edi
-; Line 2760
+; Line 2771
 	mov	DWORD PTR _i$[ebp], 0
-; Line 2761
+; Line 2772
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, 32					; 00000020H
@@ -9739,13 +9739,13 @@ _x86EditCommand PROC NEAR
 	sbb	eax, eax
 	neg	eax
 	mov	DWORD PTR _fWord$[ebp], eax
-; Line 2763
+; Line 2774
 $L1772:
 	mov	eax, DWORD PTR _pchArgs$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	je	$L1773
-; Line 2764
+; Line 2775
 	push	1
 	lea	eax, DWORD PTR _dw$[ebp]
 	push	eax
@@ -9755,16 +9755,16 @@ $L1772:
 	call	_ParseValue
 	add	esp, 20					; 00000014H
 	mov	DWORD PTR _n$[ebp], eax
-; Line 2765
+; Line 2776
 	cmp	DWORD PTR _n$[ebp], 0
 	jne	$L1774
-; Line 2766
+; Line 2777
 	jmp	$L1773
-; Line 2767
+; Line 2778
 $L1774:
 	mov	eax, DWORD PTR _n$[ebp]
 	add	DWORD PTR _pchArgs$[ebp], eax
-; Line 2768
+; Line 2779
 	mov	eax, DWORD PTR _i$[ebp]
 	mov	DWORD PTR -20+[ebp], eax
 	inc	DWORD PTR _i$[ebp]
@@ -9774,28 +9774,28 @@ $L1774:
 	sub	eax, ecx
 	cmp	eax, DWORD PTR -20+[ebp]
 	jne	$L1775
-; Line 2769
+; Line 2780
 	mov	DWORD PTR _i$[ebp], 1
-; Line 2770
+; Line 2781
 	push	OFFSET FLAT:$SG1776
 	call	_printf
 	add	esp, 4
-; Line 2772
+; Line 2783
 $L1775:
 	cmp	DWORD PTR _i$[ebp], 1
 	jne	$L1777
-; Line 2773
+; Line 2784
 	push	DWORD PTR _off$[ebp]
 	movzx	eax, WORD PTR _sel$[ebp]
 	push	eax
 	push	OFFSET FLAT:$SG1778
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 2774
+; Line 2785
 $L1777:
 	cmp	DWORD PTR _fWord$[ebp], 0
 	je	$L1779
-; Line 2775
+; Line 2786
 	movzx	eax, WORD PTR _dw$[ebp]
 	push	eax
 	push	DWORD PTR _off$[ebp]
@@ -9807,16 +9807,16 @@ $L1777:
 	push	OFFSET FLAT:$SG1780
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 2776
+; Line 2787
 	push	DWORD PTR _dw$[ebp]
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	call	_x86SetWord
 	add	esp, 12					; 0000000cH
-; Line 2778
+; Line 2789
 	jmp	$L1781
 $L1779:
-; Line 2779
+; Line 2790
 	movzx	eax, BYTE PTR _dw$[ebp]
 	push	eax
 	push	DWORD PTR _off$[ebp]
@@ -9828,35 +9828,35 @@ $L1779:
 	push	OFFSET FLAT:$SG1782
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 2780
+; Line 2791
 	push	DWORD PTR _dw$[ebp]
 	push	DWORD PTR _off$[ebp]
 	push	DWORD PTR _sel$[ebp]
 	call	_x86SetByte
 	add	esp, 12					; 0000000cH
-; Line 2781
+; Line 2792
 $L1781:
-; Line 2782
+; Line 2793
 	mov	eax, DWORD PTR _fWord$[ebp]
 	inc	eax
 	add	DWORD PTR _off$[ebp], eax
-; Line 2783
+; Line 2794
 	push	32					; 00000020H
 	push	DWORD PTR _pchArgs$[ebp]
 	call	_nstrskip
 	add	esp, 8
 	add	DWORD PTR _pchArgs$[ebp], eax
-; Line 2784
+; Line 2795
 	jmp	$L1772
 $L1773:
-; Line 2785
+; Line 2796
 	push	OFFSET FLAT:$SG1783
 	call	_printf
 	add	esp, 4
-; Line 2786
+; Line 2797
 	mov	eax, 1
 	jmp	$L1766
-; Line 2787
+; Line 2798
 $L1766:
 	pop	edi
 	pop	esi
@@ -9897,18 +9897,18 @@ _ch$ = -16
 _cch$ = -8
 _iTotal$ = -28
 _x86PortCommand PROC NEAR
-; Line 2791
+; Line 2802
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 32					; 00000020H
 	push	ebx
 	push	esi
 	push	edi
-; Line 2796
+; Line 2807
 	mov	DWORD PTR _dwLower$[ebp], 0
-; Line 2797
+; Line 2808
 	mov	DWORD PTR _dwUpper$[ebp], 65535		; 0000ffffH
-; Line 2798
+; Line 2809
 	lea	eax, DWORD PTR _dwUpper$[ebp]
 	push	eax
 	lea	eax, DWORD PTR _dwLower$[ebp]
@@ -9918,12 +9918,12 @@ _x86PortCommand PROC NEAR
 	call	_ParseRange
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _cch$[ebp], eax
-; Line 2799
+; Line 2810
 	cmp	DWORD PTR _dwUpper$[ebp], 65535		; 0000ffffH
 	jbe	$L1796
-; Line 2800
+; Line 2811
 	mov	DWORD PTR _dwUpper$[ebp], 65535		; 0000ffffH
-; Line 2802
+; Line 2813
 $L1796:
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
@@ -9933,21 +9933,21 @@ $L1796:
 	movsx	eax, BYTE PTR _ch$[ebp]
 	mov	DWORD PTR -32+[ebp], eax
 	jmp	$L1797
-; Line 2803
+; Line 2814
 $L1801:
-; Line 2811
+; Line 2822
 	push	OFFSET FLAT:$SG1802
 	call	_printf
 	add	esp, 4
-; Line 2812
+; Line 2823
 	jmp	$L1798
-; Line 2814
+; Line 2825
 $L1803:
-; Line 2815
+; Line 2826
 	mov	DWORD PTR _iTotal$[ebp], 0
-; Line 2816
+; Line 2827
 	mov	DWORD PTR _dwFirst$[ebp], -1
-; Line 2817
+; Line 2828
 	mov	eax, DWORD PTR _dwLower$[ebp]
 	mov	DWORD PTR _dwPort$[ebp], eax
 	jmp	$L1804
@@ -9957,48 +9957,16 @@ $L1804:
 	mov	eax, DWORD PTR _dwPort$[ebp]
 	cmp	DWORD PTR _dwUpper$[ebp], eax
 	jb	$L1806
-; Line 2818
+; Line 2829
 	push	DWORD PTR _dwPort$[ebp]
 	push	DWORD PTR _piopm$[ebp]
 	call	_x86PortTrapped
 	add	esp, 8
 	or	eax, eax
 	jne	$L1807
-; Line 2819
-	cmp	DWORD PTR _dwFirst$[ebp], -1
-	je	$L1808
-; Line 2820
-	push	DWORD PTR _dwPort$[ebp]
-	push	DWORD PTR _dwFirst$[ebp]
-	call	_x86DispTrapRange
-	add	esp, 8
-; Line 2821
-	mov	eax, DWORD PTR _dwPort$[ebp]
-	sub	eax, DWORD PTR _dwFirst$[ebp]
-	add	eax, DWORD PTR _iTotal$[ebp]
-	mov	DWORD PTR _iTotal$[ebp], eax
-; Line 2822
-	mov	DWORD PTR _dwFirst$[ebp], -1
-; Line 2824
-$L1808:
-; Line 2825
-	jmp	$L1809
-$L1807:
-; Line 2826
-	cmp	DWORD PTR _dwFirst$[ebp], -1
-	jne	$L1810
-; Line 2827
-	mov	eax, DWORD PTR _dwPort$[ebp]
-	mov	DWORD PTR _dwFirst$[ebp], eax
-; Line 2828
-$L1810:
-$L1809:
-; Line 2829
-	jmp	$L1805
-$L1806:
 ; Line 2830
 	cmp	DWORD PTR _dwFirst$[ebp], -1
-	je	$L1811
+	je	$L1808
 ; Line 2831
 	push	DWORD PTR _dwPort$[ebp]
 	push	DWORD PTR _dwFirst$[ebp]
@@ -10009,43 +9977,75 @@ $L1806:
 	sub	eax, DWORD PTR _dwFirst$[ebp]
 	add	eax, DWORD PTR _iTotal$[ebp]
 	mov	DWORD PTR _iTotal$[ebp], eax
-; Line 2834
+; Line 2833
+	mov	DWORD PTR _dwFirst$[ebp], -1
+; Line 2835
+$L1808:
+; Line 2836
+	jmp	$L1809
+$L1807:
+; Line 2837
+	cmp	DWORD PTR _dwFirst$[ebp], -1
+	jne	$L1810
+; Line 2838
+	mov	eax, DWORD PTR _dwPort$[ebp]
+	mov	DWORD PTR _dwFirst$[ebp], eax
+; Line 2839
+$L1810:
+$L1809:
+; Line 2840
+	jmp	$L1805
+$L1806:
+; Line 2841
+	cmp	DWORD PTR _dwFirst$[ebp], -1
+	je	$L1811
+; Line 2842
+	push	DWORD PTR _dwPort$[ebp]
+	push	DWORD PTR _dwFirst$[ebp]
+	call	_x86DispTrapRange
+	add	esp, 8
+; Line 2843
+	mov	eax, DWORD PTR _dwPort$[ebp]
+	sub	eax, DWORD PTR _dwFirst$[ebp]
+	add	eax, DWORD PTR _iTotal$[ebp]
+	mov	DWORD PTR _iTotal$[ebp], eax
+; Line 2845
 $L1811:
 	push	DWORD PTR _iTotal$[ebp]
 	push	OFFSET FLAT:$SG1812
 	call	_printf
 	add	esp, 8
-; Line 2835
-	jmp	$L1798
-; Line 2837
-$L1813:
-; Line 2838
-	test	BYTE PTR _flTrace, 16			; 00000010H
-	jne	$L1814
-; Line 2839
-	or	DWORD PTR _flTrace, 16			; 00000010H
-; Line 2840
-	push	OFFSET FLAT:$SG1815
-	call	_printf
-	add	esp, 4
-; Line 2842
-	jmp	$L1816
-$L1814:
-; Line 2843
-	and	DWORD PTR _flTrace, -17			; ffffffefH
-; Line 2844
-	push	OFFSET FLAT:$SG1817
-	call	_printf
-	add	esp, 4
-; Line 2845
-$L1816:
 ; Line 2846
 	jmp	$L1798
 ; Line 2848
-$L1818:
+$L1813:
+; Line 2849
+	test	BYTE PTR _flTrace, 16			; 00000010H
+	jne	$L1814
+; Line 2850
+	or	DWORD PTR _flTrace, 16			; 00000010H
+; Line 2851
+	push	OFFSET FLAT:$SG1815
+	call	_printf
+	add	esp, 4
+; Line 2853
+	jmp	$L1816
+$L1814:
 ; Line 2854
-	mov	DWORD PTR _iTotal$[ebp], 0
+	and	DWORD PTR _flTrace, -17			; ffffffefH
 ; Line 2855
+	push	OFFSET FLAT:$SG1817
+	call	_printf
+	add	esp, 4
+; Line 2856
+$L1816:
+; Line 2857
+	jmp	$L1798
+; Line 2859
+$L1818:
+; Line 2865
+	mov	DWORD PTR _iTotal$[ebp], 0
+; Line 2866
 	cmp	DWORD PTR _cch$[ebp], 0
 	jne	$L1820
 	mov	eax, DWORD PTR _pchOp$[ebp]
@@ -10053,7 +10053,7 @@ $L1818:
 	cmp	eax, 42					; 0000002aH
 	jne	$L1819
 $L1820:
-; Line 2856
+; Line 2867
 	mov	eax, DWORD PTR _dwLower$[ebp]
 	mov	DWORD PTR _dwPort$[ebp], eax
 	jmp	$L1821
@@ -10063,70 +10063,70 @@ $L1821:
 	mov	eax, DWORD PTR _dwPort$[ebp]
 	cmp	DWORD PTR _dwUpper$[ebp], eax
 	jb	$L1823
-; Line 2857
+; Line 2868
 	movsx	eax, BYTE PTR _ch$[ebp]
 	cmp	eax, 99					; 00000063H
 	jne	$L1824
-; Line 2858
+; Line 2869
 	push	DWORD PTR _dwPort$[ebp]
 	push	DWORD PTR _piopm$[ebp]
 	call	_x86PortTrapped
 	add	esp, 8
 	or	eax, eax
 	je	$L1825
-; Line 2859
+; Line 2870
 	inc	DWORD PTR _iTotal$[ebp]
-; Line 2860
+; Line 2871
 	push	DWORD PTR _dwPort$[ebp]
 	push	DWORD PTR _piopm$[ebp]
 	call	_x86PortUntrap
 	add	esp, 8
-; Line 2862
+; Line 2873
 $L1825:
-; Line 2863
+; Line 2874
 	jmp	$L1826
 $L1824:
-; Line 2864
+; Line 2875
 	push	DWORD PTR _dwPort$[ebp]
 	push	DWORD PTR _piopm$[ebp]
 	call	_x86PortTrapped
 	add	esp, 8
 	or	eax, eax
 	jne	$L1827
-; Line 2865
+; Line 2876
 	inc	DWORD PTR _iTotal$[ebp]
-; Line 2866
+; Line 2877
 	push	DWORD PTR _dwPort$[ebp]
 	push	DWORD PTR _piopm$[ebp]
 	call	_x86PortTrap
 	add	esp, 8
-; Line 2868
+; Line 2879
 $L1827:
 $L1826:
-; Line 2869
+; Line 2880
 	jmp	$L1822
 $L1823:
-; Line 2870
+; Line 2881
 	push	DWORD PTR _iTotal$[ebp]
 	push	OFFSET FLAT:$SG1828
 	call	_printf
 	add	esp, 8
-; Line 2872
+; Line 2883
 	jmp	$L1829
 $L1819:
-; Line 2873
+; Line 2884
 	push	OFFSET FLAT:$SG1830
 	call	_printf
 	add	esp, 4
 $L1829:
-; Line 2874
+; Line 2885
 	jmp	$L1798
-; Line 2876
+; Line 2887
 $L1831:
-; Line 2877
+; Line 2888
 	sub	eax, eax
 	jmp	$L1788
-; Line 2878
+; Line 2889
 	jmp	$L1798
 $L1797:
 	cmp	DWORD PTR -32+[ebp], 108		; 0000006cH
@@ -10146,10 +10146,10 @@ $L2094:
 	je	$L1818
 	jmp	$L1831
 $L1798:
-; Line 2879
+; Line 2890
 	mov	eax, 1
 	jmp	$L1788
-; Line 2880
+; Line 2891
 $L1788:
 	pop	edi
 	pop	esi
@@ -10199,14 +10199,14 @@ _pchCmd$ = 12
 _i$ = -4
 _ch$ = -8
 _x86VGACommand PROC NEAR
-; Line 2884
+; Line 2895
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 16					; 00000010H
 	push	ebx
 	push	esi
 	push	edi
-; Line 2888
+; Line 2899
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	mov	DWORD PTR -12+[ebp], eax
 	inc	DWORD PTR _pchCmd$[ebp]
@@ -10216,43 +10216,43 @@ _x86VGACommand PROC NEAR
 	movsx	eax, al
 	mov	DWORD PTR -16+[ebp], eax
 	jmp	$L1838
-; Line 2889
+; Line 2900
 $L1842:
-; Line 2894
+; Line 2905
 	push	OFFSET FLAT:$SG1843
 	call	_printf
 	add	esp, 4
-; Line 2895
-	jmp	$L1839
-; Line 2897
-$L1844:
-; Line 2898
-	push	0
-	push	OFFSET FLAT:_vsMonitor
-	call	_SaveVS
-	add	esp, 8
-; Line 2899
-	push	OFFSET FLAT:_vsVM
-	call	_RestoreVS
-	add	esp, 4
-; Line 2900
-	call	__getch
-; Line 2901
-	push	0
-	push	OFFSET FLAT:_vsVM
-	call	_SaveVS
-	add	esp, 8
-; Line 2902
-	push	OFFSET FLAT:_vsMonitor
-	call	_RestoreVS
-	add	esp, 4
-; Line 2903
-	jmp	$L1839
-; Line 2905
-$L1845:
 ; Line 2906
+	jmp	$L1839
+; Line 2908
+$L1844:
+; Line 2909
+	push	0
+	push	OFFSET FLAT:_vsMonitor
+	call	_SaveVS
+	add	esp, 8
+; Line 2910
+	push	OFFSET FLAT:_vsVM
+	call	_RestoreVS
+	add	esp, 4
+; Line 2911
+	call	__getch
+; Line 2912
+	push	0
+	push	OFFSET FLAT:_vsVM
+	call	_SaveVS
+	add	esp, 8
+; Line 2913
+	push	OFFSET FLAT:_vsMonitor
+	call	_RestoreVS
+	add	esp, 4
+; Line 2914
+	jmp	$L1839
+; Line 2916
+$L1845:
+; Line 2917
 	mov	DWORD PTR _i$[ebp], 0
-; Line 2907
+; Line 2918
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 48					; 00000030H
@@ -10261,18 +10261,18 @@ $L1845:
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 51					; 00000033H
 	jg	$L1846
-; Line 2908
+; Line 2919
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	sub	eax, 48					; 00000030H
 	mov	DWORD PTR _i$[ebp], eax
-; Line 2909
+; Line 2920
 $L1846:
 	push	DWORD PTR _i$[ebp]
 	push	OFFSET FLAT:$SG1847
 	call	_printf
 	add	esp, 8
-; Line 2910
+; Line 2921
 	push	8
 	push	1
 	mov	eax, DWORD PTR _i$[ebp]
@@ -10281,16 +10281,16 @@ $L1846:
 	push	eax
 	call	_x86MemDump
 	add	esp, 16					; 00000010H
-; Line 2911
-	jmp	$L1839
 ; Line 2922
+	jmp	$L1839
+; Line 2933
 $L1848:
-; Line 2923
+; Line 2934
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	al, 32					; 00000020H
 	mov	BYTE PTR _ch$[ebp], al
-; Line 2924
+; Line 2935
 	movsx	eax, BYTE PTR _ch$[ebp]
 	or	eax, eax
 	je	$L1850
@@ -10298,9 +10298,9 @@ $L1848:
 	cmp	eax, 32					; 00000020H
 	jne	$L1849
 $L1850:
-; Line 2925
+; Line 2936
 	mov	BYTE PTR _ch$[ebp], 42			; 0000002aH
-; Line 2926
+; Line 2937
 $L1849:
 	movsx	eax, BYTE PTR _ch$[ebp]
 	cmp	eax, 115				; 00000073H
@@ -10309,11 +10309,11 @@ $L1849:
 	cmp	eax, 42					; 0000002aH
 	jne	$L1851
 $L1852:
-; Line 2927
+; Line 2938
 	push	OFFSET FLAT:$SG1853
 	call	_printf
 	add	esp, 4
-; Line 2928
+; Line 2939
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1854
 $L1855:
@@ -10321,7 +10321,7 @@ $L1855:
 $L1854:
 	cmp	DWORD PTR _i$[ebp], 5
 	jge	$L1856
-; Line 2929
+; Line 2940
 	movzx	eax, BYTE PTR _vsVM+130
 	movzx	ecx, BYTE PTR _i$[ebp]
 	sub	eax, ecx
@@ -10338,11 +10338,11 @@ $L1854:
 	add	esp, 12					; 0000000cH
 	jmp	$L1855
 $L1856:
-; Line 2930
+; Line 2941
 	push	OFFSET FLAT:$SG1858
 	call	_printf
 	add	esp, 4
-; Line 2932
+; Line 2943
 $L1851:
 	movsx	eax, BYTE PTR _ch$[ebp]
 	cmp	eax, 103				; 00000067H
@@ -10351,11 +10351,11 @@ $L1851:
 	cmp	eax, 42					; 0000002aH
 	jne	$L1859
 $L1860:
-; Line 2933
+; Line 2944
 	push	OFFSET FLAT:$SG1861
 	call	_printf
 	add	esp, 4
-; Line 2934
+; Line 2945
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1862
 $L1863:
@@ -10363,7 +10363,7 @@ $L1863:
 $L1862:
 	cmp	DWORD PTR _i$[ebp], 16			; 00000010H
 	jge	$L1864
-; Line 2935
+; Line 2946
 	movzx	eax, BYTE PTR _vsVM+138
 	movzx	ecx, BYTE PTR _i$[ebp]
 	sub	eax, ecx
@@ -10380,11 +10380,11 @@ $L1862:
 	add	esp, 12					; 0000000cH
 	jmp	$L1863
 $L1864:
-; Line 2936
+; Line 2947
 	push	OFFSET FLAT:$SG1866
 	call	_printf
 	add	esp, 4
-; Line 2938
+; Line 2949
 $L1859:
 	movsx	eax, BYTE PTR _ch$[ebp]
 	cmp	eax, 97					; 00000061H
@@ -10393,11 +10393,11 @@ $L1859:
 	cmp	eax, 42					; 0000002aH
 	jne	$L1867
 $L1868:
-; Line 2939
+; Line 2950
 	push	OFFSET FLAT:$SG1869
 	call	_printf
 	add	esp, 4
-; Line 2940
+; Line 2951
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1870
 $L1871:
@@ -10405,14 +10405,14 @@ $L1871:
 $L1870:
 	cmp	DWORD PTR _i$[ebp], 21			; 00000015H
 	jge	$L1872
-; Line 2941
+; Line 2952
 	cmp	DWORD PTR _i$[ebp], 16			; 00000010H
 	jne	$L1873
-; Line 2942
+; Line 2953
 	push	OFFSET FLAT:$SG1874
 	call	_printf
 	add	esp, 4
-; Line 2943
+; Line 2954
 $L1873:
 	movzx	eax, BYTE PTR _vsVM+108
 	and	eax, -33				; ffffffdfH
@@ -10428,14 +10428,14 @@ $L1873:
 	push	OFFSET FLAT:$SG1875
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 2944
+; Line 2955
 	jmp	$L1871
 $L1872:
-; Line 2945
+; Line 2956
 	push	OFFSET FLAT:$SG1876
 	call	_printf
 	add	esp, 4
-; Line 2947
+; Line 2958
 $L1867:
 	movsx	eax, BYTE PTR _ch$[ebp]
 	cmp	eax, 99					; 00000063H
@@ -10444,23 +10444,23 @@ $L1867:
 	cmp	eax, 42					; 0000002aH
 	jne	$L1877
 $L1878:
-; Line 2948
+; Line 2959
 	movzx	eax, BYTE PTR _vsVM+107
 	push	eax
 	push	OFFSET FLAT:$SG1879
 	call	_printf
 	add	esp, 8
-; Line 2949
+; Line 2960
 	movzx	eax, BYTE PTR _vsVM+106
 	push	eax
 	push	OFFSET FLAT:$SG1880
 	call	_printf
 	add	esp, 8
-; Line 2950
+; Line 2961
 	push	OFFSET FLAT:$SG1881
 	call	_printf
 	add	esp, 4
-; Line 2951
+; Line 2962
 	mov	DWORD PTR _i$[ebp], 0
 	jmp	$L1882
 $L1883:
@@ -10468,7 +10468,7 @@ $L1883:
 $L1882:
 	cmp	DWORD PTR _i$[ebp], 53			; 00000035H
 	jge	$L1884
-; Line 2952
+; Line 2963
 	cmp	DWORD PTR _i$[ebp], 0
 	jle	$L1885
 	mov	eax, DWORD PTR _i$[ebp]
@@ -10479,11 +10479,11 @@ $L1882:
 	xor	eax, edx
 	sub	eax, edx
 	jne	$L1885
-; Line 2953
+; Line 2964
 	push	OFFSET FLAT:$SG1886
 	call	_printf
 	add	esp, 4
-; Line 2954
+; Line 2965
 $L1885:
 	movzx	eax, BYTE PTR _vsVM+48
 	movzx	ecx, BYTE PTR _i$[ebp]
@@ -10499,22 +10499,22 @@ $L1885:
 	push	OFFSET FLAT:$SG1887
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 2955
+; Line 2966
 	jmp	$L1883
 $L1884:
-; Line 2956
+; Line 2967
 	push	OFFSET FLAT:$SG1888
 	call	_printf
 	add	esp, 4
-; Line 2958
+; Line 2969
 $L1877:
 	jmp	$L1839
-; Line 2960
+; Line 2971
 $L1889:
-; Line 2961
+; Line 2972
 	sub	eax, eax
 	jmp	$L1835
-; Line 2962
+; Line 2973
 	jmp	$L1839
 $L1838:
 	cmp	DWORD PTR -16+[ebp], 32			; 00000020H
@@ -10527,10 +10527,10 @@ $L1838:
 	je	$L1848
 	jmp	$L1889
 $L1839:
-; Line 2963
+; Line 2974
 	mov	eax, 1
 	jmp	$L1835
-; Line 2964
+; Line 2975
 $L1835:
 	pop	edi
 	pop	esi
@@ -10622,75 +10622,75 @@ _pch$ = -20
 _pchAddr$ = -52
 _pchArgs$ = -36
 _x86Command PROC NEAR
-; Line 2968
+; Line 2979
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 84					; 00000054H
 	push	ebx
 	push	esi
 	push	edi
-; Line 2978
+; Line 2989
 	mov	eax, DWORD PTR _pflCommand$[ebp]
 	mov	DWORD PTR [eax], 0
-; Line 2979
+; Line 2990
 	mov	eax, DWORD PTR _pchCmd$[ebp]
 	mov	DWORD PTR _pch$[ebp], eax
-; Line 2980
+; Line 2991
 	push	32					; 00000020H
 	push	DWORD PTR _pch$[ebp]
 	call	_nstrskip
 	add	esp, 8
 	add	DWORD PTR _pch$[ebp], eax
-; Line 2984
+; Line 2995
 	push	DWORD PTR _pch$[ebp]
 	push	DWORD PTR _pesf$[ebp]
 	call	_ParseCommand
 	add	esp, 8
 	mov	DWORD PTR _i$[ebp], eax
-; Line 2985
+; Line 2996
 	cmp	DWORD PTR _i$[ebp], 0
 	je	$L1908
-; Line 2986
+; Line 2997
 	mov	eax, DWORD PTR _i$[ebp]
 	jmp	$L1893
-; Line 2991
+; Line 3002
 $L1908:
 	mov	eax, DWORD PTR _selCodeLast
 	mov	DWORD PTR _selCode$[ebp], eax
-; Line 2992
+; Line 3003
 	mov	eax, DWORD PTR _offCodeLast
 	mov	DWORD PTR _offCode$[ebp], eax
-; Line 2993
+; Line 3004
 	mov	eax, DWORD PTR _selDataLast
 	mov	DWORD PTR _selData$[ebp], eax
-; Line 2994
+; Line 3005
 	mov	eax, DWORD PTR _offDataLast
 	mov	DWORD PTR _offData$[ebp], eax
-; Line 2996
+; Line 3007
 	cmp	DWORD PTR _selCode$[ebp], 0
 	jne	$L1909
-; Line 2997
+; Line 3008
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+104]
 	mov	DWORD PTR _selCode$[ebp], eax
-; Line 2998
+; Line 3009
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+100]
 	mov	DWORD PTR _offCode$[ebp], eax
-; Line 3001
+; Line 3012
 $L1909:
 	cmp	DWORD PTR _selData$[ebp], 0
 	jne	$L1910
-; Line 3002
+; Line 3013
 	mov	eax, DWORD PTR _pesf$[ebp]
 	mov	eax, DWORD PTR [eax+48]
 	mov	DWORD PTR _selData$[ebp], eax
-; Line 3004
+; Line 3015
 $L1910:
 	mov	eax, DWORD PTR _pch$[ebp]
 	inc	eax
 	mov	DWORD PTR _pchAddr$[ebp], eax
-; Line 3005
+; Line 3016
 $L1912:
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	movsx	eax, BYTE PTR [eax]
@@ -10704,19 +10704,19 @@ $L1912:
 	movsx	eax, al
 	cmp	eax, 122				; 0000007aH
 	jg	$L1913
-; Line 3006
+; Line 3017
 	inc	DWORD PTR _pchAddr$[ebp]
 	jmp	$L1912
 $L1913:
-; Line 3007
+; Line 3018
 	push	32					; 00000020H
 	push	DWORD PTR _pchAddr$[ebp]
 	call	_nstrskip
 	add	esp, 8
 	add	DWORD PTR _pchAddr$[ebp], eax
-; Line 3009
+; Line 3020
 	mov	DWORD PTR _fBadAddr$[ebp], 0
-; Line 3010
+; Line 3021
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 58					; 0000003aH
@@ -10726,18 +10726,18 @@ $L1913:
 	or	eax, eax
 	jne	$L1914
 $L1915:
-; Line 3011
+; Line 3022
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax+2]
 	or	eax, eax
 	je	$L1916
-; Line 3012
+; Line 3023
 	mov	eax, DWORD PTR _pch$[ebp]
 	inc	eax
 	mov	DWORD PTR _pchAddr$[ebp], eax
-; Line 3014
+; Line 3025
 $L1916:
-; Line 3015
+; Line 3026
 $L1914:
 	lea	eax, DWORD PTR _offData$[ebp]
 	push	eax
@@ -10754,27 +10754,27 @@ $L1914:
 	mov	ecx, DWORD PTR _pchAddr$[ebp]
 	add	ecx, eax
 	mov	DWORD PTR _pchArgs$[ebp], ecx
-; Line 3016
+; Line 3027
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	cmp	DWORD PTR _pchArgs$[ebp], eax
 	jne	$L1917
-; Line 3018
+; Line 3029
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	je	$L1918
-; Line 3019
+; Line 3030
 	mov	DWORD PTR _fBadAddr$[ebp], 1
-; Line 3020
+; Line 3031
 $L1918:
-; Line 3021
+; Line 3032
 $L1917:
 	push	32					; 00000020H
 	push	DWORD PTR _pchArgs$[ebp]
 	call	_nstrskip
 	add	esp, 8
 	add	DWORD PTR _pchArgs$[ebp], eax
-; Line 3023
+; Line 3034
 	mov	eax, DWORD PTR _pch$[ebp]
 	mov	DWORD PTR -60+[ebp], eax
 	inc	DWORD PTR _pch$[ebp]
@@ -10784,9 +10784,9 @@ $L1917:
 	movsx	eax, al
 	mov	DWORD PTR -68+[ebp], eax
 	jmp	$L1919
-; Line 3024
+; Line 3035
 $L1923:
-; Line 3025
+; Line 3036
 	push	DWORD PTR _pchArgs$[ebp]
 	push	DWORD PTR _pchAddr$[ebp]
 	push	DWORD PTR _offCode$[ebp]
@@ -10797,14 +10797,14 @@ $L1923:
 	add	esp, 24					; 00000018H
 	or	eax, eax
 	jne	$L1924
-; Line 3026
+; Line 3037
 	jmp	$CommandError$1925
-; Line 3027
+; Line 3038
 $L1924:
 	jmp	$L1920
-; Line 3029
+; Line 3040
 $L1926:
-; Line 3030
+; Line 3041
 	push	DWORD PTR _pchArgs$[ebp]
 	push	DWORD PTR _pchAddr$[ebp]
 	push	DWORD PTR _offData$[ebp]
@@ -10815,14 +10815,14 @@ $L1926:
 	add	esp, 24					; 00000018H
 	or	eax, eax
 	jne	$L1927
-; Line 3031
+; Line 3042
 	jmp	$CommandError$1925
-; Line 3032
+; Line 3043
 $L1927:
 	jmp	$L1920
-; Line 3034
+; Line 3045
 $L1928:
-; Line 3035
+; Line 3046
 	push	DWORD PTR _pchArgs$[ebp]
 	push	DWORD PTR _pchAddr$[ebp]
 	push	DWORD PTR _offData$[ebp]
@@ -10833,18 +10833,18 @@ $L1928:
 	add	esp, 24					; 00000018H
 	or	eax, eax
 	jne	$L1929
-; Line 3036
+; Line 3047
 	jmp	$CommandError$1925
-; Line 3037
+; Line 3048
 $L1929:
 	jmp	$L1920
-; Line 3039
+; Line 3050
 $L1930:
-; Line 3040
+; Line 3051
 	mov	eax, DWORD PTR _pchAddr$[ebp]
 	cmp	DWORD PTR _pchArgs$[ebp], eax
 	je	$L1931
-; Line 3041
+; Line 3052
 	push	DWORD PTR _offCode$[ebp]
 	push	DWORD PTR _selCode$[ebp]
 	push	1024					; 00000400H
@@ -10852,9 +10852,9 @@ $L1930:
 	add	esp, 12					; 0000000cH
 	or	eax, eax
 	jne	$L1932
-; Line 3042
+; Line 3053
 	jmp	$L1920
-; Line 3043
+; Line 3054
 $L1932:
 $L1931:
 	mov	eax, DWORD PTR _pch$[ebp]
@@ -10863,43 +10863,43 @@ $L1931:
 	movsx	eax, al
 	cmp	eax, 116				; 00000074H
 	jne	$L1933
-; Line 3044
+; Line 3055
 	and	DWORD PTR _flTrace, -9			; fffffff7H
-; Line 3045
+; Line 3056
 	jmp	$L1934
 $L1933:
 	cmp	DWORD PTR _fBadAddr$[ebp], 0
 	je	$L1935
-; Line 3046
+; Line 3057
 	jmp	$BadAddr$1936
-; Line 3047
+; Line 3058
 $L1935:
 $L1934:
 	mov	eax, DWORD PTR _pesf$[ebp]
 	and	DWORD PTR [eax+108], -257		; fffffeffH
-; Line 3048
+; Line 3059
 	mov	eax, DWORD PTR _pflCommand$[ebp]
 	or	DWORD PTR [eax], 1
-; Line 3049
+; Line 3060
 	jmp	$L1920
-; Line 3051
+; Line 3062
 $L1937:
-; Line 3052
+; Line 3063
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 63					; 0000003fH
 	jne	$L1938
-; Line 3057
+; Line 3068
 	push	OFFSET FLAT:$SG1939
 	call	_printf
 	add	esp, 4
-; Line 3058
+; Line 3069
 	jmp	$L1920
-; Line 3060
+; Line 3071
 $L1938:
 	mov	eax, DWORD PTR _pch$[ebp]
 	mov	DWORD PTR _pchArgs$[ebp], eax
-; Line 3061
+; Line 3072
 	push	3
 	push	OFFSET FLAT:_apszOptions
 	lea	eax, DWORD PTR _pchArgs$[ebp]
@@ -10908,9 +10908,9 @@ $L1938:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR -72+[ebp], eax
 	jmp	$L1940
-; Line 3062
+; Line 3073
 $L1944:
-; Line 3063
+; Line 3074
 	mov	eax, DWORD PTR _pchArgs$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	sub	eax, 48					; 00000030H
@@ -10919,46 +10919,46 @@ $L1944:
 	add	esp, 4
 	or	eax, eax
 	jne	$L1945
-; Line 3064
+; Line 3075
 	push	OFFSET FLAT:$SG1946
 	call	_printf
 	add	esp, 4
-; Line 3065
+; Line 3076
 	jmp	$L1947
 $L1945:
 	test	BYTE PTR _vsMonitor+4, 2
 	jne	$L1948
-; Line 3066
+; Line 3077
 	push	0
 	push	OFFSET FLAT:_vsMonitor
 	call	_SaveVS
 	add	esp, 8
-; Line 3067
+; Line 3078
 	push	OFFSET FLAT:_vsVM
 	call	_RestoreVS
 	add	esp, 4
-; Line 3068
+; Line 3079
 	or	DWORD PTR _vsVM+4, 2
-; Line 3069
+; Line 3080
 	or	DWORD PTR _vsMonitor+4, 2
-; Line 3070
+; Line 3081
 	push	OFFSET FLAT:$SG1949
 	call	_printf
 	add	esp, 4
-; Line 3072
+; Line 3083
 	jmp	$L1950
 $L1948:
-; Line 3073
+; Line 3084
 	push	OFFSET FLAT:$SG1951
 	call	_printf
 	add	esp, 4
 $L1950:
 $L1947:
-; Line 3074
+; Line 3085
 	jmp	$L1941
-; Line 3075
+; Line 3086
 $L1952:
-; Line 3076
+; Line 3087
 	push	2
 	push	OFFSET FLAT:_apszIDTOptions
 	lea	eax, DWORD PTR _pchArgs$[ebp]
@@ -10967,49 +10967,49 @@ $L1952:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR -76+[ebp], eax
 	jmp	$L1953
-; Line 3077
+; Line 3088
 $L1957:
-; Line 3078
+; Line 3089
 	test	BYTE PTR _flTrace+1, 2
 	je	$L1958
-; Line 3079
+; Line 3090
 	and	DWORD PTR _flTrace, -513		; fffffdffH
-; Line 3080
+; Line 3091
 	push	OFFSET FLAT:$SG1959
 	call	_printf
 	add	esp, 4
-; Line 3082
+; Line 3093
 	jmp	$L1960
 $L1958:
-; Line 3083
+; Line 3094
 	push	OFFSET FLAT:$SG1961
 	call	_printf
 	add	esp, 4
 $L1960:
-; Line 3084
+; Line 3095
 	jmp	$L1954
-; Line 3085
+; Line 3096
 $L1962:
-; Line 3086
+; Line 3097
 	test	BYTE PTR _flTrace+1, 2
 	jne	$L1963
-; Line 3087
+; Line 3098
 	or	DWORD PTR _flTrace, 512			; 00000200H
-; Line 3088
+; Line 3099
 	push	OFFSET FLAT:$SG1964
 	call	_printf
 	add	esp, 4
-; Line 3090
+; Line 3101
 	jmp	$L1965
 $L1963:
-; Line 3091
+; Line 3102
 	push	OFFSET FLAT:$SG1966
 	call	_printf
 	add	esp, 4
 $L1965:
-; Line 3092
+; Line 3103
 	jmp	$L1954
-; Line 3093
+; Line 3104
 	jmp	$L1954
 $L1953:
 	cmp	DWORD PTR -76+[ebp], 0
@@ -11018,45 +11018,45 @@ $L1953:
 	je	$L1962
 	jmp	$L1954
 $L1954:
-; Line 3094
+; Line 3105
 	jmp	$L1941
-; Line 3095
+; Line 3106
 $L1967:
-; Line 3096
+; Line 3107
 	test	BYTE PTR _vsMonitor+4, 2
 	je	$L1968
-; Line 3097
+; Line 3108
 	and	DWORD PTR _vsVM+4, -3			; fffffffdH
-; Line 3098
+; Line 3109
 	and	DWORD PTR _vsMonitor+4, -3		; fffffffdH
-; Line 3099
+; Line 3110
 	push	0
 	push	OFFSET FLAT:_vsVM
 	call	_SaveVS
 	add	esp, 8
-; Line 3100
+; Line 3111
 	push	OFFSET FLAT:_vsMonitor
 	call	_RestoreVS
 	add	esp, 4
-; Line 3101
+; Line 3112
 	push	OFFSET FLAT:$SG1969
 	call	_printf
 	add	esp, 4
-; Line 3103
+; Line 3114
 	jmp	$L1970
 $L1968:
-; Line 3104
+; Line 3115
 	push	OFFSET FLAT:$SG1971
 	call	_printf
 	add	esp, 4
 $L1970:
-; Line 3105
+; Line 3116
 	jmp	$L1941
-; Line 3106
+; Line 3117
 $L1972:
-; Line 3107
+; Line 3118
 	jmp	$CommandError$1925
-; Line 3108
+; Line 3119
 	jmp	$L1941
 $L1940:
 	cmp	DWORD PTR -72+[ebp], 0
@@ -11067,29 +11067,29 @@ $L1940:
 	je	$L1967
 	jmp	$CommandError$1925
 $L1941:
-; Line 3109
+; Line 3120
 	jmp	$L1920
-; Line 3111
+; Line 3122
 $L1973:
-; Line 3114
+; Line 3125
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	jne	$L1974
-; Line 3115
+; Line 3126
 	push	128					; 00000080H
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86Trace
 	add	esp, 8
 	or	eax, eax
 	je	$L1975
-; Line 3116
+; Line 3127
 	mov	eax, DWORD PTR _pflCommand$[ebp]
 	or	DWORD PTR [eax], 1
-; Line 3117
+; Line 3128
 $L1975:
 	jmp	$L1920
-; Line 3119
+; Line 3130
 $L1974:
 	mov	eax, DWORD PTR _pTSS
 	add	eax, 104				; 00000068H
@@ -11101,27 +11101,27 @@ $L1974:
 	add	esp, 16					; 00000010H
 	or	eax, eax
 	jne	$L1976
-; Line 3120
+; Line 3131
 	jmp	$CommandError$1925
-; Line 3121
+; Line 3132
 $L1976:
 	jmp	$L1920
-; Line 3123
+; Line 3134
 $L1977:
-; Line 3127
+; Line 3138
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 33					; 00000021H
 	jne	$L1978
-; Line 3128
+; Line 3139
 	mov	eax, DWORD PTR _pmbZero
 	mov	DWORD PTR [eax+1344], 0
-; Line 3134
+; Line 3145
 $L1978:
 	cli
-; Line 3136
+; Line 3147
 	mov	BYTE PTR _bDefColor, 7
-; Line 3137
+; Line 3148
 	push	0
 	push	0
 	push	0
@@ -11129,29 +11129,29 @@ $L1978:
 	push	0
 	call	__scroll
 	add	esp, 20					; 00000014H
-; Line 3138
+; Line 3149
 	push	1
 	push	0
 	push	0
 	call	__setcursor
 	add	esp, 12					; 0000000cH
-; Line 3139
+; Line 3150
 	push	0
 	call	__setvistop
 	add	esp, 4
-; Line 3141
+; Line 3152
 	call	_Reboot
-; Line 3142
+; Line 3153
 	jmp	$L1920
-; Line 3144
+; Line 3155
 $L1979:
-; Line 3145
+; Line 3156
 	push	32					; 00000020H
 	push	DWORD PTR _pch$[ebp]
 	call	_nstrskip
 	add	esp, 8
 	add	DWORD PTR _pch$[ebp], eax
-; Line 3146
+; Line 3157
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
@@ -11160,21 +11160,21 @@ $L1979:
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 59					; 0000003bH
 	je	$L1980
-; Line 3147
+; Line 3158
 	push	DWORD PTR _pch$[ebp]
 	call	_ParseReg
 	add	esp, 4
 	mov	DWORD PTR _i$[ebp], eax
 	cmp	DWORD PTR _i$[ebp], 0
 	jne	$L1981
-; Line 3148
+; Line 3159
 	push	DWORD PTR _pch$[ebp]
 	push	OFFSET FLAT:$SG1982
 	call	_printf
 	add	esp, 8
-; Line 3149
+; Line 3160
 	jmp	$L1920
-; Line 3151
+; Line 3162
 $L1981:
 	dec	DWORD PTR _i$[ebp]
 	mov	eax, DWORD PTR _i$[ebp]
@@ -11183,7 +11183,7 @@ $L1981:
 	call	_nstrlen
 	add	esp, 4
 	add	DWORD PTR _pch$[ebp], eax
-; Line 3152
+; Line 3163
 	push	1
 	lea	eax, DWORD PTR _dw$[ebp]
 	push	eax
@@ -11194,19 +11194,19 @@ $L1981:
 	add	esp, 20					; 00000014H
 	or	eax, eax
 	je	$L1983
-; Line 3153
+; Line 3164
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _ardRegs[eax+5]
 	cmp	eax, 3
 	jne	$L1984
-; Line 3154
+; Line 3165
 	mov	eax, DWORD PTR _pesf$[ebp]
 	test	BYTE PTR [eax+110], 2
 	je	$L1985
-; Line 3155
+; Line 3166
 	or	DWORD PTR _dw$[ebp], 65536		; 00010000H
-; Line 3156
+; Line 3167
 $L1985:
 	push	DWORD PTR _dw$[ebp]
 	call	_x86SelDesc
@@ -11216,64 +11216,64 @@ $L1985:
 	add	esp, 4
 	or	eax, eax
 	jne	$L1986
-; Line 3157
+; Line 3168
 	push	DWORD PTR _dw$[ebp]
 	push	OFFSET FLAT:$SG1987
 	call	_printf
 	add	esp, 8
-; Line 3158
+; Line 3169
 	jmp	$L1920
-; Line 3160
+; Line 3171
 $L1986:
-; Line 3161
+; Line 3172
 $L1984:
 	mov	eax, DWORD PTR _i$[ebp]
 	imul	eax, 6
 	movzx	eax, BYTE PTR _ardRegs[eax+5]
 	mov	DWORD PTR -80+[ebp], eax
 	jmp	$L1988
-; Line 3162
+; Line 3173
 $L1992:
-; Line 3163
+; Line 3174
 	mov	al, BYTE PTR _dw$[ebp]
 	mov	ecx, DWORD PTR _i$[ebp]
 	imul	ecx, 6
 	movzx	ecx, BYTE PTR _ardRegs[ecx+4]
 	mov	edx, DWORD PTR _pesf$[ebp]
 	mov	BYTE PTR [ecx+edx], al
-; Line 3164
+; Line 3175
 	jmp	$L1989
-; Line 3165
+; Line 3176
 $L1993:
-; Line 3166
+; Line 3177
 	mov	eax, DWORD PTR _dw$[ebp]
 	mov	ecx, DWORD PTR _i$[ebp]
 	imul	ecx, 6
 	movzx	ecx, BYTE PTR _ardRegs[ecx+4]
 	mov	edx, DWORD PTR _pesf$[ebp]
 	mov	WORD PTR [ecx+edx], ax
-; Line 3167
+; Line 3178
 	jmp	$L1989
-; Line 3168
+; Line 3179
 $L1994:
-; Line 3170
+; Line 3181
 	mov	eax, DWORD PTR _dw$[ebp]
 	mov	ecx, DWORD PTR _i$[ebp]
 	imul	ecx, 6
 	movzx	ecx, BYTE PTR _ardRegs[ecx+4]
 	mov	edx, DWORD PTR _pesf$[ebp]
 	mov	DWORD PTR [ecx+edx], eax
-; Line 3171
+; Line 3182
 	jmp	$L1989
-; Line 3172
+; Line 3183
 $L1995:
-; Line 3173
+; Line 3184
 	push	OFFSET FLAT:$SG1996
 	call	_printf
 	add	esp, 4
-; Line 3174
+; Line 3185
 	jmp	$L1989
-; Line 3175
+; Line 3186
 	jmp	$L1989
 $L1988:
 	cmp	DWORD PTR -80+[ebp], 1
@@ -11286,20 +11286,20 @@ $L1988:
 	jle	$L1994
 	jmp	$L1995
 $L1989:
-; Line 3177
+; Line 3188
 $L1983:
 	jmp	$L1920
-; Line 3179
+; Line 3190
 	jmp	$L1997
 $L1980:
-; Line 3180
+; Line 3191
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86RegDump
 	add	esp, 4
 $L1997:
-; Line 3183
+; Line 3194
 $L1998:
-; Line 3184
+; Line 3195
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+100]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -11307,27 +11307,27 @@ $L1998:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86InsDump
 	add	esp, 12					; 0000000cH
-; Line 3185
+; Line 3196
 	jmp	$L1920
-; Line 3187
+; Line 3198
 $L1999:
-; Line 3188
+; Line 3199
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 63					; 0000003fH
 	jne	$L2000
-; Line 3195
+; Line 3206
 	push	OFFSET FLAT:$SG2001
 	call	_printf
 	add	esp, 4
-; Line 3196
+; Line 3207
 	jmp	$L1920
-; Line 3198
+; Line 3209
 $L2000:
 	mov	DWORD PTR _fl$[ebp], 0
-; Line 3199
+; Line 3210
 	mov	DWORD PTR _lInsCount, 0
-; Line 3200
+; Line 3211
 $L2003:
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
@@ -11337,53 +11337,53 @@ $L2003:
 	movsx	eax, BYTE PTR _ch$[ebp]
 	cmp	eax, 32					; 00000020H
 	je	$L2004
-; Line 3201
+; Line 3212
 	movsx	eax, BYTE PTR _ch$[ebp]
 	mov	DWORD PTR -84+[ebp], eax
 	jmp	$L2005
-; Line 3202
-$L2009:
-; Line 3203
-	jmp	$EndTrace$2010
-; Line 3204
-$L2011:
-; Line 3205
-	or	DWORD PTR _fl$[ebp], 128		; 00000080H
-; Line 3206
-	jmp	$L2006
-; Line 3207
-$L2012:
-; Line 3208
-	or	DWORD PTR _fl$[ebp], 256		; 00000100H
-; Line 3209
-	jmp	$L2006
-; Line 3210
-$L2013:
-; Line 3211
-	or	DWORD PTR _fl$[ebp], 2
-; Line 3212
-	jmp	$L2006
 ; Line 3213
-$L2014:
+$L2009:
 ; Line 3214
-	or	DWORD PTR _fl$[ebp], 64			; 00000040H
+	jmp	$EndTrace$2010
 ; Line 3215
-	and	DWORD PTR _fl$[ebp], -33		; ffffffdfH
+$L2011:
 ; Line 3216
-	jmp	$L2006
+	or	DWORD PTR _fl$[ebp], 128		; 00000080H
 ; Line 3217
-$L2015:
+	jmp	$L2006
 ; Line 3218
-	or	DWORD PTR _fl$[ebp], 32			; 00000020H
+$L2012:
 ; Line 3219
-	and	DWORD PTR _fl$[ebp], -65		; ffffffbfH
+	or	DWORD PTR _fl$[ebp], 256		; 00000100H
 ; Line 3220
 	jmp	$L2006
 ; Line 3221
-$L2016:
+$L2013:
 ; Line 3222
-	jmp	$CommandError$1925
+	or	DWORD PTR _fl$[ebp], 2
 ; Line 3223
+	jmp	$L2006
+; Line 3224
+$L2014:
+; Line 3225
+	or	DWORD PTR _fl$[ebp], 64			; 00000040H
+; Line 3226
+	and	DWORD PTR _fl$[ebp], -33		; ffffffdfH
+; Line 3227
+	jmp	$L2006
+; Line 3228
+$L2015:
+; Line 3229
+	or	DWORD PTR _fl$[ebp], 32			; 00000020H
+; Line 3230
+	and	DWORD PTR _fl$[ebp], -65		; ffffffbfH
+; Line 3231
+	jmp	$L2006
+; Line 3232
+$L2016:
+; Line 3233
+	jmp	$CommandError$1925
+; Line 3234
 	jmp	$L2006
 $L2005:
 	cmp	DWORD PTR -84+[ebp], 113		; 00000071H
@@ -11403,32 +11403,32 @@ $L2097:
 	je	$L2015
 	jmp	$CommandError$1925
 $L2006:
-; Line 3224
+; Line 3235
 	jmp	$L2003
 $L2004:
-; Line 3225
+; Line 3236
 $EndTrace$2010:
-; Line 3226
+; Line 3237
 	push	DWORD PTR _fl$[ebp]
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86Trace
 	add	esp, 8
 	or	eax, eax
 	je	$L2017
-; Line 3227
+; Line 3238
 	mov	eax, DWORD PTR _pflCommand$[ebp]
 	or	DWORD PTR [eax], 1
-; Line 3228
+; Line 3239
 $L2017:
 	jmp	$L1920
-; Line 3230
+; Line 3241
 $L2018:
-; Line 3231
+; Line 3242
 	cmp	DWORD PTR _fBadAddr$[ebp], 0
 	je	$L2019
-; Line 3232
+; Line 3243
 	jmp	$BadAddr$1936
-; Line 3233
+; Line 3244
 $L2019:
 	mov	DWORD PTR _i$[ebp], 0
 	mov	DWORD PTR _j$[ebp], 0
@@ -11438,7 +11438,7 @@ $L2021:
 $L2020:
 	cmp	DWORD PTR _i$[ebp], 8
 	jge	$L2022
-; Line 3234
+; Line 3245
 	mov	eax, DWORD PTR _j$[ebp]
 	add	eax, DWORD PTR _offCode$[ebp]
 	push	eax
@@ -11449,11 +11449,11 @@ $L2020:
 	add	DWORD PTR _j$[ebp], eax
 	jmp	$L2021
 $L2022:
-; Line 3235
+; Line 3246
 	jmp	$L1920
-; Line 3237
+; Line 3248
 $L2023:
-; Line 3238
+; Line 3249
 	push	DWORD PTR _pchAddr$[ebp]
 	push	DWORD PTR _pch$[ebp]
 	push	DWORD PTR _pesf$[ebp]
@@ -11461,32 +11461,32 @@ $L2023:
 	add	esp, 12					; 0000000cH
 	or	eax, eax
 	jne	$L2024
-; Line 3239
+; Line 3250
 	jmp	$CommandError$1925
-; Line 3240
+; Line 3251
 $L2024:
 	jmp	$L1920
-; Line 3242
+; Line 3253
 $L2025:
-; Line 3243
+; Line 3254
 	jmp	$L1920
-; Line 3245
+; Line 3256
 $L2026:
-; Line 3246
+; Line 3257
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	jne	$L2027
-; Line 3263
+; Line 3274
 	push	OFFSET FLAT:$SG2028
 	call	_printf
 	add	esp, 4
-; Line 3265
+; Line 3276
 	jmp	$L2029
 $L2027:
-; Line 3266
+; Line 3277
 	mov	DWORD PTR _sel$[ebp], 0
-; Line 3267
+; Line 3278
 	push	1
 	lea	eax, DWORD PTR _dw$[ebp]
 	push	eax
@@ -11497,17 +11497,17 @@ $L2027:
 	call	_ParseValue
 	add	esp, 20					; 00000014H
 	mov	DWORD PTR _i$[ebp], eax
-; Line 3268
+; Line 3279
 	cmp	DWORD PTR _i$[ebp], 0
 	je	$L2030
-; Line 3269
+; Line 3280
 	push	OFFSET FLAT:$SG2031
 	call	_printf
 	add	esp, 4
-; Line 3270
+; Line 3281
 	cmp	DWORD PTR _sel$[ebp], 0
 	je	$L2032
-; Line 3271
+; Line 3282
 	movzx	eax, WORD PTR _sel$[ebp]
 	push	eax
 	push	0
@@ -11519,7 +11519,7 @@ $L2027:
 	push	OFFSET FLAT:$SG2033
 	call	_printf
 	add	esp, 12					; 0000000cH
-; Line 3272
+; Line 3283
 $L2032:
 	movzx	eax, BYTE PTR _dw$[ebp]
 	cmp	eax, 32					; 00000020H
@@ -11539,10 +11539,10 @@ $L2096:
 	push	OFFSET FLAT:$SG2034
 	call	_printf
 	add	esp, 16					; 00000010H
-; Line 3273
+; Line 3284
 	mov	eax, DWORD PTR _i$[ebp]
 	add	DWORD PTR _pch$[ebp], eax
-; Line 3274
+; Line 3285
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
@@ -11551,28 +11551,28 @@ $L2096:
 	movsx	eax, BYTE PTR [eax]
 	cmp	eax, 59					; 0000003bH
 	je	$L2035
-; Line 3275
+; Line 3286
 	push	DWORD PTR _pch$[ebp]
 	push	OFFSET FLAT:$SG2036
 	call	_printf
 	add	esp, 8
-; Line 3276
+; Line 3287
 $L2035:
-; Line 3277
+; Line 3288
 $L2030:
 $L2029:
-; Line 3278
+; Line 3289
 	jmp	$L1920
-; Line 3280
+; Line 3291
 $L2037:
-; Line 3282
+; Line 3293
 $CommandError$1925:
-; Line 3283
+; Line 3294
 	mov	eax, DWORD PTR _pflCommand$[ebp]
 	or	DWORD PTR [eax], 2
-; Line 3284
+; Line 3295
 	jmp	$L1920
-; Line 3285
+; Line 3296
 	jmp	$L1920
 $L1919:
 	cmp	DWORD PTR -68+[ebp], 111		; 0000006fH
@@ -11612,24 +11612,24 @@ $L2100:
 	DD	OFFSET FLAT:$L2018
 	DD	OFFSET FLAT:$L2023
 $L1920:
-; Line 3286
+; Line 3297
 	jmp	$Exit$2038
-; Line 3288
+; Line 3299
 $BadAddr$1936:
-; Line 3289
+; Line 3300
 	push	DWORD PTR _pchAddr$[ebp]
 	push	OFFSET FLAT:$SG2039
 	call	_printf
 	add	esp, 8
-; Line 3291
+; Line 3302
 $Exit$2038:
-; Line 3292
+; Line 3303
 	push	59					; 0000003bH
 	push	DWORD PTR _pchCmd$[ebp]
 	call	_nstrskipto
 	add	esp, 8
 	jmp	$L1893
-; Line 3293
+; Line 3304
 $L1893:
 	pop	edi
 	pop	esi
@@ -11659,97 +11659,97 @@ _flCommand$ = -8
 _pchCmd$ = -12
 _pszInput$ = -4
 _x86Debug PROC NEAR
-; Line 3297
+; Line 3308
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 92					; 0000005cH
 	push	ebx
 	push	esi
 	push	edi
-; Line 3303
+; Line 3314
 	inc	DWORD PTR _iDebugEntry
-; Line 3304
+; Line 3315
 	test	BYTE PTR _flDebug$[ebp], 16		; 00000010H
 	je	$L2047
-; Line 3305
+; Line 3316
 	inc	DWORD PTR _iIDTEntry
-; Line 3307
+; Line 3318
 $L2047:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86LoadFrame
 	add	esp, 4
-; Line 3309
+; Line 3320
 	cmp	DWORD PTR _iDebugEntry, 1
 	jne	$L2048
-; Line 3310
+; Line 3321
 	test	BYTE PTR _flTrace, 4
 	jne	$L2049
-; Line 3313
+; Line 3324
 	test	BYTE PTR _flDebug$[ebp], 1
 	jne	$L2050
-; Line 3314
+; Line 3325
 	push	0
 	push	OFFSET FLAT:_vsVM
 	call	_SaveVS
 	add	esp, 8
-; Line 3315
+; Line 3326
 	push	OFFSET FLAT:_vsMonitor
 	call	_RestoreVS
 	add	esp, 4
-; Line 3317
+; Line 3328
 $L2050:
-; Line 3319
+; Line 3330
 $L2049:
 	test	BYTE PTR _vsVM+4, 2
 	jne	$L2051
 	cmp	DWORD PTR _vsVM, 0
 	je	$L2051
-; Line 3320
+; Line 3331
 	push	DWORD PTR _vsVM
 	push	OFFSET FLAT:$SG2052
 	call	_printf
 	add	esp, 8
-; Line 3321
+; Line 3332
 $L2051:
 	test	BYTE PTR _vsMonitor+4, 2
 	jne	$L2053
 	cmp	DWORD PTR _vsMonitor, -1
 	je	$L2053
-; Line 3322
+; Line 3333
 	push	DWORD PTR _vsMonitor
 	push	OFFSET FLAT:$SG2054
 	call	_printf
 	add	esp, 8
-; Line 3324
+; Line 3335
 $L2053:
-; Line 3325
+; Line 3336
 $L2048:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86RemoveBPs
 	add	esp, 4
-; Line 3327
+; Line 3338
 	sti
-; Line 3332
+; Line 3343
 	test	BYTE PTR _flTrace, 1
 	je	$L2056
 	test	BYTE PTR _flTrace, 32			; 00000020H
 	je	$L2055
 $L2056:
-; Line 3333
+; Line 3344
 	push	DWORD PTR _flDebug$[ebp]
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86TrapDump
 	add	esp, 8
-; Line 3334
+; Line 3345
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86RegDump
 	add	esp, 4
-; Line 3336
+; Line 3347
 	jmp	$L2057
 $L2055:
 	test	BYTE PTR _flTrace, 98			; 00000062H
 	jne	$L2058
-; Line 3337
+; Line 3348
 	push	0
 	push	DWORD PTR _colCursor
 	mov	eax, DWORD PTR _rowCursor
@@ -11757,12 +11757,12 @@ $L2055:
 	push	eax
 	call	__setcursor
 	add	esp, 12					; 0000000cH
-; Line 3339
+; Line 3350
 $L2058:
 $L2057:
 	test	BYTE PTR _flTrace, 64			; 00000040H
 	jne	$L2059
-; Line 3340
+; Line 3351
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+100]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -11770,16 +11770,16 @@ $L2057:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86InsDump
 	add	esp, 12					; 0000000cH
-; Line 3352
+; Line 3363
 $L2059:
 	test	BYTE PTR _flTrace, 2
 	je	$L2060
-; Line 3353
+; Line 3364
 	inc	DWORD PTR _lInsCount
-; Line 3354
+; Line 3365
 	test	BYTE PTR _flKeyEvent, 2
 	jne	$L2061
-; Line 3355
+; Line 3366
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+100]
 	mov	eax, DWORD PTR _pesf$[ebp]
@@ -11790,16 +11790,16 @@ $L2059:
 	add	esp, 16					; 00000010H
 	or	eax, eax
 	jne	$L2062
-; Line 3356
+; Line 3367
 	push	DWORD PTR _flTrace
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86Trace
 	add	esp, 8
 	or	eax, eax
 	je	$L2063
-; Line 3357
+; Line 3368
 	jmp	$Exit$2064
-; Line 3358
+; Line 3369
 $L2063:
 $L2062:
 $L2061:
@@ -11807,22 +11807,22 @@ $L2061:
 	push	OFFSET FLAT:$SG2065
 	call	_printf
 	add	esp, 8
-; Line 3360
+; Line 3371
 $L2060:
 	test	BYTE PTR _flDebug$[ebp], 4
 	je	$L2066
-; Line 3361
+; Line 3372
 	jmp	$Exit$2064
-; Line 3365
+; Line 3376
 $L2066:
 	mov	DWORD PTR _flCommand$[ebp], 0
-; Line 3366
+; Line 3377
 	and	DWORD PTR _flTrace, -488		; fffffe18H
-; Line 3368
+; Line 3379
 $L2068:
 	test	BYTE PTR _flCommand$[ebp], 1
 	jne	$L2069
-; Line 3370
+; Line 3381
 	push	1
 	mov	eax, DWORD PTR _pesf$[ebp]
 	push	DWORD PTR [eax+104]
@@ -11833,23 +11833,23 @@ $L2068:
 	push	OFFSET FLAT:$SG2070
 	call	_printf
 	add	esp, 8
-; Line 3372
+; Line 3383
 	lea	eax, DWORD PTR _achInput$[ebp]
 	mov	DWORD PTR _pszInput$[ebp], eax
-; Line 3373
+; Line 3384
 	push	DWORD PTR _pszInput$[ebp]
 	call	_ngets
 	add	esp, 4
-; Line 3375
+; Line 3386
 $L2072:
 	mov	eax, DWORD PTR _pszInput$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	je	$L2073
-; Line 3376
+; Line 3387
 	mov	eax, DWORD PTR _pszInput$[ebp]
 	mov	DWORD PTR _pchCmd$[ebp], eax
-; Line 3377
+; Line 3388
 	lea	eax, DWORD PTR _flCommand$[ebp]
 	push	eax
 	push	DWORD PTR _pchCmd$[ebp]
@@ -11857,76 +11857,76 @@ $L2072:
 	call	_x86Command
 	add	esp, 12					; 0000000cH
 	add	DWORD PTR _pszInput$[ebp], eax
-; Line 3378
+; Line 3389
 	mov	eax, DWORD PTR _pszInput$[ebp]
 	movsx	eax, BYTE PTR [eax]
 	or	eax, eax
 	je	$L2074
-; Line 3379
+; Line 3390
 	inc	DWORD PTR _pszInput$[ebp]
-; Line 3381
+; Line 3392
 $L2074:
 	test	BYTE PTR _flCommand$[ebp], 1
 	je	$L2075
-; Line 3382
+; Line 3393
 	jmp	$L2073
-; Line 3384
+; Line 3395
 $L2075:
 	test	BYTE PTR _flCommand$[ebp], 2
 	je	$L2076
-; Line 3385
+; Line 3396
 	push	DWORD PTR _pchCmd$[ebp]
 	push	OFFSET FLAT:$SG2077
 	call	_printf
 	add	esp, 8
-; Line 3386
+; Line 3397
 	jmp	$L2073
-; Line 3388
+; Line 3399
 $L2076:
 	jmp	$L2072
 $L2073:
-; Line 3389
+; Line 3400
 	jmp	$L2068
 $L2069:
-; Line 3390
+; Line 3401
 $Exit$2064:
-; Line 3391
+; Line 3402
 	cli
-; Line 3393
+; Line 3404
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86ApplyBPs
 	add	esp, 4
-; Line 3395
+; Line 3406
 	cmp	DWORD PTR _iDebugEntry, 1
 	jne	$L2078
-; Line 3396
+; Line 3407
 	test	BYTE PTR _flTrace, 4
 	jne	$L2079
-; Line 3397
+; Line 3408
 	push	0
 	push	OFFSET FLAT:_vsMonitor
 	call	_SaveVS
 	add	esp, 8
-; Line 3398
+; Line 3409
 	push	OFFSET FLAT:_vsVM
 	call	_RestoreVS
 	add	esp, 4
-; Line 3400
+; Line 3411
 $L2079:
-; Line 3401
+; Line 3412
 $L2078:
 	push	DWORD PTR _pesf$[ebp]
 	call	_x86SaveFrame
 	add	esp, 4
-; Line 3403
+; Line 3414
 	test	BYTE PTR _flDebug$[ebp], 16		; 00000010H
 	je	$L2080
-; Line 3404
+; Line 3415
 	dec	DWORD PTR _iIDTEntry
-; Line 3405
+; Line 3416
 $L2080:
 	dec	DWORD PTR _iDebugEntry
-; Line 3406
+; Line 3417
 $L2042:
 	pop	edi
 	pop	esi
