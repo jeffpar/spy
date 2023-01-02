@@ -1,43 +1,17 @@
 {
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": false,
   "editor.tabSize": 8,
-  "files.associations": {
-    "*.s": "masm",
-    "*.asm": "masm",
-    "*.inc": "masm",
-    "*.ASM": "masm",
-    "*.INC": "masm",
-    "X86DEBUG.C": "cpp",
-    "MAIN.C": "cpp",
-    "PRINTF.C": "cpp",
-    "DOSDUMP.C": "cpp",
-    "VIDMGR.C": "cpp",
-    "MEMMGR.C": "cpp",
-    "INTPARSE.C": "cpp",
-    "GETS.C": "cpp",
-    "SPRINTF.C": "cpp",
-    "STRING.C": "cpp"
-  },
-  "[cpp]": {
-    "editor.detectIndentation": false,
+  "[c][cpp]": {
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
-    "files.eol": "\r\n",
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true
   },
-  "[masm]": {
-    "editor.detectIndentation": false,
-    "editor.insertSpaces": false,
-    "editor.tabSize": 8,
-    "files.eol": "\r\n",
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true
+  "[markdown]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
   },
   "[jsonc]": {
     "editor.detectIndentation": false,
-    "editor.insertSpaces": true,
     "editor.tabSize": 2,
     "files.trimTrailingWhitespace": true
   },
@@ -81,6 +55,7 @@
     "endp",
     "errnz",
     "ETEXT",
+    "EXTMEM",
     "extrn",
     "FARJMP",
     "FGND",
@@ -94,6 +69,7 @@
     "GRPHADDR",
     "ifdef",
     "incvistop",
+    "intem",
     "INTGATE",
     "ints",
     "INVOPCODE",
@@ -148,6 +124,7 @@
     "plogicalvram",
     "popa",
     "putch",
+    "REEXEC",
     "reinitialization",
     "RESETFLAG",
     "resetvistop",
@@ -162,6 +139,7 @@
     "STACKFAULT",
     "stosb",
     "stosd",
+    "SYSSERV",
     "TSSFAULT",
     "typematic",
     "TYPEMATIC",
@@ -173,6 +151,9 @@
     "VIDMEM",
     "vidmgr",
     "VIDMGR",
+    "VINT",
+    "virf",
+    "VIRF",
     "VMODE"
   ]
 }
