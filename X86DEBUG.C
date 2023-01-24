@@ -3214,9 +3214,9 @@ INT x86Command(register PESF pesf, PCHAR pchCmd, PINT pflCommand)
             printf("Trace commands\n"
                    "\tt\ttrace one instruction\n"
                    "\ttg\ttrace until breakpoint\n"
-                   "\tts\tstep one instruction\n"
                    "\ttq\ttrace quiet (no instructions)\n"
-                   "\ttv\ttrace verbose (includes registers)\n"
+                   "\ttr\ttrace and display registers\n"
+                   "\tts\tstep one instruction\n"
             );
             break;
         }
@@ -3239,7 +3239,7 @@ INT x86Command(register PESF pesf, PCHAR pchCmd, PINT pflCommand)
                 fl |= TRACE_QUIET;
                 fl &= ~TRACE_VERBOSE;
                 break;
-            case 'v':
+            case 'r':
                 fl |= TRACE_VERBOSE;
                 fl &= ~TRACE_QUIET;
                 break;
