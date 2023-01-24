@@ -125,6 +125,7 @@
 #define KBDSCAN_F9              0x43
 #define KBDSCAN_F10             0x44
 #define KBDSCAN_SCRLOCK         0x46
+#define	KBDSCAN_SYSREQ			0x54
 #define KBDSCAN_F11             0x57
 #define KBDSCAN_F12             0x58
 #define KBDSCAN_BREAKPREFIX     0x80

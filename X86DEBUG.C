@@ -987,6 +987,12 @@ VOID x86Trap(PESF pesf, INT flDebug, INT iNum)
             return;
     }
 
+    if (flDebug & DEBUG_VINT3) {
+        if (!x86FindBP(pesf, BP_INUSE|BP_ENABLED, pesf->CS, pesf->EIP))
+            return;
+        flTrace |= TRACE_REEXEC;
+    }
+
     // If we hit an INT3 either via the IDT (IDT_BREAKPOINT) or via
     // instruction emulation (DEBUG_VINT3, as set by EmulateINT3), then
     // set the TRACE_REEXEC flag, because assuming it's my INT3, then
@@ -996,10 +1002,6 @@ VOID x86Trap(PESF pesf, INT flDebug, INT iNum)
 
     if (pesf->iTrap == IDT_BREAKPOINT) {
         pesf->EIP--;
-        flTrace |= TRACE_REEXEC;
-    }
-
-    if (flDebug & DEBUG_VINT3) {
         flTrace |= TRACE_REEXEC;
     }
 
@@ -2291,7 +2293,7 @@ PBPD x86AllocBP(INT flBP, DWORD sel, DWORD off)
         if ((pbpd->flBP & BP_INUSE) == 0 && !pbpdCandidate)
             pbpdCandidate = pbpd;
         if ((pbpd->flBP & flBP) == flBP) {
-            if (pbpd->selBP == sel && pbpd->offBP == off) {
+            if ((pbpd->selBP & 0xFFFF) == (sel & 0xFFFF) && pbpd->offBP == off) {
                 pbpdCandidate = pbpd;
                 break;
             }
@@ -2383,6 +2385,18 @@ VOID x86ListBPs(PESF pesf)
 }
 
 
+/*  x86FindBP - find breakpoint
+ *
+ *  ENTRY
+ *      pesf -> register frame
+ *		flBP == BP_* flags
+ *		sel == selector
+ *		off == offset
+ *
+ *  EXIT
+ *      Index (+1) of matching breakpoint, or 0 if not found
+ */
+
 INT x86FindBP(PESF pesf, INT flBP, DWORD sel, DWORD off)
 {
     INT i;
@@ -2390,7 +2404,7 @@ INT x86FindBP(PESF pesf, INT flBP, DWORD sel, DWORD off)
 
     for (i=0; i<ARRAYSIZE(abpdGlobal); i++,pbpd++) {
         if ((pbpd->flBP & flBP) == flBP)
-            if (pbpd->selBP == sel && pbpd->offBP == off)
+            if ((pbpd->selBP & 0xFFFF) == (sel & 0xFFFF) && pbpd->offBP == off)
                 if (!pbpd->iReg)
                     return i+1;
                 else if (x86RegValue(pesf, pbpd->iReg-1) == pbpd->dwValue)
@@ -2437,7 +2451,7 @@ VOID x86ApplyBPs(PESF pesf)
 VOID x86SetBP(PESF pesf, register PBPD pbpd)
 {
     if ((pbpd->flBP & (BP_INUSE|BP_ENABLED|BP_INPLACE)) == (BP_INUSE|BP_ENABLED)) {
-        if (!pbpdTempDisable && pbpd->selBP == pesf->CS && pbpd->offBP == pesf->EIP) {
+        if (!pbpdTempDisable && (pbpd->selBP & 0xFFFF) == (pesf->CS & 0xFFFF) && pbpd->offBP == pesf->EIP) {
             pbpdTempDisable = pbpd;
             pesf->Flags |= FLAGS_TF;
         }

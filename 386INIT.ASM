@@ -593,6 +593,10 @@ OPEN_DATA
 
 	extrn	_pmbZero:dword
 
+; 386trap.asm globals
+
+	extrn	_bNestedEntries:byte
+
 	public	_v86Init
 _v86Init    dd	0		    ; must be 1st dword in _DATA
 
@@ -965,7 +969,9 @@ Main32	proc	far
 ;   boundary, and with paging enabled, but interrupts disabled;	 it is up to
 ;   _Main to enable ints once all *its* data structures are initialized
 ;
+	inc	[_bNestedEntries]
 	call	_Main		    ; dispatch to C code
+	dec	[_bNestedEntries]
 
 	mov	ebx,[_pmbZero]	    ; restore master and slave IMRs
 	mov	al,[ebx].rb_SaveMasterIMR

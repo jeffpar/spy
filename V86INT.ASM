@@ -89,6 +89,7 @@ EmulateINT3 label near
 	test	[_flTrace],TRACE_REEXEC
 	jnz	short EmExit
 
+	mov	edi,3			; EDI == interrupt #
 	inc	word ptr [ebp].esf_EIP	; advance instruction pointer now
 
 	; Fall into SimulateINT

@@ -31,12 +31,6 @@
 
 OPEN_DATA
 
-	ifdef	DEBUG
-	public	_szAssert
-_szAssert   db	"Assertion failure in module %s, line %d", LF, NULL
-	endif
-
-
 	public	_flKeyEvent
 _flKeyEvent dd	0
 
@@ -110,6 +104,13 @@ _abXlatShift label  byte
 	db	00h,  00h,  00h,  00h,	00h,  00h,  00h,  00h	; 70-77h
 	db	00h,  00h,  00h,  00h,	00h,  00h,  00h,  00h	; 78-7Fh
 
+	public	_bNestedEntries
+_bNestedEntries	db	0		; don't allow more than 1 nested entry
+
+	ifdef	DEBUG
+	public	_szAssert
+_szAssert   db	"Assertion failure in module %s, line %d", LF, NULL
+	endif
 
 	public	_aintSimulate		; indexed by IDT # (less IDT_MASTER_BASE)
 _aintSimulate	label byte
@@ -130,7 +131,7 @@ _aintSimulate	label byte
 	db	INT_DISK
 	db	INT_IRQ15
 
-
+	align	4
 	public	_afnEmulate
 _afnEmulate label dword
 	dd	0			; 00h	ADD
@@ -829,11 +830,15 @@ KBDInterrupt	proc far
 	in	al,KBDPORT_DATA		; read scan code
 
 	cmp	al,KBDSCAN_F12		; F12 key?
+	je	short kbd_debugger	; yes
+
+	cmp	al,KBDSCAN_SYSREQ	; SYSREQ key?
 	jne	short kbd_testv86	; no
 
+kbd_debugger:
 	push	DEBUG_NONE		; yes, break into debugger immediately
 	call	Debugger		; call debugger router
-	jmp	kbd_return		; terminate this interrupt
+	jnc	kbd_return		; terminate this interrupt if the call was accepted
 
 kbd_testv86:
 	test	[ebp].esf_Flags,FLAGS_V86
@@ -1053,7 +1058,7 @@ _WaitKbdOutput	endp
 ;	Interrupts off
 ;
 ;   EXIT
-;	None
+;	Carry clear if debugger entered, set if not
 ;
 ;   USES
 ;	None
@@ -1062,6 +1067,11 @@ _WaitKbdOutput	endp
 
 	public	Debugger
 Debugger proc near
+	cmp	[_bNestedEntries],2	; have we already re-entered once?
+	cmc
+	jb	dbg_exit		; yes
+
+	inc	[_bNestedEntries]
 	push	eax			; save scratch regs
 	push	edx			;
 
@@ -1123,10 +1133,12 @@ no_mask_ints2:
 	out	PIC_SLAVE_IMR,al	; done!
 	mov	al,dl			; restore master interrupt mask
 	out	PIC_MASTER_IMR,al	; done!
+	clc
 
+	dec	[_bNestedEntries]
 	pop	edx			; restore scratch regs
 	pop	eax			;
-					; throw away DEBUG_* flags
+dbg_exit:				; throw away DEBUG_* flags
 	ret	4			; because this is a PASCAL function
 Debugger endp
 
