@@ -12,9 +12,7 @@ ASSERTMOD(vidmgr.c);
 
 
 PBYTE   pVRAM = (PBYTE)VIDMEM_GRPHADDR; // pointer to physical VRAM
-
-VSTATE  vsVM = {-1, VSTATE_NONE, {64*K, 64*K, 64*K, 64*K}};
-VSTATE  vsMonitor = {-1, VSTATE_NONE, {32*K, 0, 8*K, 0}};
+PVS     pvsVM, pvsMonitor;
 
 // I use "row" and "col" prefixes instead of "x" and "y" to denote
 // 0-relative cell coordinates that increase from top to bottom and
@@ -38,10 +36,10 @@ VOID InitVideoMgr()
 {
     pVRAM = pmbZero->abGrphMem;
 
-    InitVS(&vsVM);
-    InitVS(&vsMonitor);
+    pvsVM = InitVS(64*K, 64*K, 64*K, 64*K);
+    pvsMonitor = InitVS(32*K, 0, 8*K, 0);
 
-    SaveVS(&vsVM, TRUE);
+    SaveVS(pvsVM, TRUE);
 
     // BUGBUG -- Currently, the video mgr allows the monitor to inherit
     // the current video state, the assumption being we're already in text
@@ -69,12 +67,18 @@ VOID InitVideoMgr()
 }
 
 
-VOID InitVS(register PVS pvs)
+PVS InitVS(INT cb1, INT cb2, INT cb3, INT cb4)
 {
     INT i;
 
+    PVS pvs = MemAlloc(sizeof(VSTATE));
+    if (!pvs) return NULL;
+
+    pvs->cLocks = -1;
+    pvs->flVState = VSTATE_NONE;
+
     for (i=0; i<MAX_PLANES; i++) {
-        pvs->cbPlane[i] = 64 * 1024;
+        pvs->cbPlane[i] = (i == 0? cb1 : (i == 1? cb2 : (i == 2? cb3 : cb4)));
         pvs->pbPlane[i] = MemAlloc(pvs->cbPlane[i]);
     }
 
@@ -98,4 +102,5 @@ VOID InitVS(register PVS pvs)
     pvs->aregSEQData[REG_SEQRESET] = SEQRESET_ASYNC | SEQRESET_SYNC;
 
     pvs->stateATC = ATC_INDEX;                  // Init ATC to INDEX state
+    return pvs;
 }

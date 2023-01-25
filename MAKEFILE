@@ -10,6 +10,7 @@
 
 INCLUDE=
 LIB=
+PATH=
 
 !IFNDEF PS2
 DEFFLAGS=-DDEBUG $(FLAGS)
@@ -35,8 +36,8 @@ H2INC=tools\h2inc
 !ENDIF
 
 
-.h.inc:
-    $(H2INC) -t -s inc\types.h $*.h -o $*.inc
+{h\}.h{inc\}.inc:
+    $(H2INC) -t -s h\types.h h\$(<B).h -o $@
 
 
 .asm.com:
@@ -56,18 +57,18 @@ H2INC=tools\h2inc
 
 
 .c{obj\}.obj:
-    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fonul -Fa$(<B).asm $(<B).c
-    $(FIXASM) $(<B).asm
-    $(ASM) -nologo -c -Cp -Iinc -W3 -Zm $(DEFFLAGS) -Fm -Fo$@ $(<B).asm
+    $(C32) -nologo -c -Oas -Gs -Ih -W3 -Zp $(DEFFLAGS) -Fonul -Faobj\$(<B).asm $(<B).c
+    $(FIXASM) obj\$(<B).asm
+    $(ASM) -nologo -c -Cp -Ih -W3 -Zm $(DEFFLAGS) -Fm -Fo$@ obj\$(<B).asm
 
 {lib\}.c{obj\}.obj:
-    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fo$@ lib\$(<B).c
+    $(C32) -nologo -c -Oas -Gs -Ih -W3 -Zp $(DEFFLAGS) -Fo$@ lib\$(<B).c
 
 .c.lst:
-    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fonul -Fc$@ $(<B).c
+    $(C32) -nologo -c -Oas -Gs -Ih -W3 -Zp $(DEFFLAGS) -Fonul -Fc$@ $(<B).c
 
 {lib\}.c.lst:
-    $(C32) -nologo -c -Oas -Gs -Iinc -W3 -Zp $(DEFFLAGS) -Fonul -Fc$@ lib\$(<B).c
+    $(C32) -nologo -c -Oas -Gs -Ih -W3 -Zp $(DEFFLAGS) -Fonul -Fc$@ lib\$(<B).c
 
 
 # Default target(s)
@@ -75,17 +76,17 @@ H2INC=tools\h2inc
 default:        spy.com reboot.com
 
 
-inc\all.h:      inc\types.h inc\386.h inc\387.h \
-                inc\ems.h inc\bios.h inc\dos.h inc\debug.h \
-                inc\globals.h inc\x86.h inc\lib.h \
-                inc\pic.h inc\timer.h inc\kbd.h inc\disk.h inc\cmos.h \
-                inc\video.h inc\com.h
+h\all.h:	h\types.h h\386.h h\387.h \
+                h\ems.h h\bios.h h\dos.h h\debug.h \
+                h\globals.h h\x86.h h\lib.h \
+                h\pic.h h\timer.h h\kbd.h h\disk.h \
+		h\cmos.h h\video.h h\com.h
 
 inc\all.inc:    inc\types.inc inc\386.inc inc\387.inc \
                 inc\ems.inc inc\bios.inc inc\dos.inc inc\debug.inc \
                 inc\globals.inc inc\x86.inc inc\lib.inc \
-                inc\pic.inc inc\timer.inc inc\kbd.inc inc\disk.inc inc\cmos.inc \
-                inc\video.inc inc\com.inc
+                inc\pic.inc inc\timer.inc inc\kbd.inc inc\disk.inc \
+		inc\cmos.inc inc\video.inc inc\com.inc
 
 
 obj\386init.obj:    386init.asm inc\all.inc
@@ -96,29 +97,29 @@ obj\v86int.obj:     v86int.asm  inc\all.inc
 
 obj\v86io.obj:      v86io.asm   inc\all.inc
 
-obj\main.obj:       main.c      inc\all.h
+obj\main.obj:       main.c      h\all.h
 
-obj\memmgr.obj:     memmgr.c    inc\all.h
+obj\memmgr.obj:     memmgr.c    h\all.h
 
-obj\vidmgr.obj:     vidmgr.c    inc\all.h
+obj\vidmgr.obj:     vidmgr.c    h\all.h
 
 obj\vidsave.obj:    vidsave.asm inc\all.inc
 
 obj\comio.obj:      comio.asm   inc\all.inc
 
-obj\x86debug.obj:   x86debug.c  inc\all.h
+obj\x86debug.obj:   x86debug.c  h\all.h
 
-obj\intparse.obj:   intparse.c  inc\all.h
+obj\intparse.obj:   intparse.c  h\all.h
 
-obj\dosdump.obj:    dosdump.c   inc\all.h
+obj\dosdump.obj:    dosdump.c   h\all.h
 
-obj\printf.obj:     lib\printf.c inc\all.h
+obj\printf.obj:     lib\printf.c h\all.h
 
-obj\gets.obj:       lib\gets.c  inc\all.h
+obj\gets.obj:       lib\gets.c  h\all.h
 
-obj\sprintf.obj:    lib\sprintf.c inc\types.h inc\lib.h
+obj\sprintf.obj:    lib\sprintf.c h\types.h h\lib.h
 
-obj\string.obj:     lib\string.c inc\types.h inc\lib.h
+obj\string.obj:     lib\string.c h\types.h h\lib.h
 
 
 spy.com:        obj\386init.obj obj\386trap.obj obj\v86int.obj obj\v86io.obj \

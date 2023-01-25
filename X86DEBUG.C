@@ -2920,11 +2920,11 @@ BOOL x86VGACommand(register PESF pesf, register PCHAR pchCmd, PCHAR pchOp)
         break;
 
     case _tolower(NULL):
-        SaveVS(&vsMonitor, FALSE);
-        RestoreVS(&vsVM);
+        SaveVS(pvsMonitor, FALSE);
+        RestoreVS(pvsVM);
         _getch();
-        SaveVS(&vsVM, FALSE);
-        RestoreVS(&vsMonitor);
+        SaveVS(pvsVM, FALSE);
+        RestoreVS(pvsMonitor);
         break;
 
     case 'p':
@@ -2932,7 +2932,7 @@ BOOL x86VGACommand(register PESF pesf, register PCHAR pchCmd, PCHAR pchOp)
         if (*pchCmd >= '0' && *pchCmd <= '3')
             i = *pchCmd - '0';
         printf("Virtual plane buffer #%d:\n", i);
-        x86MemDump(sel_Data, (DWORD)vsVM.pbPlane[i], 1, 8);
+        x86MemDump(sel_Data, (DWORD)(pvsVM->pbPlane[i]), 1, 8);
         break;
 
     // vr commands are for dumping the vga registers, as follows:
@@ -2951,13 +2951,13 @@ BOOL x86VGACommand(register PESF pesf, register PCHAR pchCmd, PCHAR pchOp)
         if (ch == 's' || ch == '*') {
             printf("SEQ regs:  ");
             for (i=0; i<MAX_SEQREGS; i++)
-                printf("%02x%c ", vsVM.aregSEQData[i], (BYTE)i==vsVM.regSEQIndx?'*':' ');
+                printf("%02x%c ", pvsVM->aregSEQData[i], (BYTE)i==pvsVM->regSEQIndx?'*':' ');
             printf("\n");
         }
         if (ch == 'g' || ch == '*') {
             printf("GDC regs:  ");
             for (i=0; i<MAX_GDCREGS; i++)
-                printf("%02x%c ", vsVM.aregGDCData[i], (BYTE)i==vsVM.regGDCIndx?'*':' ');
+                printf("%02x%c ", pvsVM->aregGDCData[i], (BYTE)i==pvsVM->regGDCIndx?'*':' ');
             printf("\n");
         }
         if (ch == 'a' || ch == '*') {
@@ -2965,18 +2965,18 @@ BOOL x86VGACommand(register PESF pesf, register PCHAR pchCmd, PCHAR pchOp)
             for (i=0; i<MAX_ATCREGS; i++) {
                 if (i == 16)
                     printf("\n           ");
-                printf("%02x%c ", vsVM.aregATCData[i], i==(vsVM.regATCIndx&~ATCPAL_ENABLE)?'*':' ');
+                printf("%02x%c ", pvsVM->aregATCData[i], i==(pvsVM->regATCIndx&~ATCPAL_ENABLE)?'*':' ');
             }
             printf("\n");
         }
         if (ch == 'c' || ch == '*') {
-            printf("Misc reg:  %02x\n", vsVM.regMiscOut);
-            printf("Feat reg:  %02x\n", vsVM.regFeature);
+            printf("Misc reg:  %02x\n", pvsVM->regMiscOut);
+            printf("Feat reg:  %02x\n", pvsVM->regFeature);
             printf("CRTC regs: ");
             for (i=0; i<MAX_CRTREGS; i++) {
                 if (i > 0 && (i % 16) == 0)
                     printf("\n           ");
-                printf("%02x%c ", vsVM.aregCRTData[i], (BYTE)i==vsVM.regCRTIndx?'*':' ');
+                printf("%02x%c ", pvsVM->aregCRTData[i], (BYTE)i==pvsVM->regCRTIndx?'*':' ');
             }
             printf("\n");
         }
@@ -3087,11 +3087,11 @@ INT x86Command(register PESF pesf, PCHAR pchCmd, PINT pflCommand)
         case 0:             // "com"
             if (!COMInit(*pchArgs-'0'))
                 printf("COM port not found\n");
-            else if (!(vsMonitor.flVState & VSTATE_DISABLE)) {
-                SaveVS(&vsMonitor, FALSE);
-                RestoreVS(&vsVM);
-                vsVM.flVState |= VSTATE_DISABLE;
-                vsMonitor.flVState |= VSTATE_DISABLE;
+            else if (!(pvsMonitor->flVState & VSTATE_DISABLE)) {
+                SaveVS(pvsMonitor, FALSE);
+                RestoreVS(pvsVM);
+                pvsVM->flVState |= VSTATE_DISABLE;
+                pvsMonitor->flVState |= VSTATE_DISABLE;
                 printf("COM mode enabled\n");
             }
             else
@@ -3118,11 +3118,11 @@ INT x86Command(register PESF pesf, PCHAR pchCmd, PINT pflCommand)
             }
             break;
         case 2:             // "vga"
-            if (vsMonitor.flVState & VSTATE_DISABLE) {
-                vsVM.flVState &= ~VSTATE_DISABLE;
-                vsMonitor.flVState &= ~VSTATE_DISABLE;
-                SaveVS(&vsVM, FALSE);
-                RestoreVS(&vsMonitor);
+            if (pvsMonitor->flVState & VSTATE_DISABLE) {
+                pvsVM->flVState &= ~VSTATE_DISABLE;
+                pvsMonitor->flVState &= ~VSTATE_DISABLE;
+                SaveVS(pvsVM, FALSE);
+                RestoreVS(pvsMonitor);
                 printf("VGA mode restored\n");
             }
             else
@@ -3153,7 +3153,7 @@ INT x86Command(register PESF pesf, PCHAR pchCmd, PINT pflCommand)
             pmbZero->rb.SaveIVT[IDT_DIVERROR] = 0;
 
         // HACK: Technically, I should be reinitializing the video state of
-        // the VM, like with a RestoreVS(&vsVMPristine), but this will have to
+        // the VM, like with a RestoreVS(pvsVMPristine), but this will have to
         // do for now....
 
         _asm { cli }
@@ -3336,15 +3336,15 @@ VOID x86Debug(PESF pesf, INT flDebug)
             // On the first (DEBUG_INIT) call, the VM state has already
             // been saved and monitor state initialized, by the vidmgr module
             if (!(flDebug & DEBUG_INIT)) {
-                SaveVS(&vsVM, FALSE);
-                RestoreVS(&vsMonitor);
+                SaveVS(pvsVM, FALSE);
+                RestoreVS(pvsMonitor);
             }
         }
 #ifdef DEBUG
-        if (!(vsVM.flVState & VSTATE_DISABLE) && vsVM.cLocks != 0)
-            printf("Warning: strange VM lock count: %d\n", vsVM.cLocks);
-        if (!(vsMonitor.flVState & VSTATE_DISABLE) && vsMonitor.cLocks != -1)
-            printf("Warning: strange Monitor lock count: %d\n", vsMonitor.cLocks);
+        if (!(pvsVM->flVState & VSTATE_DISABLE) && pvsVM->cLocks != 0)
+            printf("Warning: strange VM lock count: %d\n", pvsVM->cLocks);
+        if (!(pvsMonitor->flVState & VSTATE_DISABLE) && pvsMonitor->cLocks != -1)
+            printf("Warning: strange Monitor lock count: %d\n", pvsMonitor->cLocks);
 #endif
     }
     x86RemoveBPs(pesf);
@@ -3419,8 +3419,8 @@ VOID x86Debug(PESF pesf, INT flDebug)
 
     if (iDebugEntry == 1) {
         if (!(flTrace & TRACE_MASKINTS)) {
-            SaveVS(&vsMonitor, FALSE);
-            RestoreVS(&vsVM);
+            SaveVS(pvsMonitor, FALSE);
+            RestoreVS(pvsVM);
         }
     }
     x86SaveFrame(pesf);

@@ -39,7 +39,7 @@ INT printf(PSZ pszFmt, ...)
     n = vsprintf(pch, pszFmt, (PINT)&pszFmt + 1);
 
     while (*pch) {
-        if (vsMonitor.flVState & VSTATE_DISABLE) {
+        if (pvsMonitor->flVState & VSTATE_DISABLE) {
             if (*pch == LF)
                 COMOutput(CR);
             COMOutput(*pch++);
@@ -74,7 +74,7 @@ INT printf(PSZ pszFmt, ...)
         do {
             c = min(t, colCursorMax - colCursor);
             if (t) {
-                pbDst = _plogicalvram(&vsMonitor);
+                pbDst = _plogicalvram(pvsMonitor);
                 pbDst += (rowCursor * colCursorMax + colCursor) * 2;
                 colCursor += c;
                 for (i=c; i>0; i--)
@@ -116,7 +116,7 @@ VOID _scroll(INT left, INT top, INT right, INT bottom, INT nLines)
     register PBYTE pbSrc, pbDst;
     INT i, cLines, cbLine, cbAdj;
 
-    if (vsMonitor.flVState & VSTATE_DISABLE)
+    if (pvsMonitor->flVState & VSTATE_DISABLE)
         return;
 
     // Do bounds checking
@@ -141,7 +141,7 @@ VOID _scroll(INT left, INT top, INT right, INT bottom, INT nLines)
         cbLine = (right - left + 1) * 2;
         cbAdj  = colCursorMax * 2 - cbLine;
 
-        pbDst = _plogicalvram(&vsMonitor);
+        pbDst = _plogicalvram(pvsMonitor);
         pbDst += (top * colCursorMax + left) * 2;
         pbSrc = pbDst + nLines * colCursorMax * 2;
 
@@ -178,7 +178,7 @@ VOID _setcursor(INT row, INT col, INT fSync)
 {
     INT offset;
 
-    if (vsMonitor.flVState & VSTATE_DISABLE)
+    if (pvsMonitor->flVState & VSTATE_DISABLE)
         return;
 
     if (row >= 0 && col >= 0) {
@@ -189,12 +189,12 @@ VOID _setcursor(INT row, INT col, INT fSync)
 
     // Sync the hardware
 
-    if (vsMonitor.cLocks >= 0) {
-        vsMonitor.aregCRTData[REG_CRTCURLOCHI] = (BYTE)(offset >> 8);
-        vsMonitor.aregCRTData[REG_CRTCURLOCLO] = (BYTE)(offset & 0xFF);
+    if (pvsMonitor->cLocks >= 0) {
+        pvsMonitor->aregCRTData[REG_CRTCURLOCHI] = (BYTE)(offset >> 8);
+        pvsMonitor->aregCRTData[REG_CRTCURLOCLO] = (BYTE)(offset & 0xFF);
     } else {
-        _outpw(vsMonitor.wPortCRTIndx, (WORD)(REG_CRTCURLOCHI | (offset & 0xFF00)));
-        _outpw(vsMonitor.wPortCRTIndx, (WORD)(REG_CRTCURLOCLO | (offset & 0xFF) << 8));
+        _outpw(pvsMonitor->wPortCRTIndx, (WORD)(REG_CRTCURLOCHI | (offset & 0xFF00)));
+        _outpw(pvsMonitor->wPortCRTIndx, (WORD)(REG_CRTCURLOCLO | (offset & 0xFF) << 8));
     }
 
     // Sync the BIOS data area (this is a holdover of BIOS emulation support)
@@ -211,7 +211,7 @@ PBYTE _plogicalvram(register PVS pvs)
     PBYTE pbDst;
 
     if (pvs->cLocks >= 0)
-        pbDst = vsMonitor.pbPlane[PLANE0];
+        pbDst = pvsMonitor->pbPlane[PLANE0];
     else {
         pbDst = pVRAM+(VIDMEM_MONOADDR-VIDMEM_GRPHADDR);
         if ((pvs->aregGDCData[REG_GDCMISC] & GDCMISC_ADDRMASK) == GDCMISC_32K_B8000)
@@ -236,7 +236,7 @@ VOID _setvistop(INT row)
 {
     INT offset;
 
-    if (vsMonitor.flVState & VSTATE_DISABLE)
+    if (pvsMonitor->flVState & VSTATE_DISABLE)
         return;
 
     if (row != rowScreenVis) {
@@ -247,12 +247,12 @@ VOID _setvistop(INT row)
 
         // Sync the hardware
 
-        if (vsMonitor.cLocks >= 0) {
-            vsMonitor.aregCRTData[REG_CRTSTARTADDRHI] = (BYTE)(offset >> 8);
-            vsMonitor.aregCRTData[REG_CRTSTARTADDRLO] = (BYTE)(offset & 0xFF);
+        if (pvsMonitor->cLocks >= 0) {
+            pvsMonitor->aregCRTData[REG_CRTSTARTADDRHI] = (BYTE)(offset >> 8);
+            pvsMonitor->aregCRTData[REG_CRTSTARTADDRLO] = (BYTE)(offset & 0xFF);
         } else {
-            _outpw(vsMonitor.wPortCRTIndx, (WORD)(REG_CRTSTARTADDRHI | (offset & 0xFF00)));
-            _outpw(vsMonitor.wPortCRTIndx, (WORD)(REG_CRTSTARTADDRLO | (offset & 0xFF) << 8));
+            _outpw(pvsMonitor->wPortCRTIndx, (WORD)(REG_CRTSTARTADDRHI | (offset & 0xFF00)));
+            _outpw(pvsMonitor->wPortCRTIndx, (WORD)(REG_CRTSTARTADDRLO | (offset & 0xFF) << 8));
         }
     }
 }

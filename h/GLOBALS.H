@@ -40,7 +40,7 @@ extern  PMB     pmbZero;
 // vidmgr.c globals
 
 extern  PBYTE   pVRAM;
-extern  VSTATE  vsMonitor, vsVM;
+extern  PVS     pvsMonitor, pvsVM;
 
 extern  INT rowCursor, colCursor;
 extern  INT rowCursorMax, colCursorMax;
@@ -107,7 +107,7 @@ endm
 ; vidmgr.c globals
 
         extrn   _pVRAM:dword
-        extrn   _vsMonitor:VSTATE, _vsVM:VSTATE
+        extrn   _pvsMonitor:dword, _pvsVM:dword
 
 ; x86debug.c globals
 
@@ -138,7 +138,7 @@ VOID    SetByte(DWORD sel, DWORD off, BYTE b);
  * memmgr.c functions
  */
 
-VOID    InitMemMgr(VOID);       // initialization-only function!
+VOID    InitMemMgr(VOID);                               // initialization-only function!
 DWORD   SetPages(PVOID pLinear, DWORD dwPhysical, INT nPages);
 PVOID   MemAlloc(INT cbSize);
 BOOL    MemFree(PVOID p, INT cbSize);
@@ -148,8 +148,8 @@ BOOL    MemFree(PVOID p, INT cbSize);
  * vidmgr.c functions
  */
 
-VOID    InitVideoMgr(VOID);     // initialization-only function!
-VOID    InitVS(PVS pvs);        // initialization-only function!
+VOID    InitVideoMgr(VOID);                             // initialization-only function!
+PVS     InitVS(INT cb1, INT cb2, INT cb3, INT cb4);     // initialization-only function!
 
 
 /*

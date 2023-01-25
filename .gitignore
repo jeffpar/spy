@@ -1,2 +1,6 @@
 .DS_Store
 tmp/
+pull.sh
+push.sh
+Spy.ncb
+Spy.opt

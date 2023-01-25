@@ -781,7 +781,7 @@ TMRInterrupt	proc far
 
 ;;;	endif
 
-	mov	ebx,offset _vsMonitor
+	mov	ebx,_pvsMonitor
 	call	GetVRAMAddress		; sets EAX (address) and EDX (size)
 	xor	[eax+158].b_lo,(' ' xor '*')
 
