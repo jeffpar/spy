@@ -1,0 +1,87 @@
+Deleting intermediate files and output files for project 'Spy - Win32 Debug'.
+--------------------Configuration: Spy - Win32 Debug--------------------
+ tools\h2inc -t -s h\types.h h\types.h -o inc\types.inc
+ tools\h2inc -t -s h\types.h h\386.h -o inc\386.inc
+ tools\h2inc -t -s h\types.h h\387.h -o inc\387.inc
+ tools\h2inc -t -s h\types.h h\ems.h -o inc\ems.inc
+ tools\h2inc -t -s h\types.h h\bios.h -o inc\bios.inc
+ tools\h2inc -t -s h\types.h h\dos.h -o inc\dos.inc
+ tools\h2inc -t -s h\types.h h\debug.h -o inc\debug.inc
+ tools\h2inc -t -s h\types.h h\globals.h -o inc\globals.inc
+ tools\h2inc -t -s h\types.h h\x86.h -o inc\x86.inc
+ tools\h2inc -t -s h\types.h h\lib.h -o inc\lib.inc
+ tools\h2inc -t -s h\types.h h\pic.h -o inc\pic.inc
+ tools\h2inc -t -s h\types.h h\timer.h -o inc\timer.inc
+ tools\h2inc -t -s h\types.h h\kbd.h -o inc\kbd.inc
+ tools\h2inc -t -s h\types.h h\disk.h -o inc\disk.inc
+ tools\h2inc -t -s h\types.h h\cmos.h -o inc\cmos.inc
+ tools\h2inc -t -s h\types.h h\video.h -o inc\video.inc
+ tools\h2inc -t -s h\types.h h\com.h -o inc\com.inc
+ tools\h2inc -t -s h\types.h h\all.h -o inc\all.inc
+ tools\ml -nologo -c -Cp -Iinc -W3 -Zm -DDEBUG  -Fm -Foobj\386init.obj 386init.asm
+ Assembling: 386init.asm
+ tools\ml -nologo -c -Cp -Iinc -W3 -Zm -DDEBUG  -Fm -Foobj\386trap.obj 386trap.asm
+ Assembling: 386trap.asm
+ tools\ml -nologo -c -Cp -Iinc -W3 -Zm -DDEBUG  -Fm -Foobj\v86int.obj v86int.asm
+ Assembling: v86int.asm
+ tools\ml -nologo -c -Cp -Iinc -W3 -Zm -DDEBUG  -Fm -Foobj\v86io.obj v86io.asm
+ Assembling: v86io.asm
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Fonul -Faobj\main.asm main.c
+main.c
+ tools\fixasm obj\main.asm
+ tools\ml -nologo -c -Cp -Ih -W3 -Zm -DDEBUG  -Fm -Foobj\main.obj obj\main.asm
+ Assembling: obj\main.asm
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Fonul -Faobj\memmgr.asm memmgr.c
+memmgr.c
+ tools\fixasm obj\memmgr.asm
+ tools\ml -nologo -c -Cp -Ih -W3 -Zm -DDEBUG  -Fm -Foobj\memmgr.obj obj\memmgr.asm
+ Assembling: obj\memmgr.asm
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Fonul -Faobj\vidmgr.asm vidmgr.c
+vidmgr.c
+ tools\fixasm obj\vidmgr.asm
+ tools\ml -nologo -c -Cp -Ih -W3 -Zm -DDEBUG  -Fm -Foobj\vidmgr.obj obj\vidmgr.asm
+ Assembling: obj\vidmgr.asm
+ tools\ml -nologo -c -Cp -Iinc -W3 -Zm -DDEBUG  -Fm -Foobj\vidsave.obj vidsave.asm
+ Assembling: vidsave.asm
+ tools\ml -nologo -c -Cp -Iinc -W3 -Zm -DDEBUG  -Fm -Foobj\comio.obj comio.asm
+ Assembling: comio.asm
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Fonul -Faobj\x86debug.asm x86debug.c
+x86debug.c
+ tools\fixasm obj\x86debug.asm
+ tools\ml -nologo -c -Cp -Ih -W3 -Zm -DDEBUG  -Fm -Foobj\x86debug.obj obj\x86debug.asm
+ Assembling: obj\x86debug.asm
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Fonul -Faobj\intparse.asm intparse.c
+intparse.c
+ tools\fixasm obj\intparse.asm
+ tools\ml -nologo -c -Cp -Ih -W3 -Zm -DDEBUG  -Fm -Foobj\intparse.obj obj\intparse.asm
+ Assembling: obj\intparse.asm
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Fonul -Faobj\dosdump.asm dosdump.c
+dosdump.c
+ tools\fixasm obj\dosdump.asm
+ tools\ml -nologo -c -Cp -Ih -W3 -Zm -DDEBUG  -Fm -Foobj\dosdump.obj obj\dosdump.asm
+ Assembling: obj\dosdump.asm
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Foobj\printf.obj lib\printf.c
+lib\printf.c
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Foobj\gets.obj lib\gets.c
+lib\gets.c
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Foobj\sprintf.obj lib\sprintf.c
+lib\sprintf.c
+ tools\cl3232 -d2omf -nologo -c -Oas -Gs -Ih -W3 -Zp -DDEBUG  -Foobj\string.obj lib\string.c
+lib\string.c
+lib\string.c(295) : warning C4035: 'nmemcpy' : no return value
+lib\string.c(320) : warning C4035: 'nmemset' : no return value
+ tools\link @C:\DOCUME~1\Jeff\LOCALS~1\Temp\nma01620.
+Microsoft (R) Segmented Executable Linker  Version 5.60.220 Sep  9 1994
+Copyright (C) Microsoft Corp 1984-1993.  All rights reserved.
+Object Modules [.obj]: obj\386init.obj obj\386trap.obj obj\v86int.obj obj\v86io.obj obj\main.obj obj\memmgr.obj obj\vidmgr.obj obj\vidsave.obj obj\comio.obj obj\x86debug.obj obj\intparse.obj obj\dosdump.obj obj\printf.obj obj\gets.obj obj\sprintf.ob
+j obj\string.obj 
+Run File [386init.exe]: spy.com /tiny /nod /map;
+ tools\ml -nologo -c -Cp -Iinc -W3 -Zm -DDEBUG  -Fm -Foobj\reboot.obj reboot.asm
+ Assembling: reboot.asm
+ tools\link @C:\DOCUME~1\Jeff\LOCALS~1\Temp\nmb01620.
+Microsoft (R) Segmented Executable Linker  Version 5.60.220 Sep  9 1994
+Copyright (C) Microsoft Corp 1984-1993.  All rights reserved.
+Object Modules [.obj]: obj\reboot.obj 
+Run File [reboot.exe]: reboot.com /tiny /nod /map;
+
+Spy.exe - 0 error(s), 2 warning(s)

@@ -13,13 +13,8 @@ ASSERTMOD(vidmgr.c);
 
 PBYTE   pVRAM = (PBYTE)VIDMEM_GRPHADDR; // pointer to physical VRAM
 
-#ifndef FULLSAVE
-VSTATE  vsVM = {-1, VSTATE_NONE, {0, 0, 0, 0}};
-VSTATE  vsMonitor = {-1, VSTATE_SWAP, {32*K, 0, 8*K, 0}};
-#else
 VSTATE  vsVM = {-1, VSTATE_NONE, {64*K, 64*K, 64*K, 64*K}};
 VSTATE  vsMonitor = {-1, VSTATE_NONE, {32*K, 0, 8*K, 0}};
-#endif
 
 // I use "row" and "col" prefixes instead of "x" and "y" to denote
 // 0-relative cell coordinates that increase from top to bottom and
