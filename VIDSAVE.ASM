@@ -575,6 +575,7 @@ SetPlaneMode endp
 ;   SavePlanes
 ;
 ;   ENTRY
+;	AL = 0 for all planes
 ;	EBX == pvs
 ;
 ;   EXIT

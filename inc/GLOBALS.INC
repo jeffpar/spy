@@ -52,7 +52,7 @@ endm
 
 
         extrn   _pVRAM:dword
-        extrn   _vsMonitor:VSTATE, _vsVM:VSTATE
+        extrn   _pvsMonitor:dword, _pvsVM:dword
 
 
 

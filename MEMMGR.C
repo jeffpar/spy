@@ -66,12 +66,13 @@ DWORD SetPages(PVOID pLinear, DWORD dwPhysical, INT nPages)
 
 PVOID MemAlloc(INT cbSize)
 {
-    PVOID p;
+    PVOID p = NULL;
 
-    p = pFree;
-    pFree += cbSize;
-    pLinFree += cbSize;
-
+    if (cbSize) {
+        p = pFree;
+        pFree += cbSize;
+        pLinFree += cbSize;
+    }
     return p;
 }
 
