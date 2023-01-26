@@ -37,31 +37,30 @@ entire VGA state whenever entering/exiting the SPY debugger.
 
 ### The Tools
 
-When I originally archived this project, I also saved a set of tools that can
-be used to build SPY from scratch -- which was fortunate, because I'm not sure how
-easy it would be find some of those tools today.
+When I originally archived this project, I also saved a set of tools that can be used to
+build SPY from scratch -- which was fortunate, because I'm not sure how easy it would be find
+some of those tools today.
 
 SPY is a bit unusual because it's a COM file with a mixture of 16-bit and 32-bit code, and
 the 32-bit code is a mixture of assembly and C.  And except for the initialization code, it
 does not use any operating system or ROM functions.  All screen, keyboard, and serial port
 hardware operations are handled internally.
 
-The C compiler, [CL3232](tools/), wasn't really designed for producing code in this environment.
-One of the challenges I ran into when trying to rebuild SPY was re-discovering that code and data
-fixups were being made relative to their respective 'CODE' and 'DATA' classes.  This wasn't
-really a problem, as all the code assumed a small flat memory model where CS != DS anyway.
+The C compiler, [CL3232](tools/), was an early internal version of Microsoft's 32-bit C compiler
+that wasn't really designed for producing code in this environment -- a small flat memory model
+where CS != DS.
 
-Well, almost all the code.  The C compiler didn't *appear* to make any assumptions about CS and
-DS, with one exception: when generating code for *switch* statements, it would produce in-line
+On re-examination, the compiler didn't *appear* to make any assumptions about CS and DS,
+with one exception: when generating code for *switch* statements, it would produce in-line
 jump tables, and it would "JMP" through those tables *without* a CS override.  In other words,
 there was an implicit assumption that CS == DS.
 
-So, I wrote a crude little C program, [FIXASM](fixasm.c), that looks for those "JMP DWORD PTR"
+So, I wrote a crude little C program, [FIXASM](tools/FIXASM.C), that looks for those "JMP DWORD PTR"
 instructions and inserts a "CS:" override.  This also meant changing the [MAKEFILE](MAKEFILE) to
 have **CL3232** produce assembly files instead object files, running the assembly files through
-[FIXASM](fixasm.c), and then assembling them with **ML**.  Problem solved.
+**FIXASM**, and then assembling them with **ML**.  Problem solved.
 
-[As an added bonus, using CL3232 to produce assembly files instead of object files seems to have
+[As an added bonus, using **CL3232** to produce assembly files instead of object files seems to have
 eliminated some overhead, because the overall size of the COM file dropped by about 5K.  I haven't
 looked into it yet, but I did verify that all DEBUG code, including asserts, was still in place.
 Strange.]
