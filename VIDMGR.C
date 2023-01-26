@@ -12,7 +12,7 @@ ASSERTMOD(vidmgr.c);
 
 
 PBYTE   pVRAM = (PBYTE)VIDMEM_GRPHADDR; // pointer to physical VRAM
-PVS     pvsVM, pvsMonitor;
+PVS     pvsVM = NULL, pvsMonitor = NULL;
 
 // I use "row" and "col" prefixes instead of "x" and "y" to denote
 // 0-relative cell coordinates that increase from top to bottom and

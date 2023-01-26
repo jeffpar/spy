@@ -4,13 +4,13 @@
  00350H 088B5H 08566H _TEXT                  CODE
  088B8H 088B8H 00000H _ETEXT                 CODE
  088C0H 08A0FH 00150H _DATA16                DATA
- 08B00H 0D75FH 04C60H _DATA                  DATA
- 0D760H 0D760H 00000H CONST                  CONST
- 0D760H 0D760H 00000H _STATIC                STATIC
- 0D760H 0D760H 00000H _BSS                   BSS
- 0D760H 0D767H 00008H c_common               BSS
- 0D768H 0D768H 00000H _EDATA                 ENDDATA
- 0D768H 0D768H 00000H _TLS                   TLS
+ 08B00H 0D85FH 04D60H _DATA                  DATA
+ 0D860H 0D860H 00000H CONST                  CONST
+ 0D860H 0D860H 00000H _STATIC                STATIC
+ 0D860H 0D860H 00000H _BSS                   BSS
+ 0D860H 0D860H 00000H c_common               BSS
+ 0D860H 0D860H 00000H _EDATA                 ENDDATA
+ 0D860H 0D860H 00000H _TLS                   TLS
 
  Origin   Group
  08B0:0   DATA
@@ -96,43 +96,43 @@
  0000:0332       v86Init
  0000:0334       WaitKbdInput16
  0000:033D       WaitKbdOutput16
- 08B0:2C3C       _aaidGroup
+ 08B0:2C78       _aaidGroup
  08B0:0114       _abKeyBuff
- 08B0:0814       _abpdGlobal
- 08B0:323C       _abTypeSize
+ 08B0:0850       _abpdGlobal
+ 08B0:3278       _abTypeSize
  08B0:0220       _abXlatCtrl
  08B0:01A0       _abXlatNorm
  08B0:02A0       _abXlatShift
- 08B0:4608       _achHist
- 08B0:13E8       _achScale
+ 08B0:4708       _achHist
+ 08B0:1424       _achScale
  0000:7B20       _addhistory
- 08B0:4004       _aexop
+ 08B0:4040       _aexop
  08B0:035C       _afnEmulate
- 08B0:203C       _aid0F
- 08B0:143C       _aidBase
+ 08B0:2078       _aid0F
+ 08B0:1478       _aidBase
  08B0:034A       _aintSimulate
- 08B0:09DC       _aoffSel
- 08B0:4388       _apfnDOSDump
- 08B0:4384       _apszDOSDump
- 08B0:3304       _apszIDTDesc
- 08B0:09CC       _apszIDTOptions
- 08B0:0EA4       _apszMnemonic
- 08B0:09B4       _apszOptions
- 08B0:141C       _apszRM
- 08B0:128C       _ardRegs
- 08B0:3FF4       _avParse
- 08B0:07D4       _bDefColor
+ 08B0:0A18       _aoffSel
+ 08B0:43C4       _apfnDOSDump
+ 08B0:43C0       _apszDOSDump
+ 08B0:3340       _apszIDTDesc
+ 08B0:0A08       _apszIDTOptions
+ 08B0:0EE0       _apszMnemonic
+ 08B0:09F0       _apszOptions
+ 08B0:1458       _apszRM
+ 08B0:12C8       _ardRegs
+ 08B0:4030       _avParse
+ 08B0:0810       _bDefColor
  08B0:0320       _bNestedEntries
  08B0:00D2       _cbBSSData
- 08B0:0810       _cbpdGlobal
+ 08B0:084C       _cbpdGlobal
  08B0:00CE       _cbPhysData
- 08B0:07C0       _colCursor
- 08B0:07C8       _colCursorMax
+ 08B0:07FC       _colCursor
+ 08B0:0804       _colCursorMax
  0000:1670       _COMInit
  0000:16E0       _COMInput
  0000:16FF       _COMOutput
- 08B0:07D8       _COMPort
- 08B0:09D4       _desV86
+ 08B0:0814       _COMPort
+ 08B0:0A10       _desV86
  0000:097F       _DisableKbd
  0000:09C3       _DisableMse
  0000:6D3C       _DOSDumpArena
@@ -148,7 +148,7 @@
  0000:0000  Abs  _end
  08B0:0110       _flKeyEvent
  08B0:019C       _flKeyShift
- 08B0:07F0       _flTrace
+ 08B0:082C       _flTrace
  0000:6CA9       _fnCompress
  0000:650C       _fnopAdd
  0000:6A6C       _fnopAnd
@@ -175,20 +175,20 @@
  0000:7BB2       _getcurrhistory
  0000:7C24       _getnexthistory
  0000:7C9A       _getprevhistory
- 08B0:07EC       _iDebugEntry
- 08B0:4604       _iHistCurr
- 08B0:4600       _iHistFree
- 08B0:07E8       _iIDTEntry
+ 08B0:0828       _iDebugEntry
+ 08B0:4704       _iHistCurr
+ 08B0:4700       _iHistFree
+ 08B0:0824       _iIDTEntry
  0000:0D04       _InitMemMgr
  0000:0E50       _InitVideoMgr
  0000:0F2A       _InitVS
- 08B0:07FC       _iSizeLast
+ 08B0:0838       _iSizeLast
  0000:881A       _istrtoken
- 08B0:07F8       _lInsCount
+ 08B0:0834       _lInsCount
  0000:0CB4       _Main
  0000:0E03       _MemAlloc
  0000:0E3D       _MemFree
- 08B0:07F4       _msDebugStart
+ 08B0:0830       _msDebugStart
  0000:875E       _mymemcmp
  0000:847F       _mystrcmpi
  0000:791F       _ngets
@@ -204,8 +204,8 @@
  0000:83A6       _nstrskipbackto
  0000:8361       _nstrskipto
  0000:86B6       _nstrupr
- 08B0:0804       _offCodeLast
- 08B0:080C       _offDataLast
+ 08B0:0840       _offCodeLast
+ 08B0:0848       _offDataLast
  0000:6158       _ParseAddr
  0000:5AB1       _ParseCommand
  0000:636B       _ParseEvalOps
@@ -218,12 +218,12 @@
  0000:5B0F       _ParseValue
  08B0:0194       _pbKeyHead
  08B0:0198       _pbKeyTail
- 08B0:09A4       _pbpdTempDisable
+ 08B0:09E0       _pbpdTempDisable
  08B0:010A       _pFree
  08B0:00E6       _pGDT
  08B0:00DC       _pIDT
  08B0:0106       _pLinFree
- 08B0:07A8       _pmbZero
+ 08B0:07DC       _pmbZero
  08B0:00F6       _pPgDir
  08B0:00FE       _pPgTbl
  08B0:00CA       _pPhysData
@@ -233,29 +233,29 @@
  08B0:00EA       _pPhysTSS
  0000:7120       _printf
  08B0:00EE       _pTSS
- 08B0:07B8       _pVRAM
- 08B0:4C60       _pvsMonitor
- 08B0:4C64       _pvsVM
+ 08B0:07EC       _pVRAM
+ 08B0:07F4       _pvsMonitor
+ 08B0:07F0       _pvsVM
  0000:05AD       _Reboot
  0000:7D15       _removehistory
  0000:124D       _RestoreVS
- 08B0:07BC       _rowCursor
- 08B0:07C4       _rowCursorMax
- 08B0:07D0       _rowScreenMax
- 08B0:07CC       _rowScreenVis
+ 08B0:07F8       _rowCursor
+ 08B0:0800       _rowCursorMax
+ 08B0:080C       _rowScreenMax
+ 08B0:0808       _rowScreenVis
  0000:107C       _SaveVS
- 08B0:0800       _selCodeLast
- 08B0:0808       _selDataLast
+ 08B0:083C       _selCodeLast
+ 08B0:0844       _selDataLast
  08B0:00C8       _sel_Data
  08B0:00C4       _sel_Flat
  08B0:00C6       _sel_Text
  0000:0D75       _SetPages
  0000:7D80       _sprintf
- 08B0:408C       _stkOps
- 08B0:40E4       _stkVals
+ 08B0:40C8       _stkOps
+ 08B0:4120       _stkVals
  0000:83EB       _strcmp
  08B0:0321       _szAssert
- 08B0:413C       _szError
+ 08B0:4178       _szError
  08B0:0768       _szTitle
  0000:8211       _sztodw
  08B0:0000       _v86Init
@@ -318,7 +318,7 @@
  0000:78EF       __kbhit
  0000:76B4       __plogicalvram
  0000:73AE       __putch
- 08B0:4C68       __ResDataEnd
+ 08B0:4D60       __ResDataEnd
  08B0:00C4       __ResDataStart
  0000:77A8       __resetvistop
  0000:88B8       __ResTextEnd
@@ -326,15 +326,15 @@
  0000:73CB       __scroll
  0000:75BC       __setcursor
  0000:770E       __setvistop
- 08B0:4C60       __StaticDataEnd
+ 08B0:4D60       __StaticDataEnd
  0000:0350       __TextStart
 
   Address         Publics by Value
 
- 0000:0000  Abs  _EDATA
- 0000:0000  Abs  __edata
- 0000:0000  Abs  _end
  0000:0000  Abs  __end
+ 0000:0000  Abs  _EDATA
+ 0000:0000  Abs  _end
+ 0000:0000  Abs  __edata
  0000:0001  Abs  __acrtused
  0000:0008  Abs  SEL_FLAT
  0000:0010  Abs  SEL_TEXT
@@ -349,8 +349,8 @@
  0000:033D       WaitKbdOutput16
  0000:0350       Init32
  0000:0350       __TextStart
- 0000:053A       Main32
  0000:053A       __ResTextStart
+ 0000:053A       Main32
  0000:05AD       _Reboot
  0000:06B0       DivError
  0000:06B6       Debug
@@ -591,55 +591,55 @@
  08B0:035C       _afnEmulate
  08B0:075C       SavedIMRs
  08B0:0768       _szTitle
- 08B0:07A8       _pmbZero
- 08B0:07B8       _pVRAM
- 08B0:07BC       _rowCursor
- 08B0:07C0       _colCursor
- 08B0:07C4       _rowCursorMax
- 08B0:07C8       _colCursorMax
- 08B0:07CC       _rowScreenVis
- 08B0:07D0       _rowScreenMax
- 08B0:07D4       _bDefColor
- 08B0:07D8       _COMPort
- 08B0:07E8       _iIDTEntry
- 08B0:07EC       _iDebugEntry
- 08B0:07F0       _flTrace
- 08B0:07F4       _msDebugStart
- 08B0:07F8       _lInsCount
- 08B0:07FC       _iSizeLast
- 08B0:0800       _selCodeLast
- 08B0:0804       _offCodeLast
- 08B0:0808       _selDataLast
- 08B0:080C       _offDataLast
- 08B0:0810       _cbpdGlobal
- 08B0:0814       _abpdGlobal
- 08B0:09A4       _pbpdTempDisable
- 08B0:09B4       _apszOptions
- 08B0:09CC       _apszIDTOptions
- 08B0:09D4       _desV86
- 08B0:09DC       _aoffSel
- 08B0:0EA4       _apszMnemonic
- 08B0:128C       _ardRegs
- 08B0:13E8       _achScale
- 08B0:141C       _apszRM
- 08B0:143C       _aidBase
- 08B0:203C       _aid0F
- 08B0:2C3C       _aaidGroup
- 08B0:323C       _abTypeSize
- 08B0:3304       _apszIDTDesc
- 08B0:3FF4       _avParse
- 08B0:4004       _aexop
- 08B0:408C       _stkOps
- 08B0:40E4       _stkVals
- 08B0:413C       _szError
- 08B0:4384       _apszDOSDump
- 08B0:4388       _apfnDOSDump
- 08B0:4600       _iHistFree
- 08B0:4604       _iHistCurr
- 08B0:4608       _achHist
- 08B0:4C60       __StaticDataEnd
- 08B0:4C60       _pvsMonitor
- 08B0:4C64       _pvsVM
- 08B0:4C68       __ResDataEnd
+ 08B0:07DC       _pmbZero
+ 08B0:07EC       _pVRAM
+ 08B0:07F0       _pvsVM
+ 08B0:07F4       _pvsMonitor
+ 08B0:07F8       _rowCursor
+ 08B0:07FC       _colCursor
+ 08B0:0800       _rowCursorMax
+ 08B0:0804       _colCursorMax
+ 08B0:0808       _rowScreenVis
+ 08B0:080C       _rowScreenMax
+ 08B0:0810       _bDefColor
+ 08B0:0814       _COMPort
+ 08B0:0824       _iIDTEntry
+ 08B0:0828       _iDebugEntry
+ 08B0:082C       _flTrace
+ 08B0:0830       _msDebugStart
+ 08B0:0834       _lInsCount
+ 08B0:0838       _iSizeLast
+ 08B0:083C       _selCodeLast
+ 08B0:0840       _offCodeLast
+ 08B0:0844       _selDataLast
+ 08B0:0848       _offDataLast
+ 08B0:084C       _cbpdGlobal
+ 08B0:0850       _abpdGlobal
+ 08B0:09E0       _pbpdTempDisable
+ 08B0:09F0       _apszOptions
+ 08B0:0A08       _apszIDTOptions
+ 08B0:0A10       _desV86
+ 08B0:0A18       _aoffSel
+ 08B0:0EE0       _apszMnemonic
+ 08B0:12C8       _ardRegs
+ 08B0:1424       _achScale
+ 08B0:1458       _apszRM
+ 08B0:1478       _aidBase
+ 08B0:2078       _aid0F
+ 08B0:2C78       _aaidGroup
+ 08B0:3278       _abTypeSize
+ 08B0:3340       _apszIDTDesc
+ 08B0:4030       _avParse
+ 08B0:4040       _aexop
+ 08B0:40C8       _stkOps
+ 08B0:4120       _stkVals
+ 08B0:4178       _szError
+ 08B0:43C0       _apszDOSDump
+ 08B0:43C4       _apfnDOSDump
+ 08B0:4700       _iHistFree
+ 08B0:4704       _iHistCurr
+ 08B0:4708       _achHist
+ 08B0:4D60       __StaticDataEnd
+ 08B0:4D60       __ResDataEnd
 
 Program entry point at 0000:0100

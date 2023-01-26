@@ -12,7 +12,7 @@
 ASSERTMOD(main.c);
 
 
-CHAR szTitle[] = "386 Monitor v0.1 by Jeff Parsons, June 5, 1992\n\n";
+CHAR szTitle[] = "386 Monitor v0.1 by Jeff Parsons, June 5, 1992\nResurrected December 2022, with small tweaks in 2023\n\n";
 
 
 VOID Main(ESF esf)
